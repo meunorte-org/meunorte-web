@@ -1,0 +1,61 @@
+.mn-presentation {
+  min-height: 100svh;
+  background: #334aee;
+  color: white;
+  overflow: clip;
+}
+.mn-presentation__content {
+  width: 390px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 72px 0 110.73px;
+}
+.mn-presentation__title {
+  width: 307px;
+  max-width: calc(100% - 50px);
+  min-height: 104px;
+  margin: 0 0 0 42px;
+  color: #ccf02a;
+  font: 400 60px/.78 "Futura Display", sans-serif;
+}
+.mn-presentation__image {
+  display: block;
+  width: 377px;
+  height: 356px;
+  max-width: calc(100% - 13px);
+  margin: 0 0 0 7px;
+  object-fit: cover;
+}
+.mn-presentation__description {
+  width: 341px;
+  max-width: calc(100% - 50px);
+  min-height: 91px;
+  margin: 10px 0 0 25px;
+  font: 400 25px/1.21 "Readex Pro", sans-serif;
+  font-variation-settings: "HEXP" 0;
+}
+.mn-presentation__actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin: 37px 24px 0 34px;
+}
+.mn-presentation__actions .mn-welcome-button { flex-shrink: 1; }
+.mn-presentation__title,
+.mn-presentation__image,
+.mn-presentation__description,
+.mn-presentation__actions {
+  animation: mn-presentation-reveal 650ms cubic-bezier(.22,1,.36,1) both;
+}
+.mn-presentation__title { animation-delay: 140ms; }
+.mn-presentation__image { animation-delay: 300ms; }
+.mn-presentation__description { animation-delay: 460ms; }
+.mn-presentation__actions { animation-delay: 620ms; }
+@keyframes mn-presentation-reveal {
+  from { opacity: 0; transform: translateX(-64px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@media (max-width: 359px) {
+  .mn-presentation__actions { margin-inline: 16px; gap: 10px; }
+  .mn-presentation__actions .mn-welcome-button__surface { font-size: 24px; padding-inline: 14px; gap: 10px; }
+}

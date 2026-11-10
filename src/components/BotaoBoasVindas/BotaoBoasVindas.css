@@ -1,0 +1,73 @@
+.mn-welcome-button {
+  --mn-button-border: #000;
+  --mn-button-fill: #fff;
+  --mn-button-text: #000;
+  appearance: none;
+  display: inline-block;
+  position: relative;
+  width: 222.8px;
+  max-width: 100%;
+  height: 63.27px;
+  padding: 0;
+  border: 0;
+  border-radius: 40px;
+  background: transparent;
+  color: var(--mn-button-text);
+  cursor: pointer;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+}
+.mn-welcome-button__surface {
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 11px 22px;
+  border: 4.15px solid var(--mn-button-border);
+  border-radius: inherit;
+  background: var(--mn-button-fill);
+  box-shadow: -5px 5px 0 var(--mn-button-border);
+  font-family: "Readex Pro", sans-serif;
+  font-size: 28.851px;
+  font-weight: 700;
+  font-variation-settings: "HEXP" 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+.mn-welcome-button--login {
+  --mn-button-border: #1e1e1e;
+  --mn-button-fill: #334aee;
+  --mn-button-text: #ccf02a;
+}
+.mn-welcome-button:active:not(:disabled) .mn-welcome-button__surface {
+  transform: translateY(4px);
+  box-shadow: -1px 1px 0 var(--mn-button-border);
+}
+.mn-welcome-button--comecar:active:not(:disabled) .mn-welcome-button__surface {
+  width: calc(100% + 6.89px);
+  gap: 19px;
+  padding-right: 18px;
+}
+.mn-welcome-button:focus-visible {
+  outline: 3px solid #334aee;
+  outline-offset: 9px;
+}
+.mn-welcome-button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+.mn-welcome-button__arrow {
+  position: relative;
+  flex: 0 0 30.5px;
+  height: 14.5px;
+}
+.mn-welcome-button__arrow img {
+  position: absolute;
+  top: -2.06045px;
+  left: -2.05875px;
+  max-width: none;
+}

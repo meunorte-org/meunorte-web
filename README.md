@@ -1,23 +1,98 @@
 # meunorte-web
 Plataforma web de orientação ao ensino superior.
 
+
 ## Design no Figma
 
-As telas do MeuNorte são planejadas no Figma:
+As interfaces do MeuNorte são planejadas no **Figma** e implementadas em **React**. O Figma é a referência visual para a equipe, reunindo as telas, componentes, estilos e protótipos do projeto.
 
-[Abra o projeto no Figma](COLE_AQUI_O_LINK)
+🔗 **[Acessar o projeto no Figma](INSERIR_LINK_DO_FIGMA)**
 
-### Como vamos trabalhar
+### 📂 Organização do Figma
 
-1. Confira com o responsável pelo design qual tela está pronta.
-2. Combine com a equipe quem vai desenvolver essa tela.
-3. Confira fontes, cores, espaçamentos e imagens no Figma.
-4. Reutilize os componentes existentes antes de criar novos.
-5. Compare o resultado no navegador com a tela do Figma.
-6. Se faltar alguma informação ou comportamento, pergunte antes de decidir.
+O arquivo está dividido em duas páginas principais:
 
-As telas devem funcionar em diferentes tamanhos de tela.
-Se o Figma mostrar apenas uma versão, combine como ela deve se adaptar.
+**1. Design System**
+
+Reúne os elementos visuais reutilizáveis do MeuNorte:
+
+- **Fundamentos:** cores, fontes, espaçamentos e estilos visuais.
+- **Componentes:** botões, campos, cards, elementos de navegação e mascote, incluindo suas variantes.
+
+Os componentes são criados e mantidos nessa página. Nas telas, utilizamos instâncias desses componentes para preservar a consistência visual.
+
+**2. Screens e Protótipos**
+
+Contém as telas completas do MeuNorte, seus fluxos e interações.
+
+As telas são organizadas conforme o status:
+
+- ✅ **Prontas para desenvolvimento:** telas finalizadas e liberadas para implementação no React.
+- 🚧 **Em desenvolvimento:** telas ainda em construção ou revisão, que não devem ser consideradas finais.
+
+### 💻 Como implementar as telas
+
+1. Acesse o Figma pelo link acima.
+2. Entre em **Screens e Protótipos** e escolha uma tela da seção **Prontas para desenvolvimento**.
+3. Selecione os elementos para consultar suas dimensões, cores, espaçamentos e configurações de Auto Layout.
+4. Consulte o **Design System** para conhecer os componentes e suas variantes.
+5. Desenvolva a interface em React, reutilizando os componentes de código existentes no projeto.
+6. Compare o resultado no navegador com o Figma e adapte a interface aos diferentes tamanhos de tela.
+
+**Importante:** o Figma serve como referência para a implementação. Botões, campos e outros elementos de interface devem ser desenvolvidos como componentes React, e não simplesmente exportados como imagens.
+
+Ícones, ilustrações e outros recursos gráficos poderão ser exportados do Figma em formatos adequados, como SVG e PNG.
+
+
+
+## 🧭 Animações interativas com Rive
+
+O MeuNorte utilizará o **Rive** para desenvolver as animações do mascote Nó e outros elementos visuais interativos.
+
+O Figma mostrará a aparência e o posicionamento desses elementos nas telas, mas as animações utilizadas no site serão produzidas no Rive.
+
+### Como as animações serão integradas
+
+**1. Criação no Rive**
+
+As animações serão desenvolvidas no Rive, incluindo movimentos, expressões e comportamentos interativos do mascote.
+
+**2. Exportação**
+
+Depois de finalizadas, as animações serão exportadas no formato `.riv`, próprio para execução nos aplicativos e sites que utilizam o Rive.
+
+**3. Disponibilização no GitHub**
+
+Os arquivos exportados serão adicionados ao repositório do MeuNorte, preferencialmente em:
+
+`public/assets/rive/`
+
+Exemplo: `public/assets/rive/mascote-no.riv`
+
+**4. Integração com React**
+
+Os desenvolvedores utilizarão a biblioteca oficial do Rive para React para carregar os arquivos `.riv` e exibir as animações na interface.
+
+O mascote poderá ser implementado como um componente reutilizável, por exemplo, `MascoteNo.jsx`.
+
+### Como funcionarão as interações?
+
+Além das animações automáticas, o mascote poderá reagir às ações dos usuários, como:
+
+- Movimentar os olhos ou piscar.
+- Reagir ao clique em determinados botões.
+- Apresentar expressões durante a navegação.
+- Executar animações específicas durante o cadastro.
+- Movimentar o ponteiro conforme a orientação do dispositivo, quando compatível e autorizado.
+
+Esses comportamentos serão configurados no Rive e conectados aos eventos do React por meio das **State Machines e dos recursos de interação do Rive**.
+
+Os desenvolvedores não precisarão recriar as animações em código. Sua responsabilidade será integrar os arquivos exportados e conectar os comportamentos às funcionalidades do site.
+
+**Observação:** o desenho e a demonstração do mascote no Figma não substituem sua animação oficial no Rive.
+
+Documentação: [Rive para React](https://rive.app/docs/runtimes/react/react)
+
 
 ## Integração com Supabase
 

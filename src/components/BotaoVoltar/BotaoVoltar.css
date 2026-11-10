@@ -1,0 +1,44 @@
+.mn-back {
+  appearance: none;
+  position: relative;
+  width: 95px;
+  height: 63.27px;
+  padding: 0;
+  border: 0;
+  border-radius: 40px;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.mn-back__surface {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 4.15px solid #000;
+  border-radius: inherit;
+  background: #fff;
+  box-shadow: -5px 5px 0 #000;
+  transition: transform 100ms ease-out, box-shadow 100ms ease-out;
+}
+.mn-back__icon {
+  position: absolute;
+  left: 27.85px;
+  top: 17.088626px;
+  width: 31px;
+  height: 20.792746px;
+}
+.mn-back__icon img {
+  position: absolute;
+  left: -3.286px;
+  top: -2px;
+  max-width: none;
+}
+.mn-back:active .mn-back__surface {
+  transform: translateY(4px);
+  box-shadow: -1px 1px 0 #000;
+}
+.mn-back:focus-visible { outline: 3px solid #ccf02a; outline-offset: 6px; }
