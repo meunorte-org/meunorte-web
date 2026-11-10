@@ -1,0 +1,71 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="210.458" height="220.115" viewBox="0 0 210.458 220.115" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Mascote N&#195;&#180;">
+<g id="Corpo Fundo">
+<ellipse cx="117.403" cy="136.365" rx="86.8517" ry="83.7498" fill="black"/>
+<mask id="stroke0_0_89" fill="white">
+<path d="M204.255 136.365C204.255 182.619 165.37 220.115 117.403 220.115C69.436 220.115 30.5512 182.619 30.5512 136.365C30.5512 90.1111 69.436 52.615 117.403 52.615C165.37 52.615 204.255 90.1111 204.255 136.365Z"/>
+</mask>
+<ellipse cx="117.403" cy="136.365" rx="86.8517" ry="83.7498" stroke-width="12.4074" stroke="black" mask="url(#stroke0_0_89)"/>
+</g>
+<g id="Corpo Base">
+<ellipse cx="129.81" cy="136.365" rx="80.648" ry="83.7498" fill="#FFFFD0"/>
+<mask id="stroke1_0_89" fill="white">
+<path d="M210.458 136.365C210.458 182.619 174.351 220.115 129.81 220.115C85.2697 220.115 49.1624 182.619 49.1624 136.365C49.1624 90.1111 85.2697 52.615 129.81 52.615C174.351 52.615 210.458 90.1111 210.458 136.365Z"/>
+</mask>
+<ellipse cx="129.81" cy="136.365" rx="80.648" ry="83.7498" stroke-width="12.4074" stroke="black" mask="url(#stroke1_0_89)"/>
+</g>
+<g id="Pontos Subcolaterais">
+<path id="Line 13" opacity="0.1" d="M77.8446 110.578L71.5773 106.712" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 15" opacity="0.1" d="M97.6185 86.9359L93.0222 81.1826" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 16" opacity="0.1" d="M110.717 77.9404L108.34 70.9708" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 23" opacity="0.1" d="M162.286 87.9571L166.882 82.2038" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 24" opacity="0.1" d="M149.187 78.9616L151.565 71.992" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 19" opacity="0.1" d="M101.703 184.322L97.1069 190.075" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 25" opacity="0.1" d="M74.2901 152.665L67.4926 155.497" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 26" opacity="0.1" d="M79.9901 163.899L74.6409 168.959" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 27" opacity="0.1" d="M187.565 150.623L194.363 153.455" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 28" opacity="0.1" d="M181.865 161.856L187.214 166.917" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 20" opacity="0.1" d="M114.802 193.318L112.425 200.287" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 21" opacity="0.1" d="M162.286 182.28L166.882 188.033" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 22" opacity="0.1" d="M149.187 191.275L151.565 198.245" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 14" opacity="0.1" d="M72.7998 126.573L65.4502 126.115" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 17" opacity="0.1" d="M179.823 110.578L186.09 106.712" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 18" opacity="0.1" d="M184.868 126.573L192.217 126.115" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+</g>
+<g id="Pontos Colaterais">
+<path id="Line 9" opacity="0.5" d="M178.197 91.3945L161.441 109.861" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 10" opacity="0.5" d="M97.5239 110.883L80.768 92.4157" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 11" opacity="0.5" d="M100.587 161.856L83.8315 180.323" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 12" opacity="0.5" d="M161.12 160.835L179.587 179.302" stroke-width="2.48148" stroke-linecap="round" stroke="#F84E00"/>
+</g>
+<g id="Pontos Principais">
+<path id="Line 1" opacity="0.5" d="M130.634 206.49L130.634 187.879" stroke-width="3.10185" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 6" opacity="0.5" d="M129.81 83.6335L129.81 65.0224" stroke-width="3.10185" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 7" opacity="0.5" d="M87.1248 139.39L68.5138 139.39" stroke-width="3.10185" stroke-linecap="round" stroke="#F84E00"/>
+<path id="Line 8" opacity="0.5" d="M194.349 139.39L175.738 139.39" stroke-width="3.10185" stroke-linecap="round" stroke="#F84E00"/>
+</g>
+<path id="Ponteiro" d="M145.555 136.341L131.376 173.208C130.968 174.269 129.467 174.269 129.059 173.208L114.88 136.341C114.769 136.054 114.769 135.737 114.88 135.45L129.059 98.5823C129.467 97.5218 130.968 97.5218 131.376 98.5823L145.555 135.45C145.666 135.737 145.666 136.054 145.555 136.341Z" fill="#F84E00"/>
+<path id="Boca" d="M75.6621 164.92C75.6621 164.92 84.9676 180.429 94.2731 186.633C103.579 192.836 112.884 195.938 112.884 195.938" stroke-width="3.10185" stroke-linecap="round" stroke="black"/>
+<g id="Olho Esquerdo">
+<g id="globo">
+<ellipse cx="80.8962" cy="110.659" rx="27.7002" ry="25.3919" fill="white"/>
+<mask id="stroke2_0_89" fill="white">
+<path d="M108.596 110.659C108.596 124.683 96.1946 136.051 80.8962 136.051C65.5978 136.051 53.196 124.683 53.196 110.659C53.196 96.6357 65.5978 85.2673 80.8962 85.2673C96.1946 85.2673 108.596 96.6357 108.596 110.659Z"/>
+</mask>
+<ellipse cx="80.8962" cy="110.659" rx="27.7002" ry="25.3919" stroke-width="6.20369" stroke="black" mask="url(#stroke2_0_89)"/>
+</g>
+<ellipse id="&#195;&#173;ris" cx="81.0107" cy="110.697" rx="13.8501" ry="11.5417" fill="black"/>
+</g>
+<g id="Olho Direito">
+<g id="globo_2">
+<ellipse cx="178.93" cy="110.659" rx="27.7002" ry="25.3919" fill="white"/>
+<mask id="stroke3_0_89" fill="white">
+<path d="M206.63 110.659C206.63 124.683 194.228 136.051 178.93 136.051C163.631 136.051 151.23 124.683 151.23 110.659C151.23 96.6357 163.631 85.2673 178.93 85.2673C194.228 85.2673 206.63 96.6357 206.63 110.659Z"/>
+</mask>
+<ellipse cx="178.93" cy="110.659" rx="27.7002" ry="25.3919" stroke-width="6.20369" stroke="black" mask="url(#stroke3_0_89)"/>
+</g>
+<ellipse id="&#195;&#173;ris_2" cx="178.151" cy="110.697" rx="13.8501" ry="11.5417" fill="black"/>
+</g>
+<path id="Chap&#195;&#169;u" d="M51.9886 10.0932L3.24335 74.3878C2.885 74.8604 3.3307 75.5182 3.90253 75.3606L20.1672 70.8782L35.3849 67.3524L41.4183 77.1099C41.6287 77.4501 42.0971 77.5126 42.3858 77.2358C44.7592 74.961 54.6147 65.8292 69.631 56.1277C84.0583 46.8066 99.3622 45.4254 104.099 45.2245C104.651 45.2011 104.927 44.5149 104.543 44.1182L94.1858 33.4174L114.021 10.8779C114.374 10.4771 114.089 9.84764 113.556 9.84764L52.483 9.84765C52.2889 9.84765 52.1059 9.93853 51.9886 10.0932Z" fill="black" stroke-width="6.20369" stroke="black"/>
+</g>
+</svg>

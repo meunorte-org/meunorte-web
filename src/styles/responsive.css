@@ -1,0 +1,152 @@
+/* Base móvel compartilhada. Em 390px, mantém a referência do Figma.
+   O conteúdo cresce até 448px; a altura nunca limita a rolagem. */
+:root {
+  --mn-screen-width: 28rem;
+  --mn-page-gutter: clamp(1rem, 6.154vw, 2rem);
+  --mn-button-height: 3.954375rem;
+  --mn-touch-min: 3rem;
+  --mn-text-body: clamp(1.375rem, 6.41vw, 1.75rem);
+}
+html { -webkit-text-size-adjust: 100%; }
+body { min-width: 280px; }
+button, input, select, textarea { touch-action: manipulation; }
+button { min-height: var(--mn-touch-min); }
+.mn-app .mn-welcome,
+.mn-app .mn-presentation {
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-bottom: max(3rem, env(safe-area-inset-bottom, 0px));
+}
+.mn-app .mn-welcome {
+  padding-top: max(clamp(2rem, 8.65svh, 5.5rem), env(safe-area-inset-top, 0px));
+}
+.mn-app .mn-welcome__content,
+.mn-app .mn-presentation__content {
+  width: min(100%, var(--mn-screen-width));
+  margin-inline: auto;
+}
+.mn-app .mn-welcome__content {
+  --mn-welcome-indent: clamp(0px, calc((100vw - 330px) / 2), 30px);
+  padding-inline: var(--mn-page-gutter);
+}
+.mn-app .mn-welcome__mascot {
+  margin-left: max(0px, calc((100% - 208.321px) / 2 - 14.84px));
+}
+.mn-app .mn-welcome__title {
+  width: auto;
+  max-width: calc(100% - var(--mn-welcome-indent));
+  margin-left: var(--mn-welcome-indent);
+  font-size: clamp(3.5rem, 19.974vw, 5.5rem);
+  line-height: 1.091;
+}
+.mn-app .mn-welcome__description {
+  width: clamp(16rem, 72.82vw, 20.5rem);
+  max-width: calc(100% - var(--mn-welcome-indent));
+  min-height: 0;
+  margin-left: var(--mn-welcome-indent);
+  font-size: clamp(1.625rem, 7.768vw, 2.125rem);
+  line-height: 1.06;
+}
+.mn-app .mn-welcome__actions {
+  margin-left: 0;
+  align-items: center;
+}
+.mn-app .mn-welcome__login { max-width: 100%; }
+.mn-app .mn-welcome__login p {
+  width: auto;
+  max-width: 100%;
+  align-self: center;
+  margin-left: 0;
+  font-size: clamp(1.125rem, 5.326vw, 1.375rem);
+  line-height: 1.2;
+}
+.mn-app .mn-presentation__content {
+  padding-top: max(clamp(2rem, 8.53svh, 5.5rem), env(safe-area-inset-top, 0px));
+  padding-bottom: 3rem;
+}
+.mn-app .mn-presentation__title {
+  width: auto;
+  max-width: none;
+  min-height: 0;
+  margin-inline: clamp(1.5rem, 10.77vw, 3rem);
+  font-size: clamp(3rem, 15.385vw, 4.25rem);
+  line-height: .85;
+}
+.mn-app .mn-presentation__image {
+  width: calc(100% - 14px);
+  max-width: none;
+  height: auto;
+  aspect-ratio: 377 / 356;
+  object-fit: contain;
+  margin: 8px auto 0;
+}
+.mn-app .mn-presentation__description {
+  width: auto;
+  max-width: none;
+  min-height: 0;
+  margin: 10px var(--mn-page-gutter) 0;
+  font-size: var(--mn-text-body);
+  line-height: 1.21;
+}
+.mn-app .mn-presentation__actions {
+  margin: clamp(1.75rem, 9.487vw, 2.5rem) var(--mn-page-gutter) 0;
+  padding: 0 7px 8px 5px;
+  gap: clamp(.625rem, 3.59vw, .875rem);
+}
+.mn-app .mn-presentation__actions .mn-back {
+  width: clamp(4.5rem, 24.36vw, 5.9375rem);
+}
+.mn-app .mn-back__icon {
+  left: calc((100% - 31px) / 2 - 4.15px);
+}
+.mn-app .mn-welcome-button {
+  width: clamp(13.925rem, 57.13vw, 15.5rem);
+  min-height: var(--mn-button-height);
+}
+.mn-app .mn-presentation__actions .mn-welcome-button {
+  width: auto;
+  flex: 1 1 0;
+  min-width: 0;
+}
+.mn-app .mn-presentation__actions .mn-welcome-button__surface {
+  font-size: clamp(1.375rem, 7.398vw, 2rem);
+  padding-inline: clamp(.5rem, 3.59vw, 1rem);
+  gap: clamp(.5rem, 2.56vw, .875rem);
+}
+.mn-app .mn-welcome-button--comecar:active:not(:disabled) .mn-welcome-button__surface {
+  width: 100%;
+  gap: inherit;
+  padding-right: inherit;
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .mn-app .mn-welcome,
+  .mn-app .mn-presentation__content { padding-top: max(1.5rem, env(safe-area-inset-top, 0px)); }
+}
+/* Layouts futuros podem reutilizar estes contêineres. */
+.mn-mobile-screen {
+  min-height: 100svh;
+  padding: max(1.5rem, env(safe-area-inset-top, 0px)) max(var(--mn-page-gutter), env(safe-area-inset-right, 0px))
+    max(2rem, env(safe-area-inset-bottom, 0px)) max(var(--mn-page-gutter), env(safe-area-inset-left, 0px));
+}
+.mn-mobile-content { width: min(100%, var(--mn-screen-width)); margin-inline: auto; min-width: 0; }
+.mn-app .mn-welcome,
+.mn-app .mn-presentation {
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+.mn-app .mn-welcome-button--comecar:active:not(:disabled) .mn-welcome-button__surface {
+  gap: 15px;
+  padding-right: 22px;
+}
+.mn-app .mn-presentation__actions .mn-welcome-button--comecar:active:not(:disabled) .mn-welcome-button__surface {
+  gap: clamp(.5rem, 2.56vw, .875rem);
+  padding-right: clamp(.5rem, 3.59vw, 1rem);
+}
+@media (max-width: 359px) {
+  .mn-app .mn-presentation__actions .mn-welcome-button__surface,
+  .mn-app .mn-presentation__actions .mn-welcome-button--comecar:active:not(:disabled) .mn-welcome-button__surface {
+    font-size: 1.375rem;
+    padding-inline: .5rem;
+    gap: .5rem;
+  }
+}

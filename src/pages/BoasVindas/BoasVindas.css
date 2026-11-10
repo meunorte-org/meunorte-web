@@ -1,0 +1,131 @@
+.mn-welcome {
+  min-height: 100vh;
+  min-height: 100svh;
+  background: #334aee;
+  color: #fff;
+  padding: 73px 0 134px;
+}
+.mn-welcome__content {
+  width: 390px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.mn-welcome__mascot {
+  position: relative;
+  width: 208.321px;
+  height: 220.115px;
+  margin-left: 52px;
+}
+.mn-welcome__mascot img {
+  position: absolute;
+  left: -1.03%;
+  max-width: none;
+}
+.mn-welcome__title {
+  width: 295px;
+  max-width: 100%;
+  margin: 8.885px 0 0 30px;
+  color: #30f59b;
+  font-family: "Futura Display", sans-serif;
+  font-size: 77.9px;
+  font-weight: 400;
+  line-height: 85px;
+}
+.mn-welcome__description {
+  width: 284px;
+  max-width: calc(100% - 30px);
+  min-height: 97px;
+  margin: 9px 0 0 30px;
+  font-size: 30.295px;
+  font-weight: 500;
+  font-variation-settings: "HEXP" 0;
+  line-height: 1;
+}
+.mn-welcome__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22.73px;
+  margin: 39px 0 0 54px;
+}
+.mn-welcome__login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+}
+.mn-welcome__login p {
+  align-self: flex-start;
+  width: 208px;
+  margin: 0 0 0 7px;
+  color: #ccf02a;
+  opacity: .7;
+  text-align: center;
+  font-size: 20.773px;
+  font-weight: 500;
+  font-variation-settings: "HEXP" 0;
+  line-height: 20px;
+}
+@media (max-width: 389px) {
+  .mn-welcome__mascot {
+    margin-inline: auto;
+  }
+  .mn-welcome__title {
+    margin-left: 0;
+    font-size: clamp(56px, 19.97vw, 77.9px);
+  }
+  .mn-welcome__description {
+    margin-left: 0;
+    max-width: 100%;
+  }
+  .mn-welcome__actions {
+    margin-left: 0;
+    align-items: center;
+  }
+}
+
+/* Protótipo Figma: Splash 1 → 2 → 3 → 4 → Boas-vindas.
+   100ms + 500ms; 300ms + 700ms; 1200ms + 500ms; 100ms + 800ms. */
+.mn-welcome {
+  overflow: clip;
+}
+.mn-welcome__title {
+  animation: mn-title-appear 500ms linear 100ms both,
+    mn-title-rise 500ms linear 2800ms both;
+}
+.mn-welcome__mascot {
+  animation: mn-mascot-arrive 700ms ease-out 900ms both,
+    mn-mascot-rise 500ms linear 2800ms both;
+}
+.mn-welcome__description {
+  animation: mn-description-enter 800ms ease-out 3400ms both;
+}
+.mn-welcome__actions {
+  animation: mn-actions-enter 800ms ease-out 3400ms both;
+}
+@keyframes mn-title-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes mn-title-rise {
+  from { transform: translateY(100px); }
+  to { transform: translateY(0); }
+}
+@keyframes mn-mascot-arrive {
+  from { translate: 0 -394px; }
+  to { translate: 0 0; }
+}
+@keyframes mn-mascot-rise {
+  from { transform: translateY(95px); }
+  to { transform: translateY(0); }
+}
+@keyframes mn-description-enter {
+  from { opacity: 0; transform: translateX(-59px); visibility: hidden; }
+  to { opacity: 1; transform: translateX(0); visibility: visible; }
+}
+@keyframes mn-actions-enter {
+  from { opacity: 0; transform: translateX(-83px); visibility: hidden; }
+  to { opacity: 1; transform: translateX(0); visibility: visible; }
+}
+
