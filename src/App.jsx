@@ -1,45 +1,33 @@
-import { useEffect, useRef, useState } from 'react'
 import BoasVindas from './pages/BoasVindas/BoasVindas.jsx'
 import Apresentacao from './pages/Apresentacao/Apresentacao.jsx'
-
+import Cadastro from './pages/Cadastro/Cadastro.jsx'
+import TransicaoPaginas from './components/TransicaoPaginas/TransicaoPaginas.jsx'
+import useNavegacao, { DURACAO_TRANSICAO } from './hooks/useNavegacao.js'
 import './App.css'
 
 function App() {
-  const [pagina, setPagina] = useState('boas-vindas')
-  const [troca, setTroca] = useState(null)
-  const [entradaConcluida, setEntradaConcluida] = useState(false)
-  const timer = useRef(null)
+  const { pagina, troca, entradaConcluida, navegar } = useNavegacao()
 
-  useEffect(() => () => clearTimeout(timer.current), [])
+  function exibirPagina(nome) {
+    if (nome === 'cadastro') {
+      return <Cadastro onVoltar={() => navegar('apresentacao', 'back')} />
+    }
+    if (nome === 'apresentacao') {
+      return <Apresentacao onVoltar={() => navegar('boas-vindas', 'back')} onCadastro={() => navegar('cadastro')} />
+    }
 
-  function navegar(destino, direcao = 'next') {
-    if (troca || destino === pagina) return
-    setEntradaConcluida(true)
-    setTroca({ destino, direcao })
-    timer.current = setTimeout(() => {
-      setPagina(destino)
-      setTroca(null)
-      window.scrollTo(0, 0)
-      requestAnimationFrame(() => document.querySelector('.mn-app__page h1')?.focus({ preventScroll: true }))
-    }, 400)
+    return (
+      <BoasVindas
+        animarEntrada={!entradaConcluida}
+        onComecar={() => navegar('apresentacao')}
+      />
+    )
   }
-
-  function renderizar(nome) {
-    if (nome === 'apresentacao') return <Apresentacao onVoltar={() => navegar('boas-vindas', 'back')} />
-
-    return <BoasVindas animarEntrada={!entradaConcluida} onComecar={() => navegar('apresentacao')} />
-  }
-
 
   return (
-    <div className={`mn-app ${troca ? `mn-app--moving mn-app--${troca.direcao}` : ''}`}>
-      {(troca ? [pagina, troca.destino] : [pagina]).map(nome => (
-        <div key={nome} className={nome === pagina ? 'mn-app__page' : 'mn-app__incoming'}
-          aria-hidden={troca ? true : undefined} inert={troca ? true : undefined}>
-          {renderizar(nome)}
-        </div>
-      ))}
-    </div>
+    <TransicaoPaginas pagina={pagina} troca={troca} duracao={DURACAO_TRANSICAO}>
+      {exibirPagina}
+    </TransicaoPaginas>
   )
 }
 

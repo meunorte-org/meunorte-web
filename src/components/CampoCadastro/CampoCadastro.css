@@ -1,0 +1,25 @@
+.mn-signup-panel {
+  flex: 1;
+  min-width: 0;
+  min-height: 586px;
+  padding: 19px max(23px, env(safe-area-inset-right, 0px)) max(3rem, env(safe-area-inset-bottom, 0px));
+  border-radius: 20px 20px 0 0;
+  background: #2f44da;
+}
+.mn-signup-progress {
+  box-sizing: content-box;
+  width: 138px;
+  height: 11px;
+  margin: 0 auto 30px;
+  border: 9px solid #334aee;
+  border-radius: 40px;
+  background: #465ae8;
+  overflow: hidden;
+}
+.mn-signup-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #ccf02a;
+  transition: width 650ms cubic-bezier(.22, 1, .36, 1);
+}

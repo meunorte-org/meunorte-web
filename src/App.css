@@ -1,13 +1,4 @@
 body { background: #334aee; }
-.mn-app { position: relative; overflow: clip; min-height: 100svh; }
-.mn-app__page { min-height: 100svh; }
-.mn-app__incoming { position: absolute; inset: 0; }
-.mn-app--moving .mn-app__page { animation: mn-page-out 400ms cubic-bezier(.25,.1,.25,1) both; }
-.mn-app--moving .mn-app__incoming { animation: mn-page-in 400ms cubic-bezier(.25,.1,.25,1) both; }
-.mn-app--back { --mn-page-direction: -1; }
-.mn-app--next { --mn-page-direction: 1; }
-@keyframes mn-page-out { to { transform: translateX(calc(-100% * var(--mn-page-direction))); } }
-@keyframes mn-page-in { from { transform: translateX(calc(100% * var(--mn-page-direction))); } to { transform: translateX(0); } }
 .mn-welcome--static .mn-welcome__title,
 .mn-welcome--static .mn-welcome__mascot,
 .mn-welcome--static .mn-welcome__description,

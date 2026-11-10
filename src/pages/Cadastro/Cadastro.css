@@ -1,0 +1,83 @@
+.mn-signup.mn-mobile-screen {
+  padding: 0 env(safe-area-inset-right, 0px) 0 env(safe-area-inset-left, 0px);
+  background: #334aee;
+  color: #fff;
+}
+.mn-signup__content { display: flex; flex-direction: column; min-height: 100svh; }
+.mn-signup-header {
+  padding: max(59px, env(safe-area-inset-top, 0px)) 19px 36px 34px;
+  animation: mn-signup-header-rise 700ms 700ms cubic-bezier(.22, 1, .36, 1) both;
+}
+.mn-signup-header h1 {
+  margin: 0;
+  color: #ccf02a;
+  font-family: 'Futura Display', sans-serif;
+  font-size: clamp(3.75rem, 19.974vw, 5.3rem);
+  font-weight: 400;
+  line-height: 92px;
+  animation: mn-signup-text-enter 550ms 120ms cubic-bezier(.22, 1, .36, 1) both;
+}
+.mn-signup-header p {
+  margin: 4px 0 0;
+  font-size: clamp(1.5rem, 7.692vw, 2.05rem);
+  font-weight: 300;
+  line-height: 1.12;
+  animation: mn-signup-text-enter 550ms 240ms cubic-bezier(.22, 1, .36, 1) both;
+}
+.mn-signup-header strong { font-weight: 500; }
+.mn-signup .mn-signup-panel {
+  animation: mn-signup-panel-rise 700ms 700ms cubic-bezier(.22, 1, .36, 1) both;
+}
+.mn-signup-form h2 {
+  margin: 0 0 31px;
+  color: #ccf02a;
+  text-align: center;
+  font-size: clamp(1.5rem, 7.692vw, 2rem);
+  font-weight: 700;
+  line-height: 37px;
+}
+.mn-signup-actions { display: flex; align-items: center; gap: 13px; margin: 64px 0 0 1px; padding-bottom: 8px; }
+.mn-back--verde { --mn-back-color: #ccf02a; }
+.mn-back--verde .mn-back__surface {
+  border-color: var(--mn-back-color);
+  background: #2f44da;
+  box-shadow: -5px 5px 0 var(--mn-back-color);
+}
+.mn-back--verde:active .mn-back__surface { box-shadow: -1px 1px 0 var(--mn-back-color); }
+.mn-signup-actions .mn-back { width: clamp(4.5rem, 24.36vw, 5.9375rem); }
+.mn-app .mn-signup-actions .mn-welcome-button {
+  --mn-button-border: #ccf02a;
+  --mn-button-fill: #2f44da;
+  --mn-button-text: #ccf02a;
+  flex: 1;
+  width: auto;
+  min-width: 0;
+}
+.mn-signup-actions .mn-welcome-button__surface {
+  font-size: clamp(1.375rem, 7.398vw, 1.8032rem);
+  padding-inline: clamp(8px, 5.64vw, 22px);
+  gap: clamp(8px, 3.846vw, 15px);
+  transition: transform 100ms ease-out, box-shadow 100ms ease-out;
+}
+.mn-signup-actions .mn-welcome-button:focus-visible { outline-color: white; }
+.mn-signup-form--date { padding-top: 0; }
+.mn-signup-form--date h2 { max-width: 304px; min-height: 67px; margin: -3px auto 36px; line-height: 1; }
+.mn-signup-form--date .mn-signup-actions { margin-top: 41px; }
+.mn-signup-step--enter { animation: mn-signup-text-enter 400ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes mn-signup-text-enter {
+  from { opacity: 0; transform: translateX(-54px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes mn-signup-header-rise {
+  from { transform: translateY(clamp(80px, calc(50svh - 172px), 340px)); }
+  to { transform: translateY(0); }
+}
+@keyframes mn-signup-panel-rise {
+  from { opacity: 0; transform: translateY(max(340px, calc(100svh - 258px))); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 359px) {
+  .mn-signup-header { padding-left: 24px; padding-right: 24px; }
+  .mn-signup-actions { gap: 10px; }
+  .mn-signup-actions .mn-welcome-button__surface { font-size: 1.375rem; padding-inline: 8px; gap: 8px; }
+}

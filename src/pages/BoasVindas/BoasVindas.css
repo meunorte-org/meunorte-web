@@ -129,3 +129,19 @@
   to { opacity: 1; transform: translateX(0); visibility: visible; }
 }
 
+
+/* Retorno da apresentação: revela a composição sem repetir o splash. */
+.mn-welcome.mn-welcome--return .mn-welcome__mascot,
+.mn-welcome.mn-welcome--return .mn-welcome__title,
+.mn-welcome.mn-welcome--return .mn-welcome__description,
+.mn-welcome.mn-welcome--return .mn-welcome__actions {
+  animation: mn-welcome-return 650ms cubic-bezier(.22,1,.36,1) both;
+}
+.mn-welcome.mn-welcome--return .mn-welcome__mascot { animation-delay: 140ms; }
+.mn-welcome.mn-welcome--return .mn-welcome__title { animation-delay: 300ms; }
+.mn-welcome.mn-welcome--return .mn-welcome__description { animation-delay: 460ms; }
+.mn-welcome.mn-welcome--return .mn-welcome__actions { animation-delay: 620ms; }
+@keyframes mn-welcome-return {
+  from { opacity: 0; transform: translateX(-64px); }
+  to { opacity: 1; transform: translateX(0); }
+}

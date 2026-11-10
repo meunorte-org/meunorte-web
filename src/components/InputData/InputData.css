@@ -1,0 +1,82 @@
+.mn-date-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  height: 60px;
+  border-radius: 40px;
+  background: #334aee;
+}
+.mn-date-input__value {
+  padding-left: 30px;
+  padding-right: 80px;
+  color: rgb(204 240 42 / 60%);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 150ms ease-out;
+}
+.mn-date-input--selected .mn-date-input__value { padding-left: 33px; color: #fff; font-size: 20px; font-weight: 400; opacity: 1; }
+.mn-date-input__label {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgb(204 240 42 / 60%);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  pointer-events: none;
+  transition: top 150ms ease-out, left 150ms ease-out, transform 150ms ease-out, font-size 150ms ease-out, color 150ms ease-out;
+}
+.mn-date-input--selected .mn-date-input__label { left: 33px; top: -5px; transform: translateY(0); color: #ccf02a; font-size: 14px; }
+.mn-date-feedback { min-height: 73px; padding-top: 30px; overflow: hidden; }
+.mn-date-age {
+  width: calc(100% - 48px);
+  min-height: 43px;
+  margin: 0 auto;
+  padding: 6px 4px;
+  border-radius: 10px;
+  background: #3549df;
+  color: white;
+  font-size: clamp(1.125rem, 7.692vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  animation: mn-date-age-enter 200ms ease-out 100ms both;
+}
+.mn-date-input__selector { position: absolute; right: 34px; top: 15px; width: 36px; height: 36px; pointer-events: none; }
+.mn-date-input__selector img { position: absolute; inset: 0; transition: transform 200ms ease-out, opacity 200ms ease-out; }
+.mn-date-input__selector-filled { opacity: 0; transform: rotate(-180deg); }
+.mn-date-input--selected .mn-date-input__selector-default { opacity: 0; transform: rotate(180deg); }
+.mn-date-input--selected .mn-date-input__selector-filled { opacity: 1; transform: rotate(0); }
+@keyframes mn-date-age-enter {
+  from { opacity: 0; transform: translateY(-79px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mn-date-input__selector img,
+  .mn-date-input__label,
+  .mn-date-input__value { transition-duration: 100ms; }
+  .mn-date-age { animation-name: mn-date-age-enter-reduced; animation-duration: 120ms; animation-delay: 0ms; }
+}
+@keyframes mn-date-age-enter-reduced {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.mn-date-input input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+/* Foco pelo teclado é indicado sem acrescentar bordas ao campo. */
+.mn-date-input:has(input:focus-visible) .mn-date-input__value { text-decoration: underline; text-underline-offset: 4px; }

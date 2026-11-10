@@ -1,11 +1,16 @@
+import { useState } from 'react'
 import BotaoComecar from '../../components/BotaoComecar/BotaoComecar.jsx'
 import BotaoFazerLogin from '../../components/BotaoFazerLogin/BotaoFazerLogin.jsx'
 import MascoteNo from '../../components/MascoteNo/MascoteNo.jsx'
 import './BoasVindas.css'
 
 export default function BoasVindas({ onComecar, onLogin, animarEntrada = true }) {
+  // O retorno é definido ao abrir a tela; não começa ao sair dela.
+  const [animarRetorno] = useState(() => !animarEntrada)
+  const classeRetorno = animarRetorno ? 'mn-welcome--return' : ''
+
   return (
-    <main className={`mn-welcome ${animarEntrada ? '' : 'mn-welcome--static'}`} aria-labelledby="welcome-title">
+    <main className={`mn-welcome ${animarEntrada ? '' : 'mn-welcome--static'} ${classeRetorno}`} data-retorno={animarRetorno} aria-labelledby="welcome-title">
       <div className="mn-welcome__content">
         <div className="mn-welcome__mascot">
           <MascoteNo animarEntrada={animarEntrada} />
@@ -25,7 +30,3 @@ export default function BoasVindas({ onComecar, onLogin, animarEntrada = true })
     </main>
   )
 }
-
-
-
-
