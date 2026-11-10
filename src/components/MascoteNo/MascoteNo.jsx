@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import mascoteSvg from '../../assets/images/mascote-no.svg?raw'
 import { orientationSample, shortestAngle } from './orientation.mjs'
 import './MascoteNo.css'
+import BotaoAtivarBussola from '../BotaoAtivarBussola/BotaoAtivarBussola.jsx'
 
 // SVG local do Figma: somente a camada Ponteiro recebe o movimento.
 export default function MascoteNo({ animarEntrada = true }) {
@@ -102,9 +103,9 @@ export default function MascoteNo({ animarEntrada = true }) {
   async function activate() {
     try {
       const result = await window.DeviceOrientationEvent.requestPermission()
-      if (mounted.current) setPhase(result === 'granted' ? 'listening' : 'denied')
+      return result === 'granted' ? 'listening' : 'denied'
     } catch {
-      if (mounted.current) setPhase('denied')
+      return 'denied'
     }
   }
 
@@ -114,9 +115,7 @@ export default function MascoteNo({ animarEntrada = true }) {
         aria-label="Nô, o mascote do MeuNorte"
         dangerouslySetInnerHTML={{ __html: mascoteSvg }} />
       {phase === 'permission' && (
-        <button type="button" className="mn-mascot-activate" onClick={activate}>
-          Ativar movimento da bússola
-        </button>
+        <BotaoAtivarBussola onActivate={activate} onFinish={setPhase} />
       )}
       {phase === 'denied' && <p className="mn-mascot-notice" role="status">
         Movimento não autorizado. Você pode continuar normalmente.
@@ -124,3 +123,4 @@ export default function MascoteNo({ animarEntrada = true }) {
     </>
   )
 }
+

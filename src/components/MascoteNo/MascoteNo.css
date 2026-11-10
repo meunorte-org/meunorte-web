@@ -16,7 +16,6 @@
   100% { transform: rotate(-180deg); }
 }
 
-.mn-mascot-activate,
 .mn-mascot-notice {
   position: absolute;
   bottom: calc(100% + 8px);
@@ -24,23 +23,13 @@
   width: 240px;
   max-width: calc(100vw - 48px);
   margin: 0;
-  font-family: "Readex Pro", sans-serif;
-  font-size: 13px;
-  line-height: 1.3;
+  color: white;
+  font: 400 13px/1.3 "Readex Pro", sans-serif;
   text-align: center;
 }
-.mn-mascot-activate {
-  min-height: 48px;
-  padding: 8px 12px;
-  border: 2px solid #ccf02a;
-  border-radius: 24px;
-  color: #ccf02a;
-  background: #334aee;
-  cursor: pointer;
-}
-.mn-mascot-activate:focus-visible { outline: 3px solid white; outline-offset: 3px; }
-.mn-mascot-notice { color: white; }
-.mn-app .mn-welcome:has(.mn-mascot-activate),
 .mn-app .mn-welcome:has(.mn-mascot-notice) {
   padding-top: max(80px, 8.65svh, env(safe-area-inset-top, 0px));
+}
+.mn-app .mn-welcome:has(.mn-compass-glass) {
+  padding-top: max(40px, 8.65svh, calc(env(safe-area-inset-top, 0px) + 32px));
 }
