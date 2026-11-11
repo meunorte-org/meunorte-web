@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="23.1111" viewBox="0 0 24 23.1111" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="stroke0_0_38" fill="white">
+<path d="M24 11.5556C24 17.9375 18.6274 23.1111 12 23.1111C5.37258 23.1111 0 17.9375 0 11.5556C0 5.1736 5.37258 0 12 0C18.6274 0 24 5.1736 24 11.5556Z"/>
+</mask>
+<ellipse id="c&#195;&#173;rculo" cx="12" cy="11.5556" rx="12" ry="11.5556" stroke-width="3.54441" stroke="white" mask="url(#stroke0_0_38)"/>
+</svg>

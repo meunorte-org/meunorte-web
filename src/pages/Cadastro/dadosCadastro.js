@@ -24,3 +24,17 @@ export function calcularIdade(valor, hoje = dataLocalISO()) {
   const aniversarioPendente = mesAtual < mes || (mesAtual === mes && diaAtual < dia)
   return anoAtual - ano - (aniversarioPendente ? 1 : 0)
 }
+
+// Formato de e-mail aceito pelo input HTML, com domínio público contendo ponto.
+// A existência do endereço será confirmada pelo link enviado pelo Supabase.
+export function emailValido(valor) {
+  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)+$/.test(valor.trim())
+}
+
+export function senhaValida(senha) {
+  return Array.from(senha).length >= 8
+}
+
+export function senhasConferem(senha, confirmacao) {
+  return senhaValida(senha) && senha === confirmacao
+}

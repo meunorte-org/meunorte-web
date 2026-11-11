@@ -63,6 +63,15 @@
 .mn-signup-form--date { padding-top: 0; }
 .mn-signup-form--date h2 { max-width: 304px; min-height: 67px; margin: -3px auto 36px; line-height: 1; }
 .mn-signup-form--date .mn-signup-actions { margin-top: 41px; }
+.mn-signup-form--studies h2 { max-width: 304px; min-height: 67px; margin: -3px auto 36px; line-height: 1.14; }
+.mn-signup-form--studies .mn-signup-actions { margin-top: 89px; }
+.mn-signup-form--email h2 { min-height: 37px; margin: -7px 0 45px; }
+.mn-signup-email-help { min-height: 33px; margin: 15px 20px 0; color: #fff; font-size: 14px; font-weight: 300; line-height: 1.15; }
+.mn-signup-email-help strong { font-weight: 500; }
+.mn-signup-form--email .mn-signup-actions { margin-top: 51px; }
+.mn-signup-form--password h2 { min-height: 37px; margin: -7px 0 34px; }
+.mn-signup-confirmation { min-height: 104px; }
+.mn-signup-form--password .mn-signup-actions { margin-top: 4px; }
 .mn-signup-step--enter { animation: mn-signup-text-enter 400ms cubic-bezier(.22, 1, .36, 1) both; }
 @keyframes mn-signup-text-enter {
   from { opacity: 0; transform: translateX(-54px); }

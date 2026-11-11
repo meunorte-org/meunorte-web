@@ -1,0 +1,41 @@
+.mn-password-group .mn-input input { padding-right: 78px; }
+.mn-password-group .mn-input label { max-width: calc(100% - 108px); }
+.mn-password-group--masked .mn-input input,
+.mn-password-group--masked .mn-input input:-webkit-autofill {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  caret-color: #fff;
+  font-family: monospace;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+.mn-password-mask {
+  position: absolute;
+  left: 32px;
+  right: 78px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: #fff;
+  font: 400 20px/1 monospace;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+.mn-password-mask > span { white-space: pre; flex-shrink: 0; }
+.mn-password-toggle { position: absolute; right: 22px; top: 6px; width: 48px; height: 48px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.mn-password-toggle__icon { position: absolute; left: 8px; top: 12.5px; width: 32px; height: 23px; }
+.mn-password-toggle__icon img { position: absolute; left: 0; top: 0; }
+.mn-password-toggle__icon--visible img { left: -.1472px; }
+.mn-password-toggle:focus-visible { outline: 2px solid #ccf02a; outline-offset: 1px; }
+.mn-password-group--error .mn-input { transform: rotate(-.4deg); }
+.mn-password-group--error .mn-input input,
+.mn-password-group--error .mn-input input:autofill { background: #465ae8; box-shadow: 0 0 0 1000px #465ae8 inset !important; }
+.mn-password-group--error .mn-input label,
+.mn-password-group--error .mn-input input:focus + label,
+.mn-password-group--error .mn-input input:not(:placeholder-shown) + label { color: #f84e00; }
+.mn-password-group .mn-input-error { display: flex; align-items: center; gap: 10px; min-height: 31px; margin: 13px 22px 0 24px; font-size: 14px; font-weight: 200; line-height: 1.15; }
+.mn-password-alert { position: relative; flex: 0 0 24px; width: 24px; height: 23.1111px; }
+.mn-password-alert img { position: absolute; inset: 0; }
+.mn-password-alert > span { position: absolute; top: 5.333px; left: 8px; width: 8px; color: #fff; text-align: center; font-size: 12.405px; font-weight: 700; line-height: 1; }
