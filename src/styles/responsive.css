@@ -187,3 +187,25 @@ button { min-height: var(--mn-touch-min); }
   .mn-app .mn-welcome .mn-welcome-button__surface { font-size: 2rem; }
   .mn-app .mn-welcome__login p { font-size: 1.5rem; }
 }
+
+/* Apresentação acompanha a escala das boas-vindas em tablets e computadores. */
+@media (min-width: 768px) and (min-height: 600px) {
+  .mn-app .mn-presentation {
+    display: flex;
+    flex-direction: column;
+    padding-top: max(48px, env(safe-area-inset-top, 0px));
+    padding-bottom: max(48px, env(safe-area-inset-bottom, 0px));
+  }
+  .mn-app .mn-presentation__content { margin-block: auto; padding-block: 0; }
+  .mn-app .mn-presentation__title {
+    margin-inline: 32px;
+    font-size: 4.75rem;
+    line-height: .88;
+  }
+  .mn-app .mn-presentation__image { width: 100%; margin-top: 12px; }
+  .mn-app .mn-presentation__description { font-size: 2rem; }
+  .mn-app .mn-presentation__actions { margin-top: 40px; }
+  .mn-app .mn-presentation__actions .mn-welcome-button,
+  .mn-app .mn-presentation__actions .mn-back { height: 72px; }
+  .mn-app .mn-presentation__actions .mn-back { width: 104px; }
+}
