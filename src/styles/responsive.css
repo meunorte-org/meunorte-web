@@ -150,3 +150,40 @@ button { min-height: var(--mn-touch-min); }
     gap: .5rem;
   }
 }
+
+/* Boas-vindas em telas maiores: composição ampliada, com respiro vertical equilibrado. */
+@media (min-width: 768px) and (min-height: 600px) {
+  .mn-app .mn-welcome,
+  .mn-app .mn-welcome:has(.mn-compass-glass),
+  .mn-app .mn-welcome:has(.mn-mascot-notice) {
+    display: flex;
+    flex-direction: column;
+    padding-top: max(48px, env(safe-area-inset-top, 0px));
+    padding-bottom: max(48px, env(safe-area-inset-bottom, 0px));
+  }
+  .mn-app .mn-welcome__content { margin-block: auto; }
+  .mn-app .mn-welcome__mascot {
+    width: 240px;
+    height: 253.6px;
+    margin-inline: auto;
+  }
+  .mn-app .mn-welcome .mn-mascot svg { width: 242.46px; height: 253.6px; }
+  .mn-app .mn-welcome__title {
+    max-width: 100%;
+    margin: 12px 0 0;
+    font-size: 6rem;
+    line-height: 1.09;
+    text-align: center;
+  }
+  .mn-app .mn-welcome__description {
+    width: 21.5rem;
+    max-width: 100%;
+    margin: 12px auto 0;
+    font-size: 2.375rem;
+    line-height: 1.08;
+  }
+  .mn-app .mn-welcome__actions { margin-top: 40px; gap: 26px; }
+  .mn-app .mn-welcome .mn-welcome-button { width: 17.5rem; height: 72px; }
+  .mn-app .mn-welcome .mn-welcome-button__surface { font-size: 2rem; }
+  .mn-app .mn-welcome__login p { font-size: 1.5rem; }
+}

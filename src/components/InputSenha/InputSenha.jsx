@@ -22,7 +22,7 @@ export default function InputSenha({ id, name, rotulo, value, onAlterar, onBlur,
   return (
     <div className={`mn-password-group ${!visivel ? 'mn-password-group--masked' : ''} ${erro ? 'mn-password-group--error' : ''}`}>
       <InputDigitacao id={id} name={name} type={visivel ? 'text' : 'password'}
-        rotulo={erro ? 'Senhas diferentes' : rotulo} value={value} erro={mensagem}
+        animarErro={confirmar} rotulo={erro ? 'Senhas diferentes' : rotulo} value={value} erro={mensagem}
         onChange={event => onAlterar(event.target.value)} onInput={event => onAlterar(event.currentTarget.value)} onBlur={onBlur}
         onScroll={event => { if (mascaraRef.current) mascaraRef.current.scrollLeft = event.currentTarget.scrollLeft }}
         autoComplete="new-password" autoCapitalize="none" autoCorrect="off" spellCheck={false}

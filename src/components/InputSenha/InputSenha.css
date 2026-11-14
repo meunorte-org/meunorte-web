@@ -39,3 +39,22 @@
 .mn-password-alert { position: relative; flex: 0 0 24px; width: 24px; height: 23.1111px; }
 .mn-password-alert img { position: absolute; inset: 0; }
 .mn-password-alert > span { position: absolute; top: 5.333px; left: 8px; width: 8px; color: #fff; text-align: center; font-size: 12.405px; font-weight: 700; line-height: 1; }
+
+.mn-password-group .mn-input-feedback {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: grid-template-rows 280ms ease, opacity 220ms ease, transform 280ms ease;
+}
+.mn-password-group .mn-input-feedback--visible {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: translateY(0);
+}
+.mn-password-group .mn-input-feedback__content { min-height: 0; overflow: hidden; }
+.mn-password-group .mn-input-feedback .mn-input-error { margin-bottom: 28px; }
+.mn-password-group .mn-input-error strong { font-weight: 500; }
+@media (prefers-reduced-motion: reduce) {
+  .mn-password-group .mn-input-feedback { transition: none; transform: none; }
+}

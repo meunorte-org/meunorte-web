@@ -11,7 +11,7 @@ export default function EtapaCriarSenha({ senha, confirmacaoSenha, onAlterarSenh
   const cumpriuRegra = senhaValida(senha)
   const valido = senhasConferem(senha, confirmacaoSenha)
   const diferentes = Boolean(confirmacaoSenha) && senha !== confirmacaoSenha
-  const erroConfirmacao = verificouConfirmacao && diferentes ? 'As senhas não coincidem. Digite a mesma senha nos dois campos.' : ''
+  const erroConfirmacao = verificouConfirmacao && diferentes ? <><strong>As senhas não coincidem.</strong> Digite a mesma senha nos dois campos.</> : null
 
   function verificarConfirmacao() {
     setVerificouConfirmacao(true)

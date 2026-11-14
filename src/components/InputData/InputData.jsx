@@ -36,7 +36,7 @@ export default function InputData({ id, value, onChange, max, erro, onBlur, idad
           min="0001-01-01" max={max} autoComplete="bday" required
           aria-invalid={Boolean(erro)} aria-describedby={erro ? `${id}-erro` : temIdade ? `${id}-idade` : undefined} />
       </div>
-      <div className="mn-date-feedback" aria-live="polite" aria-atomic="true">
+      <div className={`mn-date-feedback ${erro ? 'mn-date-feedback--error' : ''}`} aria-live="polite" aria-atomic="true">
         {temIdade && <p key={value} className="mn-date-age" id={`${id}-idade`}>você tem {idade} {idade === 1 ? 'ano' : 'anos'}</p>}
         {erro && <p className="mn-input-error" id={`${id}-erro`} role="alert">{erro}</p>}
       </div>

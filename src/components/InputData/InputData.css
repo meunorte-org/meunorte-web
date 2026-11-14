@@ -33,6 +33,7 @@
 }
 .mn-date-input--selected .mn-date-input__label { left: 33px; top: -5px; transform: translateY(0); color: #ccf02a; font-size: 14px; }
 .mn-date-feedback { min-height: 73px; padding-top: 30px; overflow: hidden; }
+.mn-date-feedback--error { padding-top: 0; }
 .mn-date-age {
   width: calc(100% - 48px);
   min-height: 43px;

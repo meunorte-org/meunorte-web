@@ -4,6 +4,9 @@ import { orientationSample, shortestAngle } from './orientation.mjs'
 import './MascoteNo.css'
 import BotaoAtivarBussola from '../BotaoAtivarBussola/BotaoAtivarBussola.jsx'
 
+// Mantém a autorização ao trocar de tela, sem presumir permissão após recarregar o site.
+let movimentoAutorizado = false
+
 // SVG local do Figma: somente a camada Ponteiro recebe o movimento.
 export default function MascoteNo({ animarEntrada = true }) {
   const root = useRef(null)
@@ -16,7 +19,7 @@ export default function MascoteNo({ animarEntrada = true }) {
       if (!window.isSecureContext || typeof window.DeviceOrientationEvent === 'undefined') {
         setPhase('unavailable')
       } else {
-        setPhase(typeof window.DeviceOrientationEvent.requestPermission === 'function'
+        setPhase(!movimentoAutorizado && typeof window.DeviceOrientationEvent.requestPermission === 'function'
           ? 'permission' : 'listening')
       }
     }, animarEntrada ? 4200 : 0)
@@ -103,6 +106,7 @@ export default function MascoteNo({ animarEntrada = true }) {
   async function activate() {
     try {
       const result = await window.DeviceOrientationEvent.requestPermission()
+      if (result === 'granted') movimentoAutorizado = true
       return result === 'granted' ? 'listening' : 'denied'
     } catch {
       return 'denied'
