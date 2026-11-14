@@ -28,8 +28,18 @@ jobs:
         run: npm ci
       - name: Verificar código
         run: npm run lint
+      - name: Verificar autenticação
+        run: npm run test:auth
       - name: Gerar site
-        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          if [ -z "$VITE_SUPABASE_URL" ] || [ -z "$VITE_SUPABASE_PUBLISHABLE_KEY" ]; then
+            echo "::error::Configure VITE_SUPABASE_URL e VITE_SUPABASE_PUBLISHABLE_KEY nas variáveis do repositório antes de publicar."
+            exit 1
+          fi
+          npm run build
       - name: Configurar Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
       - name: Preparar publicação

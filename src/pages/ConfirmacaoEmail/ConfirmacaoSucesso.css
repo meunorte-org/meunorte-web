@@ -1,0 +1,48 @@
+.mn-auth-flow { position: relative; min-height: 100svh; background: #fff; }
+.mn-confirmed.mn-mobile-screen {
+  --mn-confirmed-center: max(48px, calc(50svh - 106px));
+  --mn-confirmed-start: max(117px, calc(env(safe-area-inset-top, 0px) + 48px));
+  min-height: 100svh;
+  padding: 0 env(safe-area-inset-right, 0px) 0 env(safe-area-inset-left, 0px);
+  background: #2f44da;
+  color: #ccf02a;
+}
+.mn-confirmed__content { padding: var(--mn-confirmed-center) 24px max(48px, env(safe-area-inset-bottom, 0px)); }
+.mn-confirmed__symbol { position: relative; width: 97px; height: 87px; margin-inline: auto; transform: translateY(calc(var(--mn-confirmed-start) - var(--mn-confirmed-center))); }
+.mn-confirmed__symbol img { position: absolute; left: 0; bottom: 0; max-width: none; }
+.mn-confirmed__closed { opacity: 0; }
+.mn-confirmed__message {
+  width: min(100%, 230px);
+  min-height: 85px;
+  margin: 19px auto 0;
+  color: #ccf02a;
+  font: 400 clamp(2rem, 10.256vw, 2.5rem)/.916 'Futura Display', sans-serif;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-91px);
+}
+.mn-confirmed__message:focus { outline: none; }
+.mn-confirmed__status { position: absolute; top: calc(var(--mn-confirmed-start) + 111px); left: 24px; right: 24px; margin: 0; color: #fff; text-align: center; font-size: 16px; line-height: 1.5; }
+.mn-confirmed--verified { position: absolute; inset: 0 0 auto; z-index: 2; animation: mn-confirmed-exit 900ms ease-out 2450ms both; }
+.mn-confirmed--verified .mn-confirmed__symbol { animation: mn-confirmed-center 650ms ease-out both; }
+.mn-confirmed--verified .mn-confirmed__open { animation: mn-confirmed-open-close 200ms ease-out 850ms both; }
+.mn-confirmed--verified .mn-confirmed__closed { animation: mn-confirmed-closed-appear 200ms ease-out 850ms both; }
+.mn-confirmed--verified .mn-confirmed__message { animation: mn-confirmed-message 400ms ease-out 1350ms both; }
+.mn-confirmed--verified .mn-confirmed__status { width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@keyframes mn-confirmed-center {
+  from { transform: translateY(calc(var(--mn-confirmed-start) - var(--mn-confirmed-center))); }
+  to { transform: translateY(0); }
+}
+@keyframes mn-confirmed-open-close { from { opacity: 1; } to { opacity: 0; } }
+@keyframes mn-confirmed-closed-appear { from { opacity: 0; } to { opacity: 1; } }
+@keyframes mn-confirmed-message { from { opacity: 0; transform: translateY(-91px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes mn-confirmed-exit { from { transform: translateX(0); } to { transform: translateX(-100vw); } }
+@media (prefers-reduced-motion: reduce) {
+  .mn-confirmed__symbol { transform: none; }
+  .mn-confirmed--verified { animation-name: mn-confirmed-exit-reduced; }
+  .mn-confirmed--verified .mn-confirmed__symbol { animation-name: mn-confirmed-center-reduced; }
+  .mn-confirmed--verified .mn-confirmed__message { animation-name: mn-confirmed-message-reduced; }
+}
+@keyframes mn-confirmed-center-reduced { from { opacity: .6; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes mn-confirmed-message-reduced { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes mn-confirmed-exit-reduced { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-24px); } }

@@ -1,0 +1,9 @@
+.mn-internal-draft { display: flex; align-items: center; min-height: 100svh; background: #fff; color: #242c3d; }
+.mn-internal-draft__content { padding-block: 24px; }
+.mn-internal-draft__brand { margin: 0 0 24px; font: 400 42px/1 'Futura Display', sans-serif; color: #334aee; }
+.mn-internal-draft h1 { margin: 0 0 24px; font-size: clamp(2.25rem, 10vw, 3rem); line-height: 1.15; }
+.mn-internal-draft h1:focus { outline: none; }
+.mn-internal-draft p { font-size: 16px; line-height: 1.6; }
+.mn-internal-draft button { margin-top: 20px; padding: 12px 20px; min-height: var(--mn-touch-min); border: 2px solid #334aee; border-radius: 16px; background: #fff; color: #273fcb; cursor: pointer; }
+.mn-internal-draft button:focus-visible { outline: 3px solid #334aee; outline-offset: 4px; }
+.mn-internal-draft button:disabled { opacity: .6; cursor: default; }

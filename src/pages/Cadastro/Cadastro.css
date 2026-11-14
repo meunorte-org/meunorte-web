@@ -72,6 +72,81 @@
 .mn-signup-form--password h2 { min-height: 37px; margin: -7px 0 34px; }
 .mn-signup-confirmation { min-height: 104px; }
 .mn-signup-form--password .mn-signup-actions { margin-top: 4px; }
+.mn-signup-form--consent { padding-top: 9px; }
+.mn-signup:has(.mn-signup-form--consent) .mn-signup-panel { min-height: 0; }
+.mn-signup-form--consent h2 {
+  max-width: 327px;
+  margin: 0 auto 17px;
+  font-size: clamp(1.5rem, 7.692vw, 2rem);
+  line-height: 1.14;
+}
+.mn-signup-consent-text {
+  max-width: 326px;
+  min-height: 91px;
+  margin: 0 auto;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+  text-align: center;
+}
+.mn-signup-document {
+  display: inline;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.mn-signup-document:focus-visible { outline: 2px solid #ccf02a; outline-offset: 3px; border-radius: 2px; }
+.mn-signup-consent-actions { display: flex; flex-direction: column; gap: 21px; margin: 43px 4px 0; }
+.mn-app .mn-signup-consent-actions .mn-welcome-button {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 55px;
+  border-radius: 60px;
+}
+.mn-signup-consent-actions .mn-welcome-button__surface {
+  min-height: 55px;
+  padding: 11px clamp(12px, 5.128vw, 20px) 13px;
+  border: 0;
+  gap: 16px;
+  font-size: clamp(1rem, 5.128vw, 1.25rem);
+  line-height: 1.05;
+  white-space: normal;
+  box-shadow: none;
+}
+.mn-signup-consent-actions .mn-welcome-button--criar-conta {
+  --mn-button-fill: #ccf02a;
+  --mn-button-text: #334aee;
+}
+.mn-signup-consent-actions .mn-welcome-button--criar-conta .mn-welcome-button__surface { padding-left: 29px; }
+.mn-signup-consent-actions .mn-welcome-button--cancelar-cadastro {
+  --mn-button-fill: #2f44da;
+  --mn-button-border: #fff;
+  --mn-button-text: #fff;
+}
+.mn-signup-consent-actions .mn-welcome-button--cancelar-cadastro .mn-welcome-button__surface {
+  border: 4.15px solid #fff;
+  padding-block: 7px 9px;
+  padding-inline: clamp(12px, 7.436vw, 29px) clamp(12px, 10.256vw, 40px);
+  gap: clamp(12px, 6.923vw, 27px);
+  box-shadow: -5px 5px 0 #fff;
+}
+.mn-signup-consent-actions .mn-welcome-button--cancelar-cadastro:active:not(:disabled) .mn-welcome-button__surface { box-shadow: -1px 1px 0 #fff; }
+.mn-signup-consent-actions .mn-welcome-button:focus-visible { outline-color: #fff; }
+.mn-signup-consent-arrow { position: relative; flex: 0 0 30.5px; height: 14.5px; }
+.mn-signup-consent-arrow img { position: absolute; left: -2.05875px; top: -2.06045px; max-width: none; }
+.mn-signup-cancel-arrow { position: relative; flex: 0 0 31px; height: 20.793px; }
+.mn-signup-cancel-arrow img { position: absolute; left: -3.286px; top: -2px; max-width: none; }
+.mn-signup-consent-status { margin: 26px 4px 0; color: #fff; font-size: 14px; line-height: 1.5; }
+.mn-signup-consent-status:empty { display: none; }
 .mn-signup-step--enter { animation: mn-signup-text-enter 400ms cubic-bezier(.22, 1, .36, 1) both; }
 @keyframes mn-signup-text-enter {
   from { opacity: 0; transform: translateX(-54px); }

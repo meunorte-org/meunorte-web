@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="97" height="74" viewBox="0 0 97 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="S&#195;&#173;mbolo- email">
+<g id="envelope">
+<path d="M0 19H97V64C97 69.5228 92.5229 74 87 74H10C4.47715 74 0 69.5228 0 64V19Z" fill="#CCF02A"/>
+<mask id="stroke0_0_4" fill="white">
+<path d="M0 19H97V64C97 69.5228 92.5229 74 87 74H10C4.47715 74 0 69.5228 0 64V19Z"/>
+</mask>
+<path d="M0 19H97V64C97 69.5228 92.5228 74 87 74H10C4.47715 74 0 69.5228 0 64V19Z" stroke-width="8" stroke="#CCF02A" mask="url(#stroke0_0_4)"/>
+</g>
+<path id="fecho" d="M2 18.2156V16.9005V12C2 6.47715 6.47715 2 12 2H85C90.5228 2 95 6.47715 95 12V16.9005V18.3392C95 21.9041 93.1022 25.1994 90.0189 26.9886L55.3952 47.0793C51.7393 49.2006 47.2371 49.2422 43.5427 47.1887L7.14176 26.9561C3.96812 25.1922 2 21.8465 2 18.2156Z" fill="#334AEE" stroke-width="4" stroke="#CCF02A"/>
+</g>
+</svg>

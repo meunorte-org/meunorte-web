@@ -1,0 +1,44 @@
+.mn-email-confirmation.mn-mobile-screen {
+  padding: 0 env(safe-area-inset-right, 0px) 0 env(safe-area-inset-left, 0px);
+  background: #2f44da;
+  color: #fff;
+}
+.mn-email-confirmation__content { position: relative; padding: max(117px, calc(env(safe-area-inset-top, 0px) + 48px)) 24px max(48px, env(safe-area-inset-bottom, 0px)) 34px; }
+.mn-email-confirmation__back { position: absolute; left: 33px; top: max(92px, env(safe-area-inset-top, 0px)); width: 50px; height: 50px; padding: 0; border: 0; border-radius: 12px; background: transparent; cursor: pointer; }
+.mn-email-confirmation__back img { max-width: none; }
+.mn-email-confirmation__envelope { margin-inline: auto; }
+.mn-email-confirmation h1 { max-width: 300px; margin: 20px auto 0; min-height: 48px; color: #ccf02a; font: 400 clamp(2rem, 10.256vw, 2.5rem)/.916 'Futura Display', sans-serif; text-align: center; }
+.mn-email-confirmation h1:focus { outline: none; }
+.mn-email-confirmation__lead { max-width: 225px; min-height: 45px; margin: 20px auto 0; color: #ccf02a; font-size: 20px; line-height: 1.01; font-weight: 400; text-align: center; }
+.mn-email-confirmation__email { display: flex; justify-content: center; align-items: center; width: min(100%, 292px); min-height: 49px; margin: 22px auto 0; padding: 12px 10px; border-radius: 10px; background: #3549df; color: #fff; font-size: 20px; font-weight: 600; line-height: 1.25; text-align: center; }
+.mn-email-confirmation__email > span { display: inline-block; flex-shrink: 0; white-space: nowrap; }
+.mn-email-confirmation__help { max-width: 321px; min-height: 52px; margin: 23px auto 0; font-size: 18px; font-weight: 300; line-height: 1.06; text-align: center; }
+.mn-email-confirmation__actions { display: flex; flex-direction: column; align-items: center; gap: 27px; margin-top: 37px; }
+.mn-app .mn-email-confirmation__actions .mn-welcome-button { width: min(100%, 259px); min-height: var(--mn-button-height); height: auto; --mn-button-fill: #2f44da; }
+.mn-email-confirmation__actions .mn-welcome-button__surface { min-height: var(--mn-button-height); padding: 11px 16px; font-size: clamp(1.375rem, 7.398vw, 1.8032rem); white-space: normal; transition: transform 128ms ease-out, box-shadow 128ms ease-out; }
+.mn-email-confirmation .mn-welcome-button--reenviar-link { --mn-button-border: #fff; --mn-button-text: #fff; }
+.mn-email-confirmation .mn-welcome-button--reenviar-link .mn-welcome-button__surface { text-decoration: underline; text-underline-offset: 4px; }
+.mn-email-confirmation .mn-welcome-button--alterar-email { --mn-button-border: #ccf02a; --mn-button-text: #ccf02a; }
+.mn-email-confirmation :is(button, a):focus-visible { outline: 3px solid #fff; outline-offset: 6px; }
+.mn-email-confirmation__preview, .mn-email-confirmation__status, .mn-email-confirmation__cooldown { max-width: 300px; margin: 24px auto 0; color: #fff; font-size: 14px; font-weight: 300; line-height: 1.5; text-align: center; }
+.mn-email-confirmation__status:empty { display: none; }
+.mn-email-confirmation__cooldown { margin-top: 12px; }
+.mn-registration-flow { position: relative; min-height: 100svh; background: #2f44da; }
+.mn-registration-flow--completing .mn-signup-progress span { transition: none; animation: mn-signup-progress-complete 500ms ease-out both; }
+.mn-registration-confirmation--enter, .mn-registration-confirmation--exit { position: absolute; inset: 0 0 auto; z-index: 2; }
+.mn-registration-confirmation--enter { animation: mn-confirmation-rise var(--mn-confirmation-duration) ease-out both; }
+.mn-registration-confirmation--exit { animation: mn-confirmation-lower var(--mn-confirmation-duration) ease-out both; }
+@keyframes mn-signup-progress-complete { from { width: var(--mn-progress-start); } to { width: 100%; } }
+@keyframes mn-confirmation-rise { from { transform: translateY(100svh); } to { transform: translateY(0); } }
+@keyframes mn-confirmation-lower { from { transform: translateY(0); } to { transform: translateY(100svh); } }
+@media (max-height: 500px) and (orientation: landscape) {
+  .mn-email-confirmation__content { padding-top: max(48px, env(safe-area-inset-top, 0px)); }
+  .mn-email-confirmation__back { top: max(24px, env(safe-area-inset-top, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mn-registration-confirmation--enter { animation-name: mn-confirmation-rise-reduced; }
+  .mn-registration-confirmation--exit { animation-name: mn-confirmation-lower-reduced; }
+  .mn-email-confirmation__actions .mn-welcome-button__surface { transition: none; }
+}
+@keyframes mn-confirmation-rise-reduced { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes mn-confirmation-lower-reduced { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(24px); } }
