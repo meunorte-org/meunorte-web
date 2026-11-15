@@ -1,11 +1,12 @@
 .mn-login {
   position: fixed;
-  inset: 0 auto auto 0;
-  width: 100%;
+  top: var(--mn-login-top, 0px);
+  left: var(--mn-login-left, 0px);
+  z-index: 1000;
+  width: var(--mn-login-width, 100%);
   max-width: none;
-  /* Altura explícita: o Safari não precisa resolver uma porcentagem no top layer. */
   height: 100vh;
-  height: 100dvh;
+  height: var(--mn-login-height, 100dvh);
   min-height: 0;
   max-height: none;
   margin: 0;
@@ -14,14 +15,12 @@
   background: transparent;
   color: #fff;
   overflow: hidden;
-}
-.mn-login[open] {
+  outline: none;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
 }
-.mn-login::backdrop { background: transparent; }
 .mn-login__panel {
   position: relative;
   flex: 0 1 auto;

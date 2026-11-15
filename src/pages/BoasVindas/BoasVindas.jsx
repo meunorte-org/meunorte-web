@@ -16,7 +16,7 @@ export default function BoasVindas({ onComecar, onEntrar, onAutenticado, animarE
   return (
     <>
     {saindoParaInterna && <div className="mn-login-destination" aria-hidden="true" inert><InternaRascunho bloqueado /></div>}
-    <main className={`mn-welcome ${animarEntrada ? '' : 'mn-welcome--static'} ${classeRetorno} ${saindoParaInterna ? 'mn-welcome--login-exit' : ''}`} data-retorno={animarRetorno} aria-labelledby="welcome-title" inert={saindoParaInterna}>
+    <main className={`mn-welcome ${animarEntrada ? '' : 'mn-welcome--static'} ${classeRetorno} ${saindoParaInterna ? 'mn-welcome--login-exit' : ''}`} data-retorno={animarRetorno} aria-labelledby="welcome-title" inert={loginAberto || saindoParaInterna}>
       <div className="mn-welcome__content">
         <div className="mn-welcome__mascot">
           <MascoteNo animarEntrada={animarEntrada} />

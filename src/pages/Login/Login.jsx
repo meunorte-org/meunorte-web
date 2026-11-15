@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import InputDigitacao from '../../components/InputDigitacao/InputDigitacao.jsx'
 import InputSenha from '../../components/InputSenha/InputSenha.jsx'
 import BotaoBoasVindas from '../../components/BotaoBoasVindas/BotaoBoasVindas.jsx'
@@ -25,14 +26,34 @@ export default function Login({ onFechar, onEntrar, onAutenticado, onIniciarSaid
   useEffect(() => {
     montado.current = true
     focoAnterior.current ??= document.activeElement
-    const overflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    dialogo.current.showModal()
-    // Foca o título sem abrir o teclado antes de a pessoa escolher um campo.
-    dialogo.current.querySelector('h2').focus({ preventScroll: true })
+    const scrollX = window.scrollX
+    const scrollY = window.scrollY
+    const propriedades = ['overflow', 'position', 'top', 'left', 'width']
+    const estilos = propriedades.map(nome => [nome, document.body.style[nome]])
+    Object.assign(document.body.style, { overflow: 'hidden', position: 'fixed', top: `${-scrollY}px`, left: `${-scrollX}px`, width: '100%' })
+    const viewport = window.visualViewport
+    function ajustarViewport() {
+      const modal = dialogo.current
+      if (!modal) return
+      modal.style.setProperty('--mn-login-height', `${viewport?.height ?? window.innerHeight}px`)
+      modal.style.setProperty('--mn-login-width', `${viewport?.width ?? window.innerWidth}px`)
+      modal.style.setProperty('--mn-login-top', `${viewport?.offsetTop ?? 0}px`)
+      modal.style.setProperty('--mn-login-left', `${viewport?.offsetLeft ?? 0}px`)
+    }
+    ajustarViewport()
+    viewport?.addEventListener('resize', ajustarViewport)
+    viewport?.addEventListener('scroll', ajustarViewport)
+    window.addEventListener('resize', ajustarViewport)
+    // O foco fica fora do painel animado. Focar o conteúdo durante translateY
+    // permite ao iOS rolar o modal para alcançar o elemento ainda fora da tela.
+    dialogo.current.focus({ preventScroll: true })
     return () => {
       montado.current = false
-      document.body.style.overflow = overflow
+      viewport?.removeEventListener('resize', ajustarViewport)
+      viewport?.removeEventListener('scroll', ajustarViewport)
+      window.removeEventListener('resize', ajustarViewport)
+      for (const [nome, valor] of estilos) document.body.style[nome] = valor
+      window.scrollTo({ left: scrollX, top: scrollY, behavior: 'instant' })
       focoAnterior.current?.focus({ preventScroll: true })
     }
   }, [])
@@ -46,6 +67,26 @@ export default function Login({ onFechar, onEntrar, onAutenticado, onIniciarSaid
   function fechar() {
     if (ocupado.current || fase !== 'aberto') return
     setFase('fechando')
+  }
+
+  function controlarTeclado(event) {
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      fechar()
+    }
+    if (event.key !== 'Tab') return
+    const elementos = [...dialogo.current.querySelectorAll('button:not(:disabled), input:not(:disabled), a[href]')]
+      .filter(elemento => elemento.getClientRects().length > 0)
+    const primeiro = elementos[0]
+    const ultimo = elementos.at(-1)
+    if (!primeiro) { event.preventDefault(); return }
+    if (event.shiftKey && (document.activeElement === primeiro || document.activeElement === dialogo.current)) {
+      event.preventDefault()
+      ultimo.focus()
+    } else if (!event.shiftKey && (document.activeElement === ultimo || document.activeElement === dialogo.current)) {
+      event.preventDefault()
+      primeiro.focus()
+    }
   }
 
   function iniciarArrasto(event) {
@@ -96,9 +137,9 @@ export default function Login({ onFechar, onEntrar, onAutenticado, onIniciarSaid
     }
   }
 
-  return (
-    <dialog ref={dialogo} className={`mn-login mn-login--${fase}`} aria-labelledby="login-title"
-      onCancel={event => { event.preventDefault(); fechar() }}
+  return createPortal(
+    <div ref={dialogo} className={`mn-login mn-login--${fase}`} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby="login-title"
+      onKeyDown={controlarTeclado}
       onClick={event => { if (event.target === event.currentTarget) fechar() }}>
       <section ref={painel} className="mn-login__panel" aria-busy={enviando}
         onAnimationEnd={event => {
@@ -134,6 +175,6 @@ export default function Login({ onFechar, onEntrar, onAutenticado, onIniciarSaid
           </div>
         </form>
       </section>
-    </dialog>
+    </div>, document.body
   )
 }
