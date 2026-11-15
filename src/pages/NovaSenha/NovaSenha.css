@@ -1,0 +1,31 @@
+.mn-new-password.mn-mobile-screen { background: #2f44da; color: #ccf02a; padding: 0 24px max(40px, env(safe-area-inset-bottom, 0px)); font-variation-settings: "HEXP" 0; }
+.mn-new-password__content { position: relative; display: flow-root; }
+.mn-new-password__back { position: absolute; top: 92px; left: 9px; width: 50px; height: 50px; border: 0; padding: 0; background: transparent; cursor: pointer; }
+.mn-new-password__back img { max-width: none; }
+.mn-new-password__lock { position: relative; width: 83px; height: 75px; margin: 117px auto 0; transition: margin-top 650ms ease-out; }
+.mn-new-password__lock img { position: absolute; top: -4.016px; max-width: none; }
+.mn-new-password__open { left: -16.064px; }
+.mn-new-password__closed { left: 12.048px; opacity: 0; }
+.mn-new-password h1 { margin: 21px auto 0; min-height: 48px; text-align: center; font: 400 clamp(32px, 10.256vw, 40px)/.916 'Futura Display', sans-serif; outline: none; }
+.mn-new-password__description { max-width: 312px; min-height: 45px; margin: 8px auto 0; text-align: center; font-size: 20px; font-weight: 500; line-height: 1.05; }
+.mn-new-password__description strong { font-weight: 600; }
+.mn-new-password form { margin-top: 34px; }
+.mn-new-password__rules { margin: 10px 30px 15px; min-height: 39px; font-size: 12px; font-weight: 300; line-height: 1.5; }
+.mn-new-password__rules p { display: flex; align-items: center; gap: 6px; margin: 0; color: rgb(217 217 217 / 60%); }
+.mn-new-password__rules img { flex-shrink: 0; }
+.mn-new-password__rules .mn-new-password__rule--ok { color: #ccf02a; }
+.mn-new-password__actions { display: flex; justify-content: center; margin-top: 50px; padding-inline: 5px; }
+.mn-new-password .mn-welcome-button--nova-senha { --mn-button-border: #ccf02a; --mn-button-text: #ccf02a; --mn-button-fill: #334aee; width: 222.8px; }
+.mn-new-password button:focus-visible { outline: 2px solid #ccf02a; outline-offset: 4px; }
+.mn-new-password__error { margin: 16px 20px 0; color: #fff; font-size: 14px; line-height: 1.4; }
+.mn-new-password--sucesso .mn-new-password__lock { margin-top: 277px; }
+.mn-new-password--sucesso .mn-new-password__open { animation: mn-lock-open-out 200ms ease-out 650ms both; }
+.mn-new-password--sucesso .mn-new-password__closed { animation: mn-lock-closed-in 200ms ease-out 650ms both; }
+.mn-new-password--sucesso h1 { width: 180px; line-height: 1.05; animation: mn-password-success-text 500ms ease-out 1450ms both; }
+.mn-new-password__success { display: flex; justify-content: center; margin-top: 36px; padding-bottom: 40px; animation: mn-password-success-text 500ms ease-out 1450ms both; }
+.mn-new-password__success .mn-welcome-button__surface { --mn-button-fill: #2f44da; gap: 15px; }
+@keyframes mn-lock-open-out { to { opacity: 0; } }
+@keyframes mn-lock-closed-in { to { opacity: 1; } }
+@keyframes mn-password-success-text { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-height: 600px) { .mn-new-password__lock { margin-top: 60px; } .mn-new-password__back { top: 35px; } .mn-new-password--sucesso .mn-new-password__lock { margin-top: 100px; } }
+@media (prefers-reduced-motion: reduce) { .mn-new-password__lock { transition: none; } .mn-new-password--sucesso .mn-new-password__open { opacity: 0; animation: none; } .mn-new-password--sucesso .mn-new-password__closed { opacity: 1; animation: none; } .mn-new-password--sucesso h1, .mn-new-password__success { animation: none; } }

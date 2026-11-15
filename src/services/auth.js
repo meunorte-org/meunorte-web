@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabaseClient.js'
+import { supabase, contextoRecuperacao } from '../lib/supabaseClient.js'
 
 const MENSAGENS = {
   invalid_credentials: 'E-mail ou senha incorretos. Confira os dados e tente novamente.',
@@ -24,7 +24,7 @@ export function urlRetornoConfirmacao(origem = window.location.origin, base = im
   return url.href
 }
 
-export function criarServicoAuth(cliente, obterRetorno = urlRetornoConfirmacao) {
+export function criarServicoAuth(cliente, obterRetorno = urlRetornoConfirmacao, obterContextoRecuperacao = contextoRecuperacao) {
   function auth() {
     if (!cliente) throw erroPublico(null, 'O cadastro ainda não está disponível. Entre em contato com a equipe MeuNorte.')
     return cliente.auth
@@ -118,7 +118,48 @@ export function criarServicoAuth(cliente, obterRetorno = urlRetornoConfirmacao) 
     }
   }
 
-  return { cadastrar, reenviarConfirmacao, verificarConfirmacao, sair, emailJaCadastrado, entrar }
+  async function recuperarSenha(email) {
+    try {
+      const url = new URL(obterRetorno())
+      url.searchParams.set('auth', 'recuperacao')
+      const { error } = await auth().resetPasswordForEmail(email.trim().toLowerCase(), { redirectTo: url.href })
+      if (error) throw erroPublico(error, 'Não foi possível solicitar o link. Tente novamente.')
+      return { requestAccepted: true }
+    } catch (erro) {
+      if (erro.mensagemPublica) throw erro
+      throw erroPublico(null, 'Não foi possível solicitar o link. Confira sua conexão e tente novamente.')
+    }
+  }
+
+  async function verificarRecuperacao() {
+    try {
+      const { data, error } = await auth().getSession()
+      const contexto = obterContextoRecuperacao()
+      if (error || !data?.session || contexto.erro || !contexto.recuperacao || !contexto.usuarioRecuperacaoId) throw new Error('Link inválido')
+      const usuario = await auth().getUser()
+      if (usuario.error || usuario.data?.user?.id !== contexto.usuarioRecuperacaoId) throw new Error('Sessão inválida')
+      return { email: usuario.data.user.email }
+    } catch {
+      throw erroPublico(null, 'Este link é inválido ou expirou. Solicite um novo link de recuperação.')
+    }
+  }
+
+  async function atualizarSenha(password) {
+    if (Array.from(password).length < 8) throw erroPublico(null, 'Use pelo menos 8 caracteres na nova senha.')
+    await verificarRecuperacao()
+    try {
+      const { data, error } = await auth().updateUser({ password })
+      if (error?.code === 'same_password') throw erroPublico(null, 'Escolha uma senha diferente da anterior.')
+      if (error?.code === 'weak_password') throw erroPublico(null, 'A nova senha não atende às regras de segurança.')
+      if (error || !data?.user) throw erroPublico(error, 'Não foi possível criar sua nova senha. Tente novamente.')
+      return { passwordUpdated: true }
+    } catch (erro) {
+      if (erro.mensagemPublica) throw erro
+      throw erroPublico(null, 'Não foi possível criar sua nova senha. Confira sua conexão e tente novamente.')
+    }
+  }
+
+  return { cadastrar, reenviarConfirmacao, verificarConfirmacao, sair, emailJaCadastrado, entrar, recuperarSenha, verificarRecuperacao, atualizarSenha }
 }
 
 export const servicoAuth = criarServicoAuth(supabase)

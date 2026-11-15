@@ -7,9 +7,10 @@ import { emailValido } from '../Cadastro/dadosCadastro.js'
 import arrasto from '../../assets/icons/login-arrasto.svg'
 import seta from '../../assets/icons/login-seta.svg'
 import olho from '../../assets/icons/login-olho.svg'
+import voltar from '../../assets/icons/recuperacao-voltar.svg'
 import './Login.css'
 
-export default function Login({ onFechar, onEntrar, onAutenticado, onIniciarSaida }) {
+export default function Login({ onFechar, onEntrar, onAutenticado, onIniciarSaida, onRecuperarSenha }) {
   const dialogo = useRef(null)
   const painel = useRef(null)
   const arrastando = useRef(null)
@@ -21,7 +22,36 @@ export default function Login({ onFechar, onEntrar, onAutenticado, onIniciarSaid
   const [senha, setSenha] = useState('')
   const [erro, setErro] = useState('')
   const [enviando, setEnviando] = useState(false)
-  const [avisoRecuperacao, setAvisoRecuperacao] = useState(false)
+  const [conteudo, setConteudo] = useState('login')
+  const [trocaConteudo, setTrocaConteudo] = useState(null)
+  const [linkSolicitado, setLinkSolicitado] = useState(false)
+  const [aguardar, setAguardar] = useState(0)
+
+  useEffect(() => {
+    if (!trocaConteudo) return
+    const timer = setTimeout(() => {
+      if (trocaConteudo.etapa === 'sair') {
+        setConteudo(trocaConteudo.destino)
+        setTrocaConteudo({ ...trocaConteudo, etapa: 'entrar' })
+      } else setTrocaConteudo(null)
+    }, 200)
+    return () => clearTimeout(timer)
+  }, [trocaConteudo])
+
+  useEffect(() => {
+    if (!aguardar) return
+    const timer = setTimeout(() => setAguardar(valor => valor - 1), 1000)
+    return () => clearTimeout(timer)
+  }, [aguardar])
+
+  function trocarConteudo(destino) {
+    if (ocupado.current || trocaConteudo || fase !== 'aberto') return
+    dialogo.current.focus({ preventScroll: true })
+    painel.current.scrollTop = 0
+    setSenha('')
+    setErro('')
+    setTrocaConteudo({ destino, etapa: 'sair' })
+  }
 
   useEffect(() => {
     montado.current = true
@@ -118,6 +148,22 @@ export default function Login({ onFechar, onEntrar, onAutenticado, onIniciarSaid
 
   async function enviar(event) {
     event.preventDefault()
+    if (conteudo === 'recuperacao') {
+      if (!emailValido(email) || ocupado.current || aguardar || trocaConteudo || fase !== 'aberto') return
+      ocupado.current = true
+      setEnviando(true)
+      setErro('')
+      try {
+        await onRecuperarSenha(email)
+        if (montado.current) { setLinkSolicitado(true); setAguardar(60) }
+      } catch (falha) {
+        if (montado.current) setErro(falha.mensagemPublica ?? 'Não foi possível solicitar o link. Tente novamente.')
+      } finally {
+        ocupado.current = false
+        if (montado.current) setEnviando(false)
+      }
+      return
+    }
     if (!emailValido(email) || !senha || ocupado.current || fase !== 'aberto') return
     ocupado.current = true
     setEnviando(true)
@@ -153,6 +199,24 @@ export default function Login({ onFechar, onEntrar, onAutenticado, onIniciarSaid
           onClick={event => { if (event.detail === 0) fechar() }}>
           <img src={arrasto} alt="" width="137" height="25" draggable="false" />
         </button>
+        <div className={`mn-login__content mn-login__content--${conteudo} ${trocaConteudo ? `mn-login__content--${trocaConteudo.etapa}` : ''}`} inert={Boolean(trocaConteudo)}>
+        {conteudo === 'recuperacao' ? <>
+          <button type="button" className="mn-login__back" aria-label="Voltar para login" disabled={enviando} onClick={() => trocarConteudo('login')}><img src={voltar} alt="" width="50" height="50" /></button>
+          <h2 id="login-title" tabIndex={-1}>Esqueceu sua senha?</h2>
+          <p className="mn-login__recovery-description">Informe seu e-mail para receber um link de recuperação:</p>
+          <form onSubmit={enviar}>
+            <InputDigitacao id="recuperacao-email" name="email" type="email" rotulo="Digite seu e-mail" value={email}
+              onChange={event => { setEmail(event.target.value); setErro(''); setLinkSolicitado(false) }}
+              autoComplete="email" autoCapitalize="none" maxLength={254} required disabled={enviando} erro={erro} />
+            {linkSolicitado && <p role="status" className="mn-login__notice">Se houver uma conta com este e-mail, você receberá um link para criar uma nova senha. Confira também o spam.</p>}
+            <div className="mn-login__actions">
+              <BotaoBoasVindas type="submit" variante="entrar" className="mn-login__send-link" disabled={!emailValido(email) || enviando || aguardar > 0}>
+                <span>{enviando ? 'enviando…' : aguardar ? `aguarde ${aguardar}s` : 'enviar link'}</span>
+                {!enviando && !aguardar && <span className="mn-welcome-button__arrow" aria-hidden="true"><img src={seta} alt="" width="34.4005" height="18.62" /></span>}
+              </BotaoBoasVindas>
+            </div>
+          </form>
+        </> : <>
         <h2 id="login-title" tabIndex={-1}>Bem-Vindo(a) de Volta!</h2>
         <form onSubmit={enviar}>
           <InputDigitacao id="login-email" name="email" rotulo="Digite seu e-mail" type="email" autoComplete="username"
@@ -164,9 +228,8 @@ export default function Login({ onFechar, onEntrar, onAutenticado, onIniciarSaid
               enterKeyHint="go" iconeOculto={olho} disabled={enviando || fase !== 'aberto'}
               animarErro rotuloErro="Confira seus dados" erro={erro} />
             <button type="button" className="mn-login__forgot" disabled={enviando || fase !== 'aberto'}
-              onClick={() => setAvisoRecuperacao(true)}>esqueceu sua senha?</button>
+              onClick={() => trocarConteudo('recuperacao')}>esqueceu sua senha?</button>
           </div>
-          {avisoRecuperacao && <p className="mn-login__notice" role="status">A recuperação de senha ainda está indisponível. Se precisar de ajuda, fale com <a href="mailto:admeunorte@gmail.com">admeunorte@gmail.com</a>.</p>}
           <div className="mn-login__actions">
             <BotaoBoasVindas type="submit" variante="entrar" disabled={!emailValido(email) || !senha || enviando || fase !== 'aberto'}>
               <span>{enviando ? 'entrando…' : 'entrar'}</span>
@@ -174,6 +237,8 @@ export default function Login({ onFechar, onEntrar, onAutenticado, onIniciarSaid
             </BotaoBoasVindas>
           </div>
         </form>
+        </>}
+        </div>
       </section>
     </div>, document.body
   )

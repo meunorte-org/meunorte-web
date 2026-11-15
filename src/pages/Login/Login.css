@@ -14,12 +14,28 @@
   border: 0;
   background: transparent;
   color: #fff;
-  overflow: hidden;
+  overflow: visible;
   outline: none;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+}
+/* As barras translúcidas do iOS podem revelar a região abaixo do visualViewport.
+   Prolonga apenas o fundo; os campos continuam limitados e rolando no painel. */
+.mn-login::before {
+  content: '';
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  right: 0;
+  z-index: -1;
+  width: min(100%, var(--mn-screen-width));
+  height: 100vh;
+  height: 100lvh;
+  margin-inline: auto;
+  background: #2f44da;
+  pointer-events: none;
 }
 .mn-login__panel {
   position: relative;
@@ -54,6 +70,19 @@
 .mn-login__handle img { flex: none; max-width: none; pointer-events: none; }
 .mn-login__panel--dragging { transition: none; }
 .mn-login__panel--dragging .mn-login__handle { cursor: grabbing; }
+.mn-login__handle { position: sticky; top: 4px; z-index: 2; background: #2f44da; }
+.mn-login__content { position: relative; display: flow-root; }
+.mn-login__content--sair { animation: mn-login-content-out 200ms ease-out both; }
+.mn-login__content--entrar { animation: mn-login-content-in 200ms ease-out both; }
+.mn-login__back { position: absolute; top: -41px; left: 3px; width: 50px; height: 50px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.mn-login__back img { max-width: none; }
+.mn-login .mn-login__content--recuperacao h2 { margin-top: 19px; }
+.mn-login__recovery-description { margin: 13px 11px 0; min-height: 45px; color: #ccf02a; text-align: center; font-size: 20px; font-weight: 500; line-height: 1.05; }
+.mn-login .mn-login__content--recuperacao form { margin-top: 36px; }
+.mn-login__content--recuperacao .mn-login__actions { margin-top: 52px; }
+.mn-login .mn-welcome-button.mn-login__send-link { width: 253.8px; }
+@keyframes mn-login-content-out { to { opacity: 0; transform: translateX(-18px); } }
+@keyframes mn-login-content-in { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: translateX(0); } }
 .mn-login h2 {
   margin: 13px -1px 0;
   min-height: 48px;
@@ -98,6 +127,7 @@
 .mn-welcome--login-exit { position: relative; }
 /* O mesmo keyframe começa no mesmo render para o fundo e o painel. */
 .mn-login--sucesso .mn-login__panel,
+.mn-login--sucesso::before,
 .mn-welcome--login-exit { animation: mn-login-success 900ms ease-out both; }
 @keyframes mn-login-enter { from { transform: translateY(100%); } to { transform: translateY(0); } }
 @keyframes mn-login-close { from { transform: translateY(var(--mn-login-drag, 0px)); } to { transform: translateY(100%); } }
@@ -106,8 +136,10 @@
   .mn-login__panel { min-height: 0; padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mn-login__content--sair, .mn-login__content--entrar { animation: none; }
   .mn-login__panel { animation-duration: 120ms; transition-duration: 120ms; }
   .mn-login--fechando .mn-login__panel, .mn-login--sucesso .mn-login__panel,
+  .mn-login--sucesso::before,
   .mn-welcome--login-exit { animation-duration: 120ms; }
   @keyframes mn-login-enter { from { opacity: 0; } to { opacity: 1; } }
   @keyframes mn-login-close { from { opacity: 1; } to { opacity: 0; } }

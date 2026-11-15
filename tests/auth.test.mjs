@@ -5,6 +5,49 @@ import { criarServicoAuth, urlRetornoConfirmacao } from '../src/services/auth.js
 const dados = { full_name: ' Pessoa Teste ', birth_date: '2000-01-15', education_level: 'medio_concluido', email: ' PESSOA@example.com ', password: 'SenhaDeTeste123!' }
 const retorno = () => 'https://meunorte-org.github.io/meunorte-web/?auth=confirmacao'
 
+test('recuperação envia endereço normalizado e retorno próprio, preservando subpasta', async () => {
+  let recebido
+  const servico = criarServicoAuth({ auth: { resetPasswordForEmail: async (...args) => { recebido = args; return {} } } }, retorno)
+  assert.deepEqual(await servico.recuperarSenha(' PESSOA@example.com '), { requestAccepted: true })
+  assert.deepEqual(recebido, ['pessoa@example.com', { redirectTo: 'https://meunorte-org.github.io/meunorte-web/?auth=recuperacao' }])
+})
+
+test('falha no envio de recuperação não é apresentada como link enviado', async () => {
+  const servico = criarServicoAuth({ auth: { resetPasswordForEmail: async () => ({ error: { code: 'over_request_rate_limit' } }) } }, retorno)
+  await assert.rejects(servico.recuperarSenha('pessoa@example.com'), erro => erro.mensagemPublica.includes('tentativas'))
+})
+
+function authRecuperacao(overrides = {}, contexto = { recuperacao: true, usuarioRecuperacaoId: 'pessoa' }) {
+  return criarServicoAuth({ auth: {
+    getSession: async () => ({ data: { session: {} } }),
+    getUser: async () => ({ data: { user: { id: 'pessoa', email: 'pessoa@example.com' } } }),
+    updateUser: async () => ({ data: { user: { id: 'pessoa' } } }),
+    ...overrides,
+  } }, retorno, () => contexto)
+}
+
+test('somente query ou sessão antiga não permitem redefinição', async () => {
+  let atualizou = false
+  for (const contexto of [{ recuperacao: true }, { recuperacao: true, usuarioRecuperacaoId: 'outro' }, { recuperacao: true, usuarioRecuperacaoId: 'pessoa', erro: true }]) {
+    await assert.rejects(authRecuperacao({ updateUser: async () => { atualizou = true } }, contexto).atualizarSenha('NovaSenha123!'))
+  }
+  assert.equal(atualizou, false)
+})
+
+test('sessão de recuperação é validada no servidor antes de alterar senha', async () => {
+  let recebido
+  const servico = authRecuperacao({ updateUser: async valor => { recebido = valor; return { data: { user: { id: 'pessoa' } } } } })
+  assert.deepEqual(await servico.atualizarSenha('NovaSenha123!'), { passwordUpdated: true })
+  assert.deepEqual(recebido, { password: 'NovaSenha123!' })
+  await assert.rejects(authRecuperacao({ getUser: async () => ({ error: {} }) }).atualizarSenha('NovaSenha123!'))
+})
+
+test('senha anterior, curta e falhas do servidor não simulam redefinição bem-sucedida', async () => {
+  await assert.rejects(authRecuperacao().atualizarSenha('curta'))
+  await assert.rejects(authRecuperacao({ updateUser: async () => ({ error: { code: 'same_password' } }) }).atualizarSenha('NovaSenha123!'), erro => erro.mensagemPublica.includes('diferente'))
+  await assert.rejects(authRecuperacao({ updateUser: async () => { throw new Error('rede') } }).atualizarSenha('NovaSenha123!'))
+})
+
 test('login normaliza e-mail, preserva senha e exige sessão confirmada', async () => {
   let recebido
   const servico = criarServicoAuth({ auth: { signInWithPassword: async valor => {

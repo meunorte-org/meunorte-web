@@ -8,12 +8,14 @@ import DocumentoLegal from './pages/DocumentosLegais/DocumentoLegal.jsx'
 import { servicoAuth, verificacaoEmailAtiva } from './services/auth.js'
 import { retornoAuthInicial } from './lib/supabaseClient.js'
 import RetornoConfirmacao from './pages/ConfirmacaoEmail/RetornoConfirmacao.jsx'
+import NovaSenha from './pages/NovaSenha/NovaSenha.jsx'
 import './App.css'
 
 function App() {
   const { pagina, troca, entradaConcluida, navegar } = useNavegacao()
   const { documento, fecharDocumento } = useDocumentosLegais()
 
+  if (retornoAuthInicial.recuperacao) return <NovaSenha />
   if (retornoAuthInicial.ativo || retornoAuthInicial.areaInterna) return <RetornoConfirmacao />
 
   function exibirPagina(nome) {
@@ -28,7 +30,9 @@ function App() {
 
     return (
       <BoasVindas
-        animarEntrada={!entradaConcluida}
+        animarEntrada={!entradaConcluida && !retornoAuthInicial.login}
+        abrirLoginInicial={retornoAuthInicial.login}
+        onRecuperarSenha={servicoAuth.recuperarSenha}
         onComecar={() => navegar('apresentacao')}
         onEntrar={servicoAuth.entrar}
         onAutenticado={() => window.location.assign(`${window.location.pathname}?area=interna`)}

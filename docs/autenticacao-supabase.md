@@ -44,6 +44,15 @@ Um futuro trigger para perfis precisa ser testado: uma falha nele pode impedir a
 
 ## Verificação
 
+### Recuperação de senha
+
+- O painel mantém a alça montada ao trocar o conteúdo entre login e recuperação (400 ms no total). A correção de viewport do iOS é compartilhada pelos dois formulários.
+- `resetPasswordForEmail` solicita o link. A mensagem de aceite é genérica e o botão aguarda 60 segundos para permitir outro pedido.
+- O retorno usa `?auth=recuperacao`. Adicionar a URL exata em **Authentication → URL Configuration → Redirect URLs** para cada domínio utilizado, por exemplo `https://meunorteapp.com.br/?auth=recuperacao`, `https://www.meunorteapp.com.br/?auth=recuperacao` e `http://localhost:5173/?auth=recuperacao`. O GitHub Pages, se utilizado, precisa de `https://meunorte-org.github.io/meunorte-web/?auth=recuperacao`.
+- O listener é registrado no módulo do cliente antes de o SDK consumir o link. O formulário exige o evento `PASSWORD_RECOVERY`, sessão disponível e validação remota do mesmo usuário. Apenas abrir a query ou possuir uma sessão antiga não libera redefinição. Os tokens são removidos da barra de endereço depois da verificação; atualizar essa página já limpa exige solicitar um novo link.
+- `updateUser({ password })` só ocorre depois da validação. Senhas diferentes, curtas, iguais à anterior e falhas de rede não mostram sucesso. A animação do cadeado começa somente depois de a alteração ser confirmada pelo servidor.
+- Verificação local: envio, erro e sucesso por simulação; link inválido com cliente real; testes do serviço. Não foram enviados e-mails de teste nem alteradas senhas de contas reais. O fluxo de e-mail completo depende de publicar e cadastrar o retorno acima no painel.
+
 ### E-mail já cadastrado
 
 A etapa de e-mail tem estado de consulta, erro animado e bloqueio de avanço. Para ativar a consulta real, execute a migration `supabase/migrations/202611150001_email_ja_cadastrado.sql` no SQL Editor do projeto. Depois, defina `VITE_EMAIL_CHECK_ENABLED=true` no ambiente local e na variável correspondente de publicação.
@@ -56,6 +65,6 @@ Até instalar e verificar a função, a opção permanece desligada para preserv
 
 Execute `npm run test:auth`, `npm run lint` e `npm run build`. Os testes de serviço usam respostas controladas e não criam contas nem enviam mensagens. A validação inicial do projeto foi somente uma leitura de `/auth/v1/settings` com chave publicável.
 
-O teste real de ponta a ponta ainda precisa ser feito com um e-mail autorizado, incluindo criação, recebimento, abertura do link, reenvio e retorno no endereço publicado. O login e a recuperação de senha ainda não estão implementados na interface.
+O teste real de ponta a ponta da recuperação ainda precisa ser feito pelo responsável pela conta, incluindo recebimento, abertura do link, definição da nova senha e login no endereço publicado. Login e recuperação já estão implementados na interface.
 
 Referências: https://supabase.com/docs/reference/javascript/auth-signup · https://supabase.com/docs/reference/javascript/auth-resend · https://supabase.com/docs/guides/auth/redirect-urls · https://supabase.com/docs/guides/auth/auth-smtp

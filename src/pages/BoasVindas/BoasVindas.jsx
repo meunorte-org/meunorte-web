@@ -6,8 +6,8 @@ import Login from '../Login/Login.jsx'
 import InternaRascunho from '../InternaRascunho/InternaRascunho.jsx'
 import './BoasVindas.css'
 
-export default function BoasVindas({ onComecar, onEntrar, onAutenticado, animarEntrada = true }) {
-  const [loginAberto, setLoginAberto] = useState(false)
+export default function BoasVindas({ onComecar, onEntrar, onAutenticado, onRecuperarSenha, abrirLoginInicial = false, animarEntrada = true }) {
+  const [loginAberto, setLoginAberto] = useState(abrirLoginInicial)
   const [saindoParaInterna, setSaindoParaInterna] = useState(false)
   // O retorno é definido ao abrir a tela; não começa ao sair dela.
   const [animarRetorno] = useState(() => !animarEntrada)
@@ -34,7 +34,7 @@ export default function BoasVindas({ onComecar, onEntrar, onAutenticado, animarE
         </div>
       </div>
     </main>
-    {loginAberto && <Login onFechar={() => setLoginAberto(false)} onEntrar={onEntrar} onIniciarSaida={() => setSaindoParaInterna(true)} onAutenticado={onAutenticado} />}
+    {loginAberto && <Login onFechar={() => setLoginAberto(false)} onEntrar={onEntrar} onRecuperarSenha={onRecuperarSenha} onIniciarSaida={() => setSaindoParaInterna(true)} onAutenticado={onAutenticado} />}
     </>
   )
 }
