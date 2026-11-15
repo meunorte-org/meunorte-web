@@ -3,17 +3,20 @@ import BotaoComecar from '../../components/BotaoComecar/BotaoComecar.jsx'
 import BotaoFazerLogin from '../../components/BotaoFazerLogin/BotaoFazerLogin.jsx'
 import MascoteNo from '../../components/MascoteNo/MascoteNo.jsx'
 import Login from '../Login/Login.jsx'
+import InternaRascunho from '../InternaRascunho/InternaRascunho.jsx'
 import './BoasVindas.css'
 
 export default function BoasVindas({ onComecar, onEntrar, onAutenticado, animarEntrada = true }) {
   const [loginAberto, setLoginAberto] = useState(false)
+  const [saindoParaInterna, setSaindoParaInterna] = useState(false)
   // O retorno é definido ao abrir a tela; não começa ao sair dela.
   const [animarRetorno] = useState(() => !animarEntrada)
   const classeRetorno = animarRetorno ? 'mn-welcome--return' : ''
 
   return (
     <>
-    <main className={`mn-welcome ${animarEntrada ? '' : 'mn-welcome--static'} ${classeRetorno}`} data-retorno={animarRetorno} aria-labelledby="welcome-title">
+    {saindoParaInterna && <div className="mn-login-destination" aria-hidden="true" inert><InternaRascunho bloqueado /></div>}
+    <main className={`mn-welcome ${animarEntrada ? '' : 'mn-welcome--static'} ${classeRetorno} ${saindoParaInterna ? 'mn-welcome--login-exit' : ''}`} data-retorno={animarRetorno} aria-labelledby="welcome-title" inert={saindoParaInterna}>
       <div className="mn-welcome__content">
         <div className="mn-welcome__mascot">
           <MascoteNo animarEntrada={animarEntrada} />
@@ -31,7 +34,7 @@ export default function BoasVindas({ onComecar, onEntrar, onAutenticado, animarE
         </div>
       </div>
     </main>
-    {loginAberto && <Login onFechar={() => setLoginAberto(false)} onEntrar={onEntrar} onAutenticado={onAutenticado} />}
+    {loginAberto && <Login onFechar={() => setLoginAberto(false)} onEntrar={onEntrar} onIniciarSaida={() => setSaindoParaInterna(true)} onAutenticado={onAutenticado} />}
     </>
   )
 }

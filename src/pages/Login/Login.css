@@ -1,9 +1,12 @@
 .mn-login {
   position: fixed;
-  inset: 0;
+  inset: 0 auto auto 0;
   width: 100%;
   max-width: none;
-  height: 100%;
+  /* Altura explícita: o Safari não precisa resolver uma porcentagem no top layer. */
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
   max-height: none;
   margin: 0;
   padding: 0;
@@ -12,15 +15,19 @@
   color: #fff;
   overflow: hidden;
 }
+.mn-login[open] {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
 .mn-login::backdrop { background: transparent; }
 .mn-login__panel {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  flex: 0 1 auto;
   width: min(100%, var(--mn-screen-width));
-  min-height: 523px;
-  max-height: calc(100dvh - max(16px, env(safe-area-inset-top, 0px)));
+  min-height: min(523px, calc(100% - max(16px, env(safe-area-inset-top, 0px))));
+  max-height: calc(100% - max(16px, env(safe-area-inset-top, 0px)));
   margin-inline: auto;
   padding: 0 25px max(85px, env(safe-area-inset-bottom, 0px)) 20px;
   border-radius: 20px 20px 0 0;
@@ -88,7 +95,11 @@
 .mn-login__notice a { color: #fff; overflow-wrap: anywhere; }
 .mn-login .mn-password-toggle__icon img { max-width: none; }
 .mn-login--fechando .mn-login__panel { animation: mn-login-close 500ms ease-out both; }
-.mn-login--sucesso .mn-login__panel { animation: mn-login-success 900ms ease-out both; }
+.mn-login-destination { position: fixed; inset: 0; overflow-y: auto; }
+.mn-welcome--login-exit { position: relative; }
+/* O mesmo keyframe começa no mesmo render para o fundo e o painel. */
+.mn-login--sucesso .mn-login__panel,
+.mn-welcome--login-exit { animation: mn-login-success 900ms ease-out both; }
 @keyframes mn-login-enter { from { transform: translateY(100%); } to { transform: translateY(0); } }
 @keyframes mn-login-close { from { transform: translateY(var(--mn-login-drag, 0px)); } to { transform: translateY(100%); } }
 @keyframes mn-login-success { from { transform: translateX(0); } to { transform: translateX(-110vw); } }
@@ -97,7 +108,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .mn-login__panel { animation-duration: 120ms; transition-duration: 120ms; }
-  .mn-login--fechando .mn-login__panel, .mn-login--sucesso .mn-login__panel { animation-duration: 120ms; }
+  .mn-login--fechando .mn-login__panel, .mn-login--sucesso .mn-login__panel,
+  .mn-welcome--login-exit { animation-duration: 120ms; }
   @keyframes mn-login-enter { from { opacity: 0; } to { opacity: 1; } }
   @keyframes mn-login-close { from { opacity: 1; } to { opacity: 0; } }
   @keyframes mn-login-success { from { opacity: 1; } to { opacity: 0; } }

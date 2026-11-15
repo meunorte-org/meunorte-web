@@ -8,7 +8,7 @@ import seta from '../../assets/icons/login-seta.svg'
 import olho from '../../assets/icons/login-olho.svg'
 import './Login.css'
 
-export default function Login({ onFechar, onEntrar, onAutenticado }) {
+export default function Login({ onFechar, onEntrar, onAutenticado, onIniciarSaida }) {
   const dialogo = useRef(null)
   const painel = useRef(null)
   const arrastando = useRef(null)
@@ -85,6 +85,7 @@ export default function Login({ onFechar, onEntrar, onAutenticado }) {
       await onEntrar({ email, password: senha })
       if (montado.current) {
         setSenha('')
+        onIniciarSaida?.()
         setFase('sucesso')
       }
     } catch (falha) {
