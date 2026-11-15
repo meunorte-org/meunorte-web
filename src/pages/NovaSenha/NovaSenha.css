@@ -24,6 +24,14 @@
 .mn-new-password--sucesso h1 { width: 180px; line-height: 1.05; animation: mn-password-success-text 500ms ease-out 1450ms both; }
 .mn-new-password__success { display: flex; justify-content: center; margin-top: 36px; padding-bottom: 40px; animation: mn-password-success-text 500ms ease-out 1450ms both; }
 .mn-new-password__success .mn-welcome-button__surface { --mn-button-fill: #2f44da; gap: 15px; }
+.mn-new-password--invalido.mn-mobile-screen { display: flex; align-items: center; padding-block: max(48px, env(safe-area-inset-top, 0px)) max(48px, env(safe-area-inset-bottom, 0px)); }
+.mn-new-password--invalido .mn-new-password__lock { width: 87.0162px; height: 78.9835px; margin: 0 auto; }
+.mn-new-password--invalido .mn-new-password__open { left: 0; top: 0; }
+.mn-new-password--invalido h1 { max-width: 340px; margin: 28px auto 0; font-family: 'Readex Pro', sans-serif; font-size: clamp(24px, 6.667vw, 28px); font-weight: 400; line-height: 1.35; }
+.mn-new-password--invalido h1 strong { display: block; font-weight: 700; }
+.mn-new-password--invalido .mn-new-password__actions { margin-top: 36px; }
+.mn-new-password--invalido .mn-welcome-button--nova-senha { width: min(100%, 292px); }
+.mn-new-password--invalido .mn-welcome-button__surface { font-size: clamp(20px, 6.154vw, 24px); padding-inline: 20px; }
 @keyframes mn-lock-open-out { to { opacity: 0; } }
 @keyframes mn-lock-closed-in { to { opacity: 1; } }
 @keyframes mn-password-success-text { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }

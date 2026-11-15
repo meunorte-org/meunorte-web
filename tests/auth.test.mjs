@@ -1,9 +1,39 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { acompanharRecuperacao } from '../src/lib/acompanharRecuperacao.js'
 import { criarServicoAuth, urlRetornoConfirmacao } from '../src/services/auth.js'
 
 const dados = { full_name: ' Pessoa Teste ', birth_date: '2000-01-15', education_level: 'medio_concluido', email: ' PESSOA@example.com ', password: 'SenhaDeTeste123!' }
 const retorno = () => 'https://meunorte-org.github.io/meunorte-web/?auth=confirmacao'
+
+test('link válido aguarda PASSWORD_RECOVERY emitido depois de getSession', async () => {
+  let notificar
+  const auth = {
+    onAuthStateChange: callback => { notificar = callback },
+    getSession: async () => {
+      setTimeout(() => notificar('PASSWORD_RECOVERY', { user: { id: 'pessoa' } }), 20)
+      return { data: { session: {} } }
+    },
+    getUser: async () => ({ data: { user: { id: 'pessoa', email: 'pessoa@example.com' } } }),
+  }
+  const aguardar = acompanharRecuperacao(auth, { recuperacao: true }, 200)
+  const servico = criarServicoAuth({ auth }, retorno, aguardar)
+  assert.deepEqual(await servico.verificarRecuperacao(), { email: 'pessoa@example.com' })
+  assert.equal((await aguardar()).usuarioRecuperacaoId, 'pessoa')
+})
+
+test('INITIAL_SESSION com sessão antiga não substitui evento de recuperação', async () => {
+  let notificar
+  const auth = { onAuthStateChange: callback => { notificar = callback } }
+  const aguardar = acompanharRecuperacao(auth, { recuperacao: true }, 25)
+  const verificacao = aguardar()
+  notificar('INITIAL_SESSION', { user: { id: 'pessoa' } })
+  assert.equal((await verificacao).usuarioRecuperacaoId, null)
+  notificar('PASSWORD_RECOVERY', { user: { id: 'pessoa' } })
+  assert.equal((await aguardar()).usuarioRecuperacaoId, 'pessoa')
+  notificar('SIGNED_OUT', null)
+  assert.equal((await aguardar()).usuarioRecuperacaoId, null)
+})
 
 test('recuperação envia endereço normalizado e retorno próprio, preservando subpasta', async () => {
   let recebido

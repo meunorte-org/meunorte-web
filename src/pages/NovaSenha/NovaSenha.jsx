@@ -60,14 +60,14 @@ export default function NovaSenha({ auth = servicoAuth }) {
 
   return <main className={`mn-new-password mn-mobile-screen mn-new-password--${estado}`} aria-labelledby="new-password-title">
     <div className="mn-new-password__content mn-mobile-content">
-      {estado !== 'sucesso' && <button type="button" className="mn-new-password__back" aria-label="Voltar para login" onClick={voltarLogin} disabled={enviando}><img src={voltar} alt="" width="50" height="50" /></button>}
+      {estado !== 'sucesso' && estado !== 'invalido' && <button type="button" className="mn-new-password__back" aria-label="Voltar para login" onClick={voltarLogin} disabled={enviando}><img src={voltar} alt="" width="50" height="50" /></button>}
       <div className="mn-new-password__lock" aria-hidden="true">
         <img className="mn-new-password__open" src={aberto} alt="" width="87.0162" height="78.9835" />
         <img className="mn-new-password__closed" src={fechado} alt="" width="58.9033" height="78.9835" />
       </div>
-      <h1 ref={titulo} tabIndex={-1} id="new-password-title">{estado === 'sucesso' ? 'senha nova criada' : 'Crie sua nova senha'}</h1>
+      <h1 ref={titulo} tabIndex={-1} id="new-password-title">{estado === 'invalido' ? <><strong>Este link expirou,</strong>{' '}<span>solicite um novo link de recuperação.</span></> : estado === 'sucesso' ? 'senha nova criada' : 'Crie sua nova senha'}</h1>
       {estado === 'verificando' && <p role="status" className="mn-new-password__description">Verificando seu link…</p>}
-      {estado === 'invalido' && <><p role="alert" className="mn-new-password__description">{erro}</p><div className="mn-new-password__actions"><BotaoBoasVindas variante="nova-senha" onClick={voltarLogin}>voltar ao login</BotaoBoasVindas></div></>}
+      {estado === 'invalido' && <div className="mn-new-password__actions"><BotaoBoasVindas variante="nova-senha" onClick={voltarLogin}>voltar ao login</BotaoBoasVindas></div>}
       {estado === 'pronto' && <>
         <p className="mn-new-password__description">Escolha uma nova senha para acessar sua conta no <strong>MeuNorte.</strong></p>
         <form onSubmit={enviar} aria-busy={enviando}>

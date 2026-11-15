@@ -134,7 +134,7 @@ export function criarServicoAuth(cliente, obterRetorno = urlRetornoConfirmacao, 
   async function verificarRecuperacao() {
     try {
       const { data, error } = await auth().getSession()
-      const contexto = obterContextoRecuperacao()
+      const contexto = await obterContextoRecuperacao()
       if (error || !data?.session || contexto.erro || !contexto.recuperacao || !contexto.usuarioRecuperacaoId) throw new Error('Link inválido')
       const usuario = await auth().getUser()
       if (usuario.error || usuario.data?.user?.id !== contexto.usuarioRecuperacaoId) throw new Error('Sessão inválida')
