@@ -1,6 +1,8 @@
 import { supabase } from '../lib/supabaseClient.js'
 
 const MENSAGENS = {
+  invalid_credentials: 'E-mail ou senha incorretos. Confira os dados e tente novamente.',
+  email_not_confirmed: 'Confirme seu e-mail pelo link enviado antes de entrar.',
   over_email_send_rate_limit: 'Aguarde um pouco antes de solicitar outro e-mail de confirmação.',
   over_request_rate_limit: 'Foram feitas muitas tentativas. Aguarde um pouco e tente novamente.',
   email_address_not_authorized: 'O envio ainda não está liberado para este endereço. Entre em contato com a equipe MeuNorte.',
@@ -104,7 +106,19 @@ export function criarServicoAuth(cliente, obterRetorno = urlRetornoConfirmacao) 
     }
   }
 
-  return { cadastrar, reenviarConfirmacao, verificarConfirmacao, sair, emailJaCadastrado }
+  async function entrar({ email, password }) {
+    try {
+      const { data, error } = await auth().signInWithPassword({ email: email.trim().toLowerCase(), password })
+      if (error) throw erroPublico(error, 'Não foi possível entrar agora. Tente novamente.')
+      if (!data?.session || !data.user?.email_confirmed_at) throw erroPublico(null, 'Confirme seu e-mail antes de entrar.')
+      return { email: data.user.email }
+    } catch (erro) {
+      if (erro.mensagemPublica) throw erro
+      throw erroPublico(null, 'Não foi possível entrar agora. Confira sua conexão e tente novamente.')
+    }
+  }
+
+  return { cadastrar, reenviarConfirmacao, verificarConfirmacao, sair, emailJaCadastrado, entrar }
 }
 
 export const servicoAuth = criarServicoAuth(supabase)

@@ -1,0 +1,104 @@
+.mn-login {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+}
+.mn-login::backdrop { background: transparent; }
+.mn-login__panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: min(100%, var(--mn-screen-width));
+  min-height: 523px;
+  max-height: calc(100dvh - max(16px, env(safe-area-inset-top, 0px)));
+  margin-inline: auto;
+  padding: 0 25px max(85px, env(safe-area-inset-bottom, 0px)) 20px;
+  border-radius: 20px 20px 0 0;
+  background: #2f44da;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: mn-login-enter 500ms ease-out both;
+  transition: translate 300ms ease-out;
+}
+.mn-login__handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 137px;
+  height: 48px;
+  margin: 4px auto 0;
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.mn-login__handle img { flex: none; max-width: none; pointer-events: none; }
+.mn-login__panel--dragging { transition: none; }
+.mn-login__panel--dragging .mn-login__handle { cursor: grabbing; }
+.mn-login h2 {
+  margin: 13px -1px 0;
+  min-height: 48px;
+  color: #ccf02a;
+  font-family: 'Futura Display', sans-serif;
+  font-size: clamp(32px, 10.256vw, 40px);
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  outline: none;
+}
+.mn-login form { margin-top: 33px; }
+.mn-login__password { margin-top: 25px; }
+.mn-login__forgot {
+  display: block;
+  min-height: 48px;
+  margin: -4px 24px -16px auto;
+  padding: 12px 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.mn-login__actions { display: flex; justify-content: center; margin-top: 56px; padding-inline: 5px; }
+.mn-login .mn-welcome-button--entrar {
+  --mn-button-border: #ccf02a;
+  --mn-button-fill: #2f44da;
+  --mn-button-text: #ccf02a;
+  width: 222.8px;
+}
+.mn-login .mn-welcome-button__surface { transition: transform 128ms ease-out, box-shadow 128ms ease-out; }
+.mn-login button:focus-visible { outline: 2px solid #ccf02a; outline-offset: 4px; }
+.mn-login__notice { margin: 24px 10px 0; font-size: 14px; line-height: 1.4; }
+.mn-login__notice a { color: #fff; overflow-wrap: anywhere; }
+.mn-login .mn-password-toggle__icon img { max-width: none; }
+.mn-login--fechando .mn-login__panel { animation: mn-login-close 500ms ease-out both; }
+.mn-login--sucesso .mn-login__panel { animation: mn-login-success 900ms ease-out both; }
+@keyframes mn-login-enter { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes mn-login-close { from { transform: translateY(var(--mn-login-drag, 0px)); } to { transform: translateY(100%); } }
+@keyframes mn-login-success { from { transform: translateX(0); } to { transform: translateX(-110vw); } }
+@media (max-height: 550px) {
+  .mn-login__panel { min-height: 0; padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mn-login__panel { animation-duration: 120ms; transition-duration: 120ms; }
+  .mn-login--fechando .mn-login__panel, .mn-login--sucesso .mn-login__panel { animation-duration: 120ms; }
+  @keyframes mn-login-enter { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes mn-login-close { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes mn-login-success { from { opacity: 1; } to { opacity: 0; } }
+}

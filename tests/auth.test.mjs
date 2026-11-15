@@ -5,6 +5,30 @@ import { criarServicoAuth, urlRetornoConfirmacao } from '../src/services/auth.js
 const dados = { full_name: ' Pessoa Teste ', birth_date: '2000-01-15', education_level: 'medio_concluido', email: ' PESSOA@example.com ', password: 'SenhaDeTeste123!' }
 const retorno = () => 'https://meunorte-org.github.io/meunorte-web/?auth=confirmacao'
 
+test('login normaliza e-mail, preserva senha e exige sessão confirmada', async () => {
+  let recebido
+  const servico = criarServicoAuth({ auth: { signInWithPassword: async valor => {
+    recebido = valor
+    return { data: { session: { access_token: 'teste' }, user: { email: 'pessoa@example.com', email_confirmed_at: 'agora' } } }
+  } } })
+  assert.deepEqual(await servico.entrar({ email: ' PESSOA@example.com ', password: ' senha ' }), { email: 'pessoa@example.com' })
+  assert.deepEqual(recebido, { email: 'pessoa@example.com', password: ' senha ' })
+})
+
+test('login incorreto mostra mensagem segura e nunca libera sucesso', async () => {
+  const servico = criarServicoAuth({ auth: { signInWithPassword: async () => ({ error: { code: 'invalid_credentials', message: 'interno' } }) } })
+  await assert.rejects(servico.entrar(dados), erro => erro.mensagemPublica === 'E-mail ou senha incorretos. Confira os dados e tente novamente.')
+})
+
+test('login sem sessão, não confirmado e falha de rede não liberam sucesso', async () => {
+  for (const resposta of [{ data: {} }, { data: { session: {}, user: {} } }, { error: { code: 'email_not_confirmed' } }]) {
+    const servico = criarServicoAuth({ auth: { signInWithPassword: async () => resposta } })
+    await assert.rejects(servico.entrar(dados), erro => Boolean(erro.mensagemPublica))
+  }
+  const servico = criarServicoAuth({ auth: { signInWithPassword: async () => { throw new Error('rede') } } })
+  await assert.rejects(servico.entrar(dados), erro => erro.mensagemPublica.includes('conexão'))
+})
+
 test('cadastro usa Auth e não coloca senha nos metadados', async () => {
   let recebido
   const servico = criarServicoAuth({ auth: { signUp: async valor => {

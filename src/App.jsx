@@ -30,6 +30,8 @@ function App() {
       <BoasVindas
         animarEntrada={!entradaConcluida}
         onComecar={() => navegar('apresentacao')}
+        onEntrar={servicoAuth.entrar}
+        onAutenticado={() => window.location.assign(`${window.location.pathname}?area=interna`)}
       />
     )
   }
