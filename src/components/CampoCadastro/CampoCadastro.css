@@ -1,4 +1,5 @@
 .mn-signup-panel {
+  position: relative;
   flex: 1;
   min-width: 0;
   min-height: 586px;
@@ -6,6 +7,10 @@
   border-radius: 20px 20px 0 0;
   background: #2f44da;
 }
+.mn-signup-panel__back { position: absolute; top: 9px; left: 18px; width: 50px; height: 50px; padding: 0; border: 0; border-radius: 12px; background: transparent; cursor: pointer; }
+.mn-signup-panel__back img { max-width: none; }
+.mn-signup-panel__back:focus-visible { outline: 2px solid #ccf02a; outline-offset: 2px; }
+.mn-signup-panel__back:disabled { opacity: .6; cursor: default; }
 .mn-signup-progress {
   box-sizing: content-box;
   width: 138px;

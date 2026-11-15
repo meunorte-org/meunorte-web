@@ -15,7 +15,7 @@ const DURACAO_REVELACAO = 500
 const DURACAO_BARRA = 500
 const PAUSA_APOS_BARRA = 500
 
-export default function Cadastro({ onVoltar, onEtapaConcluida, onReenviarLink, onVerificarEmail }) {
+export default function Cadastro({ onVoltar, onCancelar, onEtapaConcluida, onReenviarLink, onVerificarEmail }) {
   const [nomeCompleto, setNomeCompleto] = useState('')
   const [dataNascimento, setDataNascimento] = useState('')
   const [estadoEstudo, setEstadoEstudo] = useState('')
@@ -177,7 +177,7 @@ export default function Cadastro({ onVoltar, onEtapaConcluida, onReenviarLink, o
 
   function exibirEtapa() {
     if (etapa === 6) {
-      return <EtapaTermos onCancelar={onVoltar} onCriarConta={criarConta} />
+      return <EtapaTermos onCancelar={onCancelar} onCriarConta={criarConta} />
     }
     if (etapa === 1) {
       return <EtapaNome nomeCompleto={nomeCompleto} onAlterarNome={setNomeCompleto}
@@ -209,6 +209,7 @@ export default function Cadastro({ onVoltar, onEtapaConcluida, onReenviarLink, o
           <p>Faça parte da comunidade <strong>MeuNorte</strong>.</p>
         </header>
         <CampoCadastro etapa={entradaConcluida ? (concluindo ? 7 : etapa) : 0} bloqueado={!entradaConcluida || confirmacaoVisivel}
+          onVoltar={etapa === 6 ? () => { if (!processando.current) setEtapa(5) } : undefined} voltarBloqueado={concluindo}
           onConclusao={() => resolverBarra.current?.()}>
           <div key={etapa} ref={conteudoRef} className="mn-signup-step mn-signup-step--enter">
             {exibirEtapa()}

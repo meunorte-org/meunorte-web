@@ -20,7 +20,7 @@ function App() {
 
   function exibirPagina(nome) {
     if (nome === 'cadastro') {
-      return <Cadastro onVoltar={() => navegar('apresentacao', 'back')}
+      return <Cadastro onVoltar={() => navegar('apresentacao', 'back')} onCancelar={() => navegar('boas-vindas', 'back')}
         onEtapaConcluida={servicoAuth.cadastrar} onReenviarLink={servicoAuth.reenviarConfirmacao}
         onVerificarEmail={verificacaoEmailAtiva ? servicoAuth.emailJaCadastrado : undefined} />
     }
