@@ -93,7 +93,20 @@ export function criarServicoAuth(cliente, obterRetorno = urlRetornoConfirmacao) 
     }
   }
 
-  return { cadastrar, reenviarConfirmacao, verificarConfirmacao, sair }
+  async function emailJaCadastrado(email) {
+    try {
+      if (!cliente) throw new Error('Configuração ausente')
+      const { data, error } = await cliente.rpc('email_ja_cadastrado', { email_consulta: email.trim().toLowerCase() })
+      if (error || typeof data !== 'boolean') throw error ?? new Error('Resposta inválida')
+      return data
+    } catch {
+      throw erroPublico(null, 'Não foi possível verificar o e-mail. Tente novamente.')
+    }
+  }
+
+  return { cadastrar, reenviarConfirmacao, verificarConfirmacao, sair, emailJaCadastrado }
 }
 
 export const servicoAuth = criarServicoAuth(supabase)
+// Ativar somente depois de instalar a função SQL no projeto Supabase.
+export const verificacaoEmailAtiva = import.meta.env?.VITE_EMAIL_CHECK_ENABLED === 'true'

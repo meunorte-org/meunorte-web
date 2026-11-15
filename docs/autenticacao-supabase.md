@@ -44,6 +44,16 @@ Um futuro trigger para perfis precisa ser testado: uma falha nele pode impedir a
 
 ## Verificação
 
+### E-mail já cadastrado
+
+A etapa de e-mail tem estado de consulta, erro animado e bloqueio de avanço. Para ativar a consulta real, execute a migration `supabase/migrations/202611150001_email_ja_cadastrado.sql` no SQL Editor do projeto. Depois, defina `VITE_EMAIL_CHECK_ENABLED=true` no ambiente local e na variável correspondente de publicação.
+
+A consulta retorna apenas verdadeiro ou falso para contas confirmadas. Não dá acesso às linhas de `auth.users`, não envia senha e não exige chave administrativa no navegador. Por decisão de experiência do produto, ela permite inferir se um e-mail tem conta confirmada; isso deve ser considerado antes da publicação geral. Em produção, avalie limites de requisições e proteção contra consultas automatizadas.
+
+Contas ainda pendentes de confirmação podem continuar o fluxo normal do Supabase, evitando prender quem perdeu o primeiro link. O Auth continua responsável pela unicidade das contas, inclusive se houver dois cadastros simultâneos. A verificação na etapa do e-mail é um aviso antecipado, não substitui essa proteção do servidor.
+
+Até instalar e verificar a função, a opção permanece desligada para preservar o cadastro que já funciona. Falha de consulta com a opção ativada mostra erro e não trata o endereço como livre. Respostas atrasadas para um e-mail anterior são ignoradas pela interface.
+
 Execute `npm run test:auth`, `npm run lint` e `npm run build`. Os testes de serviço usam respostas controladas e não criam contas nem enviam mensagens. A validação inicial do projeto foi somente uma leitura de `/auth/v1/settings` com chave publicável.
 
 O teste real de ponta a ponta ainda precisa ser feito com um e-mail autorizado, incluindo criação, recebimento, abertura do link, reenvio e retorno no endereço publicado. O login e a recuperação de senha ainda não estão implementados na interface.

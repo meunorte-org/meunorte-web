@@ -89,3 +89,20 @@ test('sair encerra apenas a sessão deste navegador', async () => {
   await servico.sair()
   assert.deepEqual(opcoes, { scope: 'local' })
 })
+
+test('consulta de e-mail usa apenas RPC e endereço normalizado', async () => {
+  let recebido
+  const servico = criarServicoAuth({ rpc: async (...args) => { recebido = args; return { data: true, error: null } } })
+  assert.equal(await servico.emailJaCadastrado(' PESSOA@example.com '), true)
+  assert.deepEqual(recebido, ['email_ja_cadastrado', { email_consulta: 'pessoa@example.com' }])
+})
+
+test('falha na consulta nunca é tratada como endereço livre', async () => {
+  const servico = criarServicoAuth({ rpc: async () => ({ data: null, error: { code: 'PGRST202' } }) })
+  await assert.rejects(servico.emailJaCadastrado('pessoa@example.com'), erro => erro.mensagemPublica.includes('verificar'))
+})
+
+test('resposta inesperada não libera cadastro', async () => {
+  const servico = criarServicoAuth({ rpc: async () => ({ data: 'false', error: null }) })
+  await assert.rejects(servico.emailJaCadastrado('pessoa@example.com'))
+})

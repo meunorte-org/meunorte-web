@@ -15,7 +15,7 @@ const DURACAO_REVELACAO = 500
 const DURACAO_BARRA = 500
 const PAUSA_APOS_BARRA = 500
 
-export default function Cadastro({ onVoltar, onEtapaConcluida, onReenviarLink }) {
+export default function Cadastro({ onVoltar, onEtapaConcluida, onReenviarLink, onVerificarEmail }) {
   const [nomeCompleto, setNomeCompleto] = useState('')
   const [dataNascimento, setDataNascimento] = useState('')
   const [estadoEstudo, setEstadoEstudo] = useState('')
@@ -192,7 +192,7 @@ export default function Cadastro({ onVoltar, onEtapaConcluida, onReenviarLink })
         onVoltar={() => setEtapa(2)} onContinuar={concluirEtapaEstudos} />
     }
     if (etapa === 4) {
-      return <EtapaSeuEmail email={email} onAlterarEmail={setEmail}
+      return <EtapaSeuEmail email={email} onAlterarEmail={setEmail} onVerificarEmail={onVerificarEmail}
         onVoltar={() => setEtapa(3)} onContinuar={concluirEtapaEmail} />
     }
     return <EtapaCriarSenha senha={senha} confirmacaoSenha={confirmacaoSenha}

@@ -5,7 +5,7 @@ import TransicaoPaginas from './components/TransicaoPaginas/TransicaoPaginas.jsx
 import useNavegacao, { DURACAO_TRANSICAO } from './hooks/useNavegacao.js'
 import useDocumentosLegais from './hooks/useDocumentosLegais.js'
 import DocumentoLegal from './pages/DocumentosLegais/DocumentoLegal.jsx'
-import { servicoAuth } from './services/auth.js'
+import { servicoAuth, verificacaoEmailAtiva } from './services/auth.js'
 import { retornoAuthInicial } from './lib/supabaseClient.js'
 import RetornoConfirmacao from './pages/ConfirmacaoEmail/RetornoConfirmacao.jsx'
 import './App.css'
@@ -19,7 +19,8 @@ function App() {
   function exibirPagina(nome) {
     if (nome === 'cadastro') {
       return <Cadastro onVoltar={() => navegar('apresentacao', 'back')}
-        onEtapaConcluida={servicoAuth.cadastrar} onReenviarLink={servicoAuth.reenviarConfirmacao} />
+        onEtapaConcluida={servicoAuth.cadastrar} onReenviarLink={servicoAuth.reenviarConfirmacao}
+        onVerificarEmail={verificacaoEmailAtiva ? servicoAuth.emailJaCadastrado : undefined} />
     }
     if (nome === 'apresentacao') {
       return <Apresentacao onVoltar={() => navegar('boas-vindas', 'back')} onCadastro={() => navegar('cadastro')} />
