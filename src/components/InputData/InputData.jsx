@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import seletor from '../../assets/icons/seletor-data.svg'
 import seletorPreenchido from '../../assets/icons/seletor-data-preenchido.svg'
-import { formatarDataNascimento } from '../../pages/Cadastro/dadosCadastro.js'
+import { formatarDataNascimento } from '../../domain/cadastro.js'
 import './InputData.css'
 
 export default function InputData({ id, value, onChange, max, erro, onBlur, idade = null }) {

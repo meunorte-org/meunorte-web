@@ -159,7 +159,17 @@ export function criarServicoAuth(cliente, obterRetorno = urlRetornoConfirmacao, 
     }
   }
 
-  return { cadastrar, reenviarConfirmacao, verificarConfirmacao, sair, emailJaCadastrado, entrar, recuperarSenha, verificarRecuperacao, atualizarSenha }
+  async function atualizarNome(nome) {
+    if (typeof nome !== 'string') throw erroPublico(null, 'Informe um nome de até 100 caracteres.')
+    const full_name = nome.trim().replace(/\s+/g, ' ')
+    if (!full_name || Array.from(full_name).length > 100) throw erroPublico(null, 'Informe um nome de até 100 caracteres.')
+    try {
+      const { data, error } = await auth().updateUser({ data: { full_name } })
+      if (error || !data?.user) throw new Error('Falha ao atualizar')
+      return data.user
+    } catch { throw erroPublico(null, 'Não foi possível atualizar seu nome. Tente novamente.') }
+  }
+  return { cadastrar, reenviarConfirmacao, verificarConfirmacao, sair, emailJaCadastrado, entrar, recuperarSenha, verificarRecuperacao, atualizarSenha, atualizarNome }
 }
 
 export const servicoAuth = criarServicoAuth(supabase)

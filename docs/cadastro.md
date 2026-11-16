@@ -1,6 +1,6 @@
 # Cadastro: nome, data, estudos, e-mail e senha
 
-`App.jsx` abre `pages/Cadastro/Cadastro.jsx` pelo botão cadastro da apresentação.
+`layouts/ExternalLayout.jsx` abre `pages/external/Cadastro/Cadastro.jsx` pelo botão cadastro da apresentação. As validações compartilhadas ficam em `domain/cadastro.js`.
 Cadastro-Transição é a animação de entrada da própria página: textos entram pela esquerda;
 depois o painel sobe e o cabeçalho ocupa sua posição final. Não há uma rota intermediária.
 

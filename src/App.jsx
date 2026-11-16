@@ -1,55 +1,35 @@
-import BoasVindas from './pages/BoasVindas/BoasVindas.jsx'
-import Apresentacao from './pages/Apresentacao/Apresentacao.jsx'
-import Cadastro from './pages/Cadastro/Cadastro.jsx'
-import TransicaoPaginas from './components/TransicaoPaginas/TransicaoPaginas.jsx'
-import useNavegacao, { DURACAO_TRANSICAO } from './hooks/useNavegacao.js'
-import useDocumentosLegais from './hooks/useDocumentosLegais.js'
-import DocumentoLegal from './pages/DocumentosLegais/DocumentoLegal.jsx'
-import { servicoAuth, verificacaoEmailAtiva } from './services/auth.js'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import AuthProvider from './contexts/AuthProvider.jsx'
+import { useAuth } from './contexts/AuthContext.js'
+import useRotaApp from './hooks/useRotaApp.js'
+import ExternalLayout from './layouts/ExternalLayout.jsx'
+import EntradaInterna from './pages/internal/EntradaInterna.jsx'
+import NovaSenha from './pages/external/NovaSenha/NovaSenha.jsx'
+import RetornoConfirmacao from './pages/external/ConfirmacaoEmail/RetornoConfirmacao.jsx'
 import { retornoAuthInicial } from './lib/supabaseClient.js'
-import RetornoConfirmacao from './pages/ConfirmacaoEmail/RetornoConfirmacao.jsx'
-import NovaSenha from './pages/NovaSenha/NovaSenha.jsx'
-import './App.css'
+import { documentoPeloHash } from './data/documentosLegais.js'
+const InternalApp = lazy(() => import('./pages/internal/InternalApp.jsx'))
 
-function App() {
-  const { pagina, troca, entradaConcluida, navegar } = useNavegacao()
-  const { documento, fecharDocumento } = useDocumentosLegais()
-
+function Aplicacao() {
+  const { usuario, carregando, restaurando, erro, atualizar, sair } = useAuth()
+  const { rota, navegar } = useRotaApp()
+  const [confirmacaoEncerrada, setConfirmacaoEncerrada] = useState(false)
+  const inicializou = useRef(false)
+  useEffect(() => {
+    if (carregando || inicializou.current) return
+    inicializou.current = true
+    if (usuario && !rota.interna && !rota.login && !retornoAuthInicial.ativo && !retornoAuthInicial.recuperacao && !documentoPeloHash()) navegar('perfil', { substituir: true })
+  }, [usuario, carregando, rota.interna, rota.login, navegar])
+  function abrirInterna() { setConfirmacaoEncerrada(true); navegar('perfil', { substituir: true }) }
+  async function encerrarSessao() { await sair(); navegar(null, { substituir: true }) }
   if (retornoAuthInicial.recuperacao) return <NovaSenha />
-  if (retornoAuthInicial.ativo || retornoAuthInicial.areaInterna) return <RetornoConfirmacao />
-
-  function exibirPagina(nome) {
-    if (nome === 'cadastro') {
-      return <Cadastro onVoltar={() => navegar('apresentacao', 'back')} onCancelar={() => navegar('boas-vindas', 'back')}
-        onEtapaConcluida={servicoAuth.cadastrar} onReenviarLink={servicoAuth.reenviarConfirmacao}
-        onVerificarEmail={verificacaoEmailAtiva ? servicoAuth.emailJaCadastrado : undefined} />
-    }
-    if (nome === 'apresentacao') {
-      return <Apresentacao onVoltar={() => navegar('boas-vindas', 'back')} onCadastro={() => navegar('cadastro')} />
-    }
-
-    return (
-      <BoasVindas
-        animarEntrada={!entradaConcluida && !retornoAuthInicial.login}
-        abrirLoginInicial={retornoAuthInicial.login}
-        onRecuperarSenha={servicoAuth.recuperarSenha}
-        onComecar={() => navegar('apresentacao')}
-        onEntrar={servicoAuth.entrar}
-        onAutenticado={() => window.location.assign(`${window.location.pathname}?area=interna`)}
-      />
-    )
+  if (retornoAuthInicial.ativo && !confirmacaoEncerrada) return <RetornoConfirmacao onAbrirInterna={abrirInterna} conteudoInterno={<EntradaInterna />} />
+  if (rota.interna) {
+    if (carregando) return <EntradaInterna />
+    if (!usuario) return <div className="mn-internal mn-internal-shell"><main className="mn-mobile-content mn-i-loading"><h1>Entre para continuar</h1><p role={erro ? 'alert' : undefined}>{erro || 'Seu espaço é pessoal. Acesse sua conta para abrir o MeuNorte.'}</p>{erro && <button className="mn-i-button mn-i-button--secondary" onClick={atualizar}>tentar novamente</button>}<button className="mn-i-button" onClick={() => navegar(null, { substituir: true, login: true })}>entrar na minha conta</button></main></div>
+    return <Suspense fallback={<EntradaInterna />}><InternalApp rota={rota} navegar={navegar} onSair={encerrarSessao} /></Suspense>
   }
-
-  return (
-    <>
-      <div hidden={Boolean(documento)} inert={Boolean(documento)}>
-        <TransicaoPaginas pagina={pagina} troca={troca} duracao={DURACAO_TRANSICAO}>
-          {exibirPagina}
-        </TransicaoPaginas>
-      </div>
-      {documento && <DocumentoLegal slug={documento} onVoltar={fecharDocumento} />}
-    </>
-  )
+  if (restaurando && !rota.login) return <EntradaInterna />
+  return <ExternalLayout onAutenticado={abrirInterna} abrirLoginInicial={rota.login} conteudoInterno={<EntradaInterna />} />
 }
-
-export default App
+export default function App() { return <AuthProvider><Aplicacao /></AuthProvider> }

@@ -1,0 +1,59 @@
+.mn-profile-header { text-align: center; padding: 4px 4px 8px; }
+.mn-profile-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; text-align: left; }
+.mn-profile-avatar { position: relative; display: block; width: 140px; height: 140px; padding: 0; margin: 2px auto 20px; border: 2px solid #1e1e1e; border-radius: 50%; background: #dfe4ff; color: #334aee; box-shadow: -4px 4px 0 #1e1e1e; }
+.mn-profile-avatar > img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.mn-profile-avatar > span:first-child { display: flex; height: 100%; align-items: center; justify-content: center; font: 400 64px/1 'Futura Display', sans-serif; }
+.mn-profile-avatar__edit { position: absolute; bottom: -4px; right: -8px; display: grid; place-items: center; width: 38px; height: 38px; border: 2px solid #1e1e1e; border-radius: 50%; background: #ccf02a; color: #1e1e1e; }
+.mn-profile-header h1 { margin: 0 0 18px; font: 400 clamp(36px, 10.256vw, 44px)/1.1 'Futura Display', sans-serif; }
+.mn-profile-tags { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 0 8px; min-height: 48px; margin: 0 0 20px; }
+.mn-profile-tags > .mn-i-tag { margin-block: 8px; }
+.mn-profile-tag-button { display: flex; align-items: center; justify-content: center; min-width: 48px; min-height: 48px; max-width: 100%; padding: 0 1px; border: 0; background: transparent; }
+.mn-profile-tag-button { animation: mn-internal-enter 180ms ease-out both; }
+.mn-avatar-grid label { transition: background 180ms ease, border-color 180ms ease; }
+.mn-profile-bio { display: flex; flex-direction: column; align-items: center; gap: 9px; width: 100%; min-height: 58px; padding: 12px; border: 0; border-radius: 16px; background: transparent; color: #30352f; font-size: 14px; line-height: 1.55; white-space: pre-wrap; }
+.mn-profile-bio--empty { color: #696f64; }
+.mn-profile-bio svg { color: #334aee; }
+.mn-collection { margin-top: 30px; }
+.mn-collection-heading { margin: 0 4px 18px; }
+.mn-collection h2 { color: #334aee; font: 400 40px/1.1 'Futura Display', sans-serif; margin: 7px 0 0; }
+.mn-collection-card { margin: 16px 3px; border: 1.5px solid #1e1e1e; border-radius: 22px; background: #fff; box-shadow: -3px 3px 0 #1e1e1e; }
+.mn-collection-card summary { display: flex; align-items: center; gap: 13px; min-height: 88px; padding: 17px 15px; cursor: pointer; list-style: none; font-size: 15px; font-weight: 600; }
+.mn-collection-card summary::-webkit-details-marker { display: none; }
+.mn-collection-card summary:focus-visible { outline: 3px solid #334aee; outline-offset: 4px; border-radius: 20px; }
+.mn-collection-card summary > span:nth-child(2) { flex: 1; min-width: 0; }
+.mn-collection-card summary small { display: block; margin-top: 5px; color: #70756a; font-size: 10px; line-height: 1.5; font-weight: 400; }
+.mn-collection-card__icon { flex: 0 0 42px; width: 42px; height: 44px; display: grid; place-items: center; color: #334aee; background: #eef0ff; border-radius: 15px; }
+.mn-collection-card__chevron { position: relative; flex: 0 0 8px; width: 8px; height: 14px; transition: transform 180ms ease; }
+.mn-collection-card__chevron img { position: absolute; left: -.7px; top: -.6px; max-width: none; }
+.mn-collection-card[open] .mn-collection-card__chevron { transform: rotate(90deg); }
+.mn-collection-card__body { padding: 0 18px 22px; animation: mn-internal-enter 200ms ease-out both; }
+.mn-i-empty { padding-block: 4px; }
+.mn-i-empty p { font-size: 14px; font-weight: 500; line-height: 1.5; margin: 8px 0; }
+.mn-i-empty > span { display: block; color: #676d62; font-size: 13px; line-height: 1.6; }
+.mn-collection-card ul { list-style: none; padding: 0; margin: 0; }
+.mn-collection-card li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; border-top: 1px solid #e3e7dc; }
+.mn-favorite-link { display: inline-flex; gap: 8px; align-items: center; flex: 1; min-height: 48px; padding: 8px 0; border: 0; background: transparent; text-align: left; color: #334aee; font-size: 14px; }
+.mn-area-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.mn-goals article { padding: 14px; margin-bottom: 16px; border-radius: 16px; background: #f4f5ee; border: 1px solid #d5dbc9; }
+.mn-goals h3 { font-size: 15px; margin: 0 0 8px; }
+.mn-goals p { margin: 0; white-space: pre-wrap; font-size: 13px; line-height: 1.65; }
+.mn-goals article > div { display: flex; gap: 16px; margin-top: 6px; }
+.mn-profile-local-note { padding: 12px 6px 0; font-size: 11px; line-height: 1.6; color: #6a7064; }
+.mn-profile-feedback { position: fixed; z-index: 30; bottom: calc(var(--mn-nav-height, 80px) + 28px + env(safe-area-inset-bottom, 0px)); left: 24px; right: 24px; max-width: 26rem; margin: 0 auto; border-radius: 16px; background: #1e1e1e; color: #fff; font-size: 13px; line-height: 1.5; box-shadow: 0 4px 14px #0002; }
+.mn-profile-feedback:not(:empty) { padding: 13px 16px; }
+.mn-profile-settings > button { display: flex; gap: 12px; align-items: center; width: 100%; min-height: 62px; text-align: left; padding: 12px 4px; background: transparent; border: 0; border-bottom: 1px solid #d7dcd0; color: #1e1e1e; font-size: 14px; }
+.mn-profile-settings > button > span:first-of-type { flex: 1; }
+.mn-profile-info { font-size: 13px; line-height: 1.6; }
+.mn-profile-info dt { font-weight: 600; margin-top: 14px; }
+.mn-profile-info dd { margin: 3px 0 0; color: #62685d; }
+.mn-avatar-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.mn-profile-modal__panel .mn-avatar-grid label { position: relative; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; gap: 8px; padding: 8px; margin-top: 8px; border: 2px solid transparent; border-radius: 18px; font-size: 12px; text-align: center; cursor: pointer; }
+.mn-avatar-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; }
+.mn-avatar-grid input { position: absolute; top: 12px; left: 12px; accent-color: #334aee; }
+.mn-profile-modal__panel .mn-avatar-grid .mn-avatar-option--selected { border-color: #334aee; background: #e9edff; }
+.mn-photo-upload { position: relative; text-align: center; }
+.mn-photo-upload input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.mn-photo-upload:focus-within { outline: 3px solid #334aee; outline-offset: 4px; }
+.mn-photo-crop { position: relative; width: 220px; height: 220px; margin: 16px auto; border-radius: 50%; overflow: hidden; outline: 2px solid #334aee; background: #dce1fa; }
+.mn-photo-crop img { position: absolute; max-width: none; }
+.mn-photo-editor input[type='range'] { display: block; width: 100%; min-height: 48px; accent-color: #334aee; }

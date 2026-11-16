@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "test:auth": "node --test tests/auth.test.mjs",
+    "test": "node --test tests/*.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

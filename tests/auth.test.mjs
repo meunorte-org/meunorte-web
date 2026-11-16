@@ -6,6 +6,15 @@ import { criarServicoAuth, urlRetornoConfirmacao } from '../src/services/auth.js
 const dados = { full_name: ' Pessoa Teste ', birth_date: '2000-01-15', education_level: 'medio_concluido', email: ' PESSOA@example.com ', password: 'SenhaDeTeste123!' }
 const retorno = () => 'https://meunorte-org.github.io/meunorte-web/?auth=confirmacao'
 
+test('edição de nome modifica apenas full_name e preserva autenticação', async () => {
+  let recebido
+  const servico = criarServicoAuth({ auth: { updateUser: async valor => { recebido = valor; return { data: { user: { id: 'pessoa' } } } } } })
+  await servico.atualizarNome(' Pessoa   Teste ')
+  assert.deepEqual(recebido, { data: { full_name: 'Pessoa Teste' } })
+  await assert.rejects(servico.atualizarNome(' '))
+  await assert.rejects(servico.atualizarNome('a'.repeat(101)))
+})
+
 test('link válido aguarda PASSWORD_RECOVERY emitido depois de getSession', async () => {
   let notificar
   const auth = {
