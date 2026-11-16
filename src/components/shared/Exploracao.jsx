@@ -1,0 +1,5 @@
+import Icone from './Icone.jsx'
+export function Voltar({ children = 'Voltar', onClick }) { return <button className="mn-i-text-button mn-explore-back" onClick={onClick}><Icone nome="voltar" />{children}</button> }
+export function Favorito({ ativo, nome, ocupado, onClick }) { return <button className="mn-i-icon-button mn-favorite" aria-label={`${ativo ? 'Remover' : 'Salvar'} ${nome} ${ativo ? 'dos' : 'nos'} favoritos`} aria-pressed={ativo} disabled={ocupado} onClick={onClick}><Icone nome="coracao" fill={ativo ? 'currentColor' : 'none'} /></button> }
+export function LinkOficial({ href, children }) { return <a className="mn-i-text-button" href={href} target="_blank" rel="noopener noreferrer">{children} <span aria-hidden="true">↗</span></a> }
+export function EstadoDados({ carregando, erro, tentar }) { return carregando ? <p role="status" className="mn-i-loading">Buscando caminhos…</p> : erro ? <div role="alert" className="mn-i-error"><p>{erro}</p><button className="mn-i-text-button" onClick={tentar}>Tentar novamente</button></div> : null }

@@ -1,8 +1,8 @@
 .mn-internal { --i-blue: #334aee; --i-lime: #ccf02a; --i-paper: #f7f6f2; --i-ink: #1e1e1e; color: var(--i-ink); font-family: 'Readex Pro', sans-serif; font-variation-settings: 'HEXP' 0; }
 .mn-internal-shell { min-height: 100svh; background: var(--i-paper); padding: max(18px, env(safe-area-inset-top, 0px)) max(20px, env(safe-area-inset-right, 0px)) calc(var(--mn-nav-height, 80px) + 40px + env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px)); }
 .mn-internal-brand { width: min(100%, 28rem); margin: 0 auto; padding: 0 4px 16px; }
-.mn-internal-brand a { display: flex; align-items: center; gap: 14px; color: var(--i-blue); text-decoration: none; font: 400 28px/1 'Futura Display', sans-serif; }
-.mn-internal-brand span { max-width: 150px; font: 400 10px/1.35 'Readex Pro', sans-serif; color: #5f625f; border-left: 1px solid #c7c9c2; padding-left: 14px; }
+.mn-internal-brand a { display: flex; align-items: center; gap: 14px; color: var(--i-blue); text-decoration: none; font: 400 28px/1 'Futura Display', sans-serif; white-space: nowrap; }
+.mn-internal-brand span { max-width: 150px; min-width: 0; white-space: normal; font: 400 10px/1.35 'Readex Pro', sans-serif; color: #5f625f; border-left: 1px solid #c7c9c2; padding-left: 14px; }
 .mn-internal-content { width: min(100%, 28rem); margin: 0 auto; outline: none; animation: mn-internal-enter 240ms ease-out both; }
 .mn-internal :is(button, a, input, textarea, select):focus-visible { outline: 3px solid var(--i-blue); outline-offset: 4px; }
 .mn-internal button { cursor: pointer; }

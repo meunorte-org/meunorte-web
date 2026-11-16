@@ -1,10 +1,13 @@
 import { criarAdaptadorLocal, fotosLocais } from './localAdapter.js'
 import { CORES_TAG, validarTags, validarTexto } from '../../domain/perfil.js'
 import { AREAS_CATALOGO as AREAS } from '../../data/areasCatalogo.js'
+import { calcularResultado } from '../../domain/testeVocacional.js'
 
 /** Contrato Perfil (v1): bio, tags[{id,texto,cor}], visibilidade, avatar
  * {tipo:'oficial',id}|{tipo:'foto',id}, objetivos[{id,titulo,texto}],
- * areasFavoritas[{id,nome}], faculdadesSalvas[{id,nome}], areaAfinidade.
+ * areasFavoritas[{id,nome}], faculdadesSalvas[{id,nome}], areaAfinidade,
+ * resultadoAfinidade? {versao,pontos,evidencias,principais,secundarias,
+ * suficiente,informativas,areaPrincipal,concluidoEm}. Último resultado, sem histórico.
  * O usuário e seus metadados vêm do Auth real; este serviço nunca armazena tokens.
  * Para integrar tabelas: substituir carregar/salvar e o repositório de blobs.
  */
@@ -18,6 +21,15 @@ export function criarPerfilService(adapter, fotos = fotosLocais) {
   }
   return {
     obterPerfil,
+    salvarResultado: (u, respostas) => alterar(u, p => {
+      const resultado = calcularResultado(respostas)
+      p.resultadoAfinidade = { ...resultado, concluidoEm: new Date().toISOString() }
+      p.areaAfinidade = resultado.areaPrincipal
+      // Preserva preferências; caso uma nova tag exceda o limite ou duplique
+      // uma personalizada, guarda a afinidade e permite exibi-la nos ajustes.
+      try { validarTags(u, p) } catch { p.visibilidade.afinidade = false }
+      return p
+    }),
     atualizarBio: (u, bio) => alterar(u, p => ({ ...p, bio: validarTexto(bio, 160, 'sua bio') })),
     atualizarVisibilidade: (u, visibilidade) => alterar(u, p => ({ ...p, visibilidade: { ...p.visibilidade, ...visibilidade } })),
     salvarTag: (u, tag) => alterar(u, p => {

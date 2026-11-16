@@ -27,7 +27,7 @@ function Aplicacao() {
   if (rota.interna) {
     if (carregando) return <EntradaInterna />
     if (!usuario) return <div className="mn-internal mn-internal-shell"><main className="mn-mobile-content mn-i-loading"><h1>Entre para continuar</h1><p role={erro ? 'alert' : undefined}>{erro || 'Seu espaço é pessoal. Acesse sua conta para abrir o MeuNorte.'}</p>{erro && <button className="mn-i-button mn-i-button--secondary" onClick={atualizar}>tentar novamente</button>}<button className="mn-i-button" onClick={() => navegar(null, { substituir: true, login: true })}>entrar na minha conta</button></main></div>
-    return <Suspense fallback={<EntradaInterna />}><InternalApp rota={rota} navegar={navegar} onSair={encerrarSessao} /></Suspense>
+    return <Suspense fallback={<EntradaInterna />}><InternalApp key={usuario.id} rota={rota} navegar={navegar} onSair={encerrarSessao} /></Suspense>
   }
   if (restaurando && !rota.login) return <EntradaInterna />
   return <ExternalLayout onAutenticado={abrirInterna} abrirLoginInicial={rota.login} conteudoInterno={<EntradaInterna />} />

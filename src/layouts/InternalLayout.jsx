@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import Icone from '../components/shared/Icone.jsx'
 import '../styles/internal.css'
 const ABAS = [{ id: 'perfil', nome: 'Perfil' }, { id: 'areas', nome: 'Áreas' }, { id: 'faculdades', nome: 'Faculdades' }, { id: 'ingressos', nome: 'Ingressos' }]
-export default function InternalLayout({ secao, navegar, children, modalAberto = false }) {
+export default function InternalLayout({ secao, pagina, navegar, children, modalAberto = false }) {
   const conteudo = useRef(null)
   const shell = useRef(null)
   const navbar = useRef(null)
@@ -18,7 +18,7 @@ export default function InternalLayout({ secao, navegar, children, modalAberto =
     if (modalAnterior.current && !modalAberto) conteudo.current?.querySelector('[aria-label="Configurações do perfil"]')?.focus({ preventScroll: true })
     modalAnterior.current = modalAberto
   }, [modalAberto])
-  useEffect(() => { document.title = `${ABAS.find(a => a.id === secao)?.nome ?? 'Perfil'} | MeuNorte`; conteudo.current?.focus({ preventScroll: true }) }, [secao])
+  useEffect(() => { document.title = `${ABAS.find(a => a.id === secao)?.nome ?? 'Perfil'} | MeuNorte`; conteudo.current?.focus({ preventScroll: true }) }, [secao, pagina])
   return <div ref={shell} className="mn-internal mn-internal-shell" inert={modalAberto}>
     <header className="mn-internal-brand"><a href={`${window.location.pathname}?area=interna&secao=perfil`} onClick={e => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navegar('perfil') } }}>MeuNorte<span>sua jornada começa em você</span></a></header>
     <main ref={conteudo} tabIndex={-1} id="conteudo-interno" className="mn-internal-content" key={secao}>{children}</main>
