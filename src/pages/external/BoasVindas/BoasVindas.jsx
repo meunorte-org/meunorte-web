@@ -5,12 +5,12 @@ import MascoteNo from '../../../components/MascoteNo/MascoteNo.jsx'
 import Login from '../Login/Login.jsx'
 import './BoasVindas.css'
 
-export default function BoasVindas({ onComecar, onEntrar, onAutenticado, onRecuperarSenha, conteudoInterno, abrirLoginInicial = false, animarEntrada = true }) {
+export default function BoasVindas({ onComecar, onEntrar, onAutenticado, onRecuperarSenha, conteudoInterno, abrirLoginInicial = false, animarEntrada = true, pularRetorno = false }) {
   const [loginAberto, setLoginAberto] = useState(abrirLoginInicial)
   const [saindoParaInterna, setSaindoParaInterna] = useState(false)
   // O retorno é definido ao abrir a tela; não começa ao sair dela.
   const [animarRetorno] = useState(() => !animarEntrada)
-  const classeRetorno = animarRetorno ? 'mn-welcome--return' : ''
+  const classeRetorno = animarRetorno && !pularRetorno ? 'mn-welcome--return' : ''
 
   return (
     <>

@@ -4,3 +4,21 @@ body { background: #334aee; }
 .mn-welcome--static .mn-welcome__description,
 .mn-welcome--static .mn-welcome__actions,
 .mn-welcome--static .mn-mascot [id="Ponteiro"] { animation: none; }
+
+/* Retorno da conta: a boas-vindas entra pela esquerda e cobre a área interna. */
+.mn-logout-cover {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #334aee;
+  animation: mn-logout-cover-in 900ms ease-out both;
+}
+@keyframes mn-logout-cover-in {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mn-logout-cover { animation: none; }
+}

@@ -8,7 +8,7 @@ import DocumentoLegal from '../pages/external/DocumentosLegais/DocumentoLegal.js
 import { servicoAuth, verificacaoEmailAtiva } from '../services/auth.js'
 import '../App.css'
 
-function ExternalLayout({ onAutenticado, abrirLoginInicial = false, conteudoInterno }) {
+function ExternalLayout({ onAutenticado, abrirLoginInicial = false, conteudoInterno, pularEntrada = false }) {
   const { pagina, troca, entradaConcluida, navegar } = useNavegacao()
   const { documento, fecharDocumento } = useDocumentosLegais()
 
@@ -25,7 +25,8 @@ function ExternalLayout({ onAutenticado, abrirLoginInicial = false, conteudoInte
 
     return (
       <BoasVindas
-        animarEntrada={!entradaConcluida && !abrirLoginInicial}
+        pularRetorno={pularEntrada}
+        animarEntrada={!pularEntrada && !entradaConcluida && !abrirLoginInicial}
         abrirLoginInicial={abrirLoginInicial}
         onRecuperarSenha={servicoAuth.recuperarSenha}
         onComecar={() => navegar('apresentacao')}

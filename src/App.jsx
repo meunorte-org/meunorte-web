@@ -14,6 +14,9 @@ function Aplicacao() {
   const { usuario, carregando, restaurando, erro, atualizar, sair } = useAuth()
   const { rota, navegar, abrirAssistente, fecharAssistente } = useRotaApp()
   const [confirmacaoEncerrada, setConfirmacaoEncerrada] = useState(false)
+  const [saindo, setSaindo] = useState(false)
+  const [voltouDaConta, setVoltouDaConta] = useState(false)
+  const saidaEmCurso = useRef(false)
   const inicializou = useRef(false)
   useEffect(() => {
     if (carregando || inicializou.current) return
@@ -21,15 +24,36 @@ function Aplicacao() {
     if (usuario && !rota.interna && !rota.login && !retornoAuthInicial.ativo && !retornoAuthInicial.recuperacao && !documentoPeloHash()) navegar('perfil', { substituir: true })
   }, [usuario, carregando, rota.interna, rota.login, navegar])
   function abrirInterna() { setConfirmacaoEncerrada(true); navegar('perfil', { substituir: true }) }
-  async function encerrarSessao() { await sair(); navegar(null, { substituir: true }) }
+  async function encerrarSessao() {
+    if (saidaEmCurso.current) return
+    saidaEmCurso.current = true
+    setSaindo(true)
+    try {
+      // A boas-vindas cobre a área privada antes de a sessão ser desmontada.
+      // Se o logout falhar, a tela interna volta com o tratamento de erro existente.
+      const duracao = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 900
+      await new Promise(resolve => setTimeout(resolve, duracao))
+      await sair()
+      setVoltouDaConta(true)
+      navegar(null, { substituir: true })
+      window.scrollTo(0, 0)
+      requestAnimationFrame(() => document.querySelector('.mn-welcome__title')?.focus({ preventScroll: true }))
+    } finally {
+      saidaEmCurso.current = false
+      setSaindo(false)
+    }
+  }
+  function comSaida(conteudo) {
+    return <><div inert={saindo}>{conteudo}</div>{saindo && <div className="mn-logout-cover" inert aria-hidden="true"><ExternalLayout pularEntrada /></div>}</>
+  }
   if (retornoAuthInicial.recuperacao) return <NovaSenha />
   if (retornoAuthInicial.ativo && !confirmacaoEncerrada) return <RetornoConfirmacao onAbrirInterna={abrirInterna} conteudoInterno={<EntradaInterna />} />
   if (rota.interna) {
     if (carregando) return <EntradaInterna />
-    if (!usuario) return <div className="mn-internal mn-internal-shell"><main className="mn-mobile-content mn-i-loading"><h1>Entre para continuar</h1><p role={erro ? 'alert' : undefined}>{erro || 'Seu espaço é pessoal. Acesse sua conta para abrir o MeuNorte.'}</p>{erro && <button className="mn-i-button mn-i-button--secondary" onClick={atualizar}>tentar novamente</button>}<button className="mn-i-button" onClick={() => navegar(null, { substituir: true, login: true })}>entrar na minha conta</button></main></div>
-    return <Suspense fallback={<EntradaInterna />}><InternalApp key={usuario.id} rota={rota} navegar={navegar} abrirAssistente={abrirAssistente} fecharAssistente={fecharAssistente} onSair={encerrarSessao} /></Suspense>
+    if (!usuario) return comSaida(<div className="mn-internal mn-internal-shell"><main className="mn-mobile-content mn-i-loading"><h1>Entre para continuar</h1><p role={erro ? 'alert' : undefined}>{erro || 'Seu espaço é pessoal. Acesse sua conta para abrir o MeuNorte.'}</p>{erro && <button className="mn-i-button mn-i-button--secondary" onClick={atualizar}>tentar novamente</button>}<button className="mn-i-button" onClick={() => navegar(null, { substituir: true, login: true })}>entrar na minha conta</button></main></div>)
+    return comSaida(<Suspense fallback={<EntradaInterna />}><InternalApp key={usuario.id} rota={rota} navegar={navegar} abrirAssistente={abrirAssistente} fecharAssistente={fecharAssistente} onSair={encerrarSessao} /></Suspense>)
   }
   if (restaurando && !rota.login) return <EntradaInterna />
-  return <ExternalLayout onAutenticado={abrirInterna} abrirLoginInicial={rota.login} conteudoInterno={<EntradaInterna />} />
+  return <ExternalLayout pularEntrada={voltouDaConta} onAutenticado={abrirInterna} abrirLoginInicial={rota.login} conteudoInterno={<EntradaInterna />} />
 }
 export default function App() { return <AuthProvider><Aplicacao /></AuthProvider> }
