@@ -1,292 +1,155 @@
-# meunorte-web
-Plataforma web de orientação ao ensino superior.
+# MeuNorte
 
+O MeuNorte é uma plataforma de orientação ao ensino superior. Reúne informações sobre áreas do conhecimento, um teste vocacional exploratório, faculdades e formas de ingresso, além de um espaço pessoal para o estudante.
 
-## Design no Figma
+Este README é o ponto de partida para quem vai continuar o projeto. Ele explica o estado atual, o trabalho que falta e onde encontrar as orientações detalhadas.
 
-As interfaces do MeuNorte são planejadas no **Figma** e implementadas em **React**. O Figma é a referência visual para a equipe, reunindo as telas, componentes, estilos e protótipos do projeto.
+- **Site:** [meunorteapp.com.br](https://meunorteapp.com.br)
+- **Design e protótipos:** [Produto — MeuNorte no Figma](https://www.figma.com/design/cbmTsPE2jQKLwjXGpFrXIF/Produto--MeuNorte?node-id=1-2)
+- **Repositório:** [meunorte-org/meunorte-web](https://github.com/meunorte-org/meunorte-web)
 
-🔗 **[Acessar o projeto no Figma](INSERIR_LINK_DO_FIGMA)**
+## Antes de começar: o que já funciona e o que falta
 
-### 📂 Organização do Figma
+**As telas já existem, mas parte dos dados internos ainda é salva somente no navegador.** Cadastro e login já usam o Supabase. Isso não significa que Perfil, favoritos, fotos e resultados também estejam salvos no banco online.
 
-O arquivo está dividido em duas páginas principais:
+| Parte do site | Situação atual | O que falta |
+|---|---|---|
+| Cadastro, confirmação de e-mail, login e recuperação de senha | Conectados ao Supabase Auth, o serviço que cuida das contas | Conferir esses fluxos no ambiente usado pela equipe, incluindo os links dos e-mails |
+| Perfil, bio, tags e preferências de exibição | Funcionam com salvamento local, separado por usuário | Conectar ao banco para recuperar os dados em outro aparelho |
+| Foto e avatar | Seleção, troca e remoção implementadas; foto pessoal salva neste navegador | Guardar a foto em armazenamento privado online e controlar quem pode acessá-la |
+| Objetivos pessoais | Criação, edição, remoção e ordenação implementadas localmente | Salvar no banco com dono, ordem e datas, sem perder alterações |
+| Favoritos de áreas e faculdades | Compartilham o mesmo serviço do Perfil; salvamento local | Conectar as listas ao banco, evitando duplicatas |
+| Teste vocacional | Perguntas, cálculo, resultado e imagem para compartilhar implementados | Salvar o resultado online, com sua versão e data; decidir se haverá histórico |
+| Áreas do conhecimento e formas de ingresso | Conteúdo editorial e arquivos disponíveis no projeto | Revisar e manter as informações e os links atualizados |
+| Faculdades e cursos oferecidos | Telas, busca e filtros preparados; fonte padrão ainda vazia | Fornecer o catálogo real e conectar as consultas ao banco |
+| Assistente Nô | Botão com arrasto e tela de conversa implementados | Conectar a IA desenvolvida pelo integrante responsável |
 
-**1. Design System**
+**Salvar no navegador não é o mesmo que salvar na conta online.** Hoje, usar outro dispositivo não traz automaticamente esses dados internos. Limpar os dados do navegador também pode apagá-los. Essa é uma das principais tarefas da integração com o banco.
 
-Reúne os elementos visuais reutilizáveis do MeuNorte:
+A situação descrita aqui corresponde ao código do repositório. A versão publicada depende da última atualização enviada e das configurações do ambiente.
 
-- **Fundamentos:** cores, fontes, espaçamentos e estilos visuais.
-- **Componentes:** botões, campos, cards, elementos de navegação e mascote, incluindo suas variantes.
+## Onde encontrar as orientações
 
-Os componentes são criados e mantidos nessa página. Nas telas, utilizamos instâncias desses componentes para preservar a consistência visual.
+Os links abaixo abrem os documentos dentro deste repositório. No GitHub, basta clicar no nome; no computador, eles ficam na raiz do projeto e na pasta `docs`.
 
-**2. Screens e Protótipos**
+| Documento | Para que serve | Quem deve consultar |
+|---|---|---|
+| [README-APP-INTERNO.md](README-APP-INTERNO.md) | Mostra como executar o projeto, onde ficam as telas e serviços e como a navegação está organizada | Todos que vão mexer no código |
+| [INTEGRACAO_SUPABASE.md](docs/INTEGRACAO_SUPABASE.md) | Detalha os dados necessários, as relações entre eles, a proteção por usuário e os pontos de conexão com o código | Responsáveis pelo banco e pela conexão das telas |
+| [INTEGRACAO_IA.md](docs/INTEGRACAO_IA.md) | Explica como conectar a IA existente ao Nô, quais informações a interface envia e qual resposta espera receber | Responsável pela IA e quem fará sua integração |
+| [PENDENCIAS_INTEGRACAO.md](docs/PENDENCIAS_INTEGRACAO.md) | Lista o que está pendente por módulo e como comprovar que cada integração está concluída | Toda a equipe, para organizar e acompanhar as entregas |
+| [autenticacao-supabase.md](docs/autenticacao-supabase.md) | Explica o cadastro, o login, os retornos por e-mail e as configurações relacionadas à autenticação | Quem precisar revisar contas e acesso |
 
-Contém as telas completas do MeuNorte, seus fluxos e interações.
+**Ordem sugerida de leitura:** este README → README interno → guia da sua responsabilidade → lista de pendências para conferir a entrega.
 
-As telas são organizadas conforme o status:
+O guia do Supabase apresenta uma **proposta de organização do banco**. Ele não confirma que aquelas tabelas ou regras já existam no projeto online. Antes de aplicar qualquer mudança, a equipe precisa conferir o que já foi criado no painel.
 
-- ✅ **Prontas para desenvolvimento:** telas finalizadas e liberadas para implementação no React.
-- 🚧 **Em desenvolvimento:** telas ainda em construção ou revisão, que não devem ser consideradas finais.
+## O que a equipe do banco precisa fazer
 
-### 💻 Como implementar as telas
+A base de contas já existe no Supabase Auth. O próximo trabalho é fazer os dados das telas internas acompanharem o estudante em qualquer aparelho.
 
-1. Acesse o Figma pelo link acima.
-2. Entre em **Screens e Protótipos** e escolha uma tela da seção **Prontas para desenvolvimento**.
-3. Selecione os elementos para consultar suas dimensões, cores, espaçamentos e configurações de Auto Layout.
-4. Consulte o **Design System** para conhecer os componentes e suas variantes.
-5. Desenvolva a interface em React, reutilizando os componentes de código existentes no projeto.
-6. Compare o resultado no navegador com o Figma e adapte a interface aos diferentes tamanhos de tela.
+### 1. Conferir o que já existe no projeto Supabase
 
-**Importante:** o Figma serve como referência para a implementação. Botões, campos e outros elementos de interface devem ser desenvolvidos como componentes React, e não simplesmente exportados como imagens.
+Revisem as tabelas, as permissões e o armazenamento de arquivos antes de criar estruturas novas. Usem o [guia de integração Supabase](docs/INTEGRACAO_SUPABASE.md) para comparar o que as telas precisam com o que o banco já oferece.
 
-Ícones, ilustrações e outros recursos gráficos poderão ser exportados do Figma em formatos adequados, como SVG e PNG.
+Não é necessário refazer o login nem criar uma tabela de senhas. As senhas continuam sob responsabilidade do Supabase Auth.
 
+### 2. Preparar os dados pessoais e suas permissões
 
+Precisam ser guardados online: bio, tags, preferências, objetivos, favoritos, referência da foto e resultado vocacional. Cada informação deve estar ligada ao usuário correto.
 
-## 🧭 Animações interativas com Rive
+Também precisam existir regras no próprio banco para impedir que uma pessoa leia ou altere os dados de outra. Essas regras são chamadas de **RLS** no Supabase. Esconder um botão na tela não oferece essa proteção.
 
-O MeuNorte utilizará o **Rive** para desenvolver as animações do mascote Nó e outros elementos visuais interativos.
+Ao salvar alterações, é preciso evitar que uma aba sobrescreva sem aviso o trabalho feito em outra. O guia detalha como tratar isso. Também será necessário decidir como oferecer a transferência dos dados locais já existentes para a conta online, sem enviá-los automaticamente sem a pessoa saber.
 
-O Figma mostrará a aparência e o posicionamento desses elementos nas telas, mas as animações utilizadas no site serão produzidas no Rive.
+### 3. Preparar o armazenamento das fotos
 
-### Como as animações serão integradas
+A foto pessoal precisa sair do armazenamento local e ir para uma área privada de arquivos no Supabase, chamada **Storage**. A integração deve permitir carregar, substituir e remover a foto, cuidando também de envios que falhem e de arquivos antigos que deixem de ser usados.
 
-**1. Criação no Rive**
+### 4. Montar o catálogo real de faculdades e cursos
 
-As animações serão desenvolvidas no Rive, incluindo movimentos, expressões e comportamentos interativos do mascote.
+A equipe precisa fornecer informações verificadas: instituições, cursos, localização, modalidade, turno, formas de ingresso e fontes consultadas. Bolsas, financiamentos e mensalidades só devem aparecer quando confirmados.
 
-**2. Exportação**
+Uma faculdade pode oferecer vários cursos, e um mesmo curso pode existir em várias faculdades. O banco deve representar essas relações para a busca funcionar corretamente. Hoje a fonte padrão está vazia: a interface não inventa instituições para preencher a tela.
 
-Depois de finalizadas, as animações serão exportadas no formato `.riv`, próprio para execução nos aplicativos e sites que utilizam o Rive.
+### 5. Conectar o banco às funções já usadas pelas telas
 
-**3. Disponibilização no GitHub**
+O projeto já separa as telas das funções que buscam e salvam dados. Essas funções ficam em `src/services`. A conexão deve ser feita ali, preservando os campos que as telas já utilizam, em vez de espalhar consultas pelo projeto.
 
-Os arquivos exportados serão adicionados ao repositório do MeuNorte, preferencialmente em:
+O termo **adaptador**, usado nos guias, significa essa peça de conexão: hoje ela salva localmente; a nova versão vai conversar com o Supabase. O guia informa os arquivos e as operações de cada módulo.
 
-`public/assets/rive/`
+**Como saber se terminou:** salvar algo, conferir que chegou ao banco e abrir a mesma conta em outro dispositivo. Testar também com duas contas diferentes para garantir que uma não acessa os dados da outra. Atualizar apenas a mesma aba não comprova que o banco online está funcionando.
 
-Exemplo: `public/assets/rive/mascote-no.riv`
+## O que falta para a IA do Nô funcionar
 
-**4. Integração com React**
+A parte visual já está preparada: abrir e fechar a conversa, arrastar o Nô, escrever perguntas, usar sugestões e mostrar espera, erro ou cancelamento.
 
-Os desenvolvedores utilizarão a biblioteca oficial do Rive para React para carregar os arquivos `.riv` e exibir as animações na interface.
+**A IA real ainda não está conectada.** No estado atual, o Nô informa essa indisponibilidade. Ele não envia a pergunta a um modelo e não cria uma resposta falsa para aparentar funcionamento.
 
-O mascote poderá ser implementado como um componente reutilizável, por exemplo, `MascoteNo.jsx`.
+O integrante responsável deve conectar a IA que está desenvolvendo ao ponto preparado em `src/services/ai/assistenteService.js`. Não é necessário criar outro chatbot dentro das telas.
 
-### Como funcionarão as interações?
+O trabalho de integração inclui:
 
-Além das animações automáticas, o mascote poderá reagir às ações dos usuários, como:
+1. Receber as mensagens enviadas pela interface e devolvê-las no formato combinado no guia.
+2. Conferir no servidor quem está fazendo a solicitação e impedir acesso à conversa de outra pessoa.
+3. Tratar demora, falha, repetição de envio e cancelamento.
+4. Manter as chaves privadas do serviço de IA fora do código enviado ao navegador.
+5. Decidir se as conversas serão guardadas online, por quanto tempo e como poderão ser apagadas. Hoje ficam apenas na memória da aba.
 
-- Movimentar os olhos ou piscar.
-- Reagir ao clique em determinados botões.
-- Apresentar expressões durante a navegação.
-- Executar animações específicas durante o cadastro.
-- Movimentar o ponteiro conforme a orientação do dispositivo, quando compatível e autorizado.
+A interface pode enviar, com opção de desativar, uma indicação da seção pública que o estudante está consultando. Ela não inclui automaticamente nome, e-mail, bio, objetivos ou respostas do teste vocacional. O estudante ainda pode escrever informações pessoais por conta própria; o serviço real precisa considerar isso.
 
-Esses comportamentos serão configurados no Rive e conectados aos eventos do React por meio das **State Machines e dos recursos de interação do Rive**.
+O passo a passo, os formatos de mensagem e os exemplos estão em [INTEGRACAO_IA.md](docs/INTEGRACAO_IA.md).
 
-Os desenvolvedores não precisarão recriar as animações em código. Sua responsabilidade será integrar os arquivos exportados e conectar os comportamentos às funcionalidades do site.
+**Como saber se terminou:** receber uma resposta real da IA pela interface e verificar também o comportamento com falha de conexão, sessão encerrada, demora e cancelamento. Uma resposta de demonstração usada em teste não comprova a integração.
 
-**Observação:** o desenho e a demonstração do mascote no Figma não substituem sua animação oficial no Rive.
+## Design, mascote e animações
 
-Documentação: [Rive para React](https://rive.app/docs/runtimes/react/react)
+O [Figma](https://www.figma.com/design/cbmTsPE2jQKLwjXGpFrXIF/Produto--MeuNorte?node-id=1-2) é a referência para aparência, componentes e movimentos. Consultem as telas liberadas para desenvolvimento e reutilizem os componentes existentes no React.
 
+As telas e animações atuais usam componentes, CSS e recursos do navegador. O Nô interno utiliza a imagem oficial do mascote; o movimento do ponteiro na tela externa tem implementação própria.
 
-## Integração com Supabase
+O uso de **Rive** para animações mais elaboradas foi planejado anteriormente, mas não está integrado nesta versão. Caso a equipe siga com essa proposta, ainda será necessário preparar os arquivos de animação e conectá-los ao site, preservando as interações atuais. Isso é separado da conexão da IA: animar o mascote não faz o chat responder.
 
-O React cuida da interface. O Supabase fornece o banco de dados, o cadastro e o login.
+## Como começar a trabalhar no projeto
 
-Exemplo de funcionamento:
+Para executar no computador, é necessário ter Node.js e npm. O ambiente de desenvolvimento foi validado com Node 24. Com o repositório já no computador:
 
-```text
-Pessoa abre a tela de cursos
-        ↓
-React solicita os cursos
-        ↓
-Supabase verifica as permissões e retorna os dados
-        ↓
-React mostra os cursos na tela
+1. Abra a pasta do projeto no editor e seu terminal.
+2. Execute `npm ci` para instalar as dependências previstas no projeto.
+3. Copie `.env.example` para um arquivo chamado `.env.local` e preencha a URL e a chave publicável do projeto Supabase autorizado pela equipe.
+4. Execute `npm run dev` e abra o endereço mostrado no terminal, normalmente `http://localhost:5173`.
+
+A opção `VITE_EMAIL_CHECK_ENABLED` só deve ser ativada quando a função de consulta de e-mail estiver instalada e validada naquele ambiente. O [README interno](README-APP-INTERNO.md) explica as configurações com mais detalhes.
+
+O arquivo `.env.local` não deve ser enviado ao GitHub. No código do navegador, use apenas as configurações públicas previstas. **Senha do banco, chave secreta do Supabase e chave privada da IA não pertencem ao React.** O prefixo `VITE_` não protege um segredo.
+
+## Como dividir e conferir as entregas
+
+Uma sequência prática para continuar é:
+
+1. **Banco e interface:** alinhar os dados e a proteção de acesso; conectar Perfil, objetivos, fotos, favoritos e resultados.
+2. **Conteúdo e catálogo:** reunir dados reais de instituições e cursos e conectar busca, filtros e detalhes.
+3. **IA:** o integrante pode preparar sua conexão em paralelo, seguindo o contrato do Nô, e depois testar o fluxo completo.
+4. **Revisão conjunta:** conferir tudo com contas diferentes, outro dispositivo e celulares reais antes de publicar.
+
+Cada pessoa deve trabalhar em uma branch, ou seja, uma linha separada de alterações, e abrir um Pull Request para revisão. Evitem substituir a estrutura existente ou refazer partes já conectadas sem combinar com a equipe.
+
+Antes de entregar uma alteração, executem:
+
+```bash
+npm run lint
+npm test
+npm run build
 ```
 
-### Responsável pelo Supabase
+Esses comandos verificam problemas de código, testes automatizados e a geração dos arquivos do site. **Eles não comprovam, sozinhos, que o banco, os e-mails ou a IA estão funcionando online.** É necessário testar a função completa e registrar o resultado.
 
-Estude e prepare estes pontos, nesta ordem:
+Ainda é importante conferir teclado e arrasto em iPhone físico, outros celulares, telas maiores, texto ampliado e navegação por teclado. A [lista de pendências](docs/PENDENCIAS_INTEGRACAO.md) reúne os detalhes, incluindo verificações de conteúdo e desempenho.
 
-1. **Banco de dados:** tabelas, colunas, tipos de dados, chaves e relações.
-2. **Supabase Auth:** cadastro, login, logout e identificação do usuário conectado.
-3. **Permissões — RLS:** regras para controlar quais dados cada usuário pode consultar ou alterar.
-4. **Biblioteca JavaScript:** como consultar, adicionar, atualizar e remover dados pelo código.
-5. **Migrations:** arquivos SQL que registram mudanças na estrutura do banco e permitem reproduzi-las.
+## Publicação e endereço do site
 
-Estrutura inicial proposta:
+O projeto utiliza Vercel e o endereço principal informado é [meunorteapp.com.br](https://meunorteapp.com.br). As configurações locais não são copiadas automaticamente para a hospedagem: as variáveis necessárias também precisam estar corretas no ambiente publicado.
 
-| Recurso | Responsabilidade |
-|---|---|
-| Supabase Auth | Gerenciar contas e senhas. |
-| `profiles` | Guardar informações adicionais de cada usuário. |
-| `courses` | Guardar o catálogo de cursos. |
-| `favorites` | Relacionar usuários aos cursos favoritados. |
+Quando o endereço do site mudar, confiram os endereços de retorno autorizados no Supabase. São eles que permitem que os links de confirmação e recuperação de senha voltem ao lugar correto. O [guia de autenticação](docs/autenticacao-supabase.md) orienta essa revisão.
 
-Antes de criar campos, combine com a equipe quais informações as telas precisam.
-
-Regras esperadas:
-
-- Cada usuário acessa e altera apenas seu próprio perfil.
-- Cada usuário gerencia apenas seus próprios favoritos.
-- O mesmo curso não pode ser favoritado duas vezes pelo mesmo usuário.
-- A equipe define quem pode consultar e quem pode editar o catálogo.
-- As regras devem ser testadas com usuários diferentes, não apenas pelo painel administrativo.
-
-Não crie uma tabela própria de senhas. Utilize o Supabase Auth.
-
-### Responsáveis pelo React
-
-Precisam aprender a:
-
-- Chamar funções que conversam com o Supabase.
-- Usar `async/await` para aguardar respostas.
-- Mostrar carregamento, sucesso e erro.
-- Trabalhar com o usuário conectado.
-- Utilizar os campos e nomes combinados com o responsável pelo banco.
-
-### Organização do código
-
-Quando começarmos a integração, criaremos:
-
-```text
-src/
-├── lib/
-│   └── supabaseClient.js
-├── services/
-│   └── courses.js
-└── pages/
-    └── Courses/
-        └── Courses.jsx
-```
-
-- `lib`: configuração compartilhada da conexão.
-- `services`: funções que buscam e salvam dados.
-- `pages`: utiliza essas funções para apresentar os resultados.
-
-### Exemplo: buscar cursos
-
-Este exemplo depende de uma tabela `courses` com as colunas `id` e `name`, além de permissão de leitura configurada. É uma referência; adapte aos nomes definidos pela equipe.
-
-**1. Instalar a biblioteca na pasta do projeto:**
-
-```powershell
-npm.cmd install @supabase/supabase-js
-```
-
-**2. Criar `.env.local` na raiz:**
-
-```dotenv
-VITE_SUPABASE_URL=URL_DO_PROJETO
-VITE_SUPABASE_PUBLISHABLE_KEY=CHAVE_PUBLICA_DO_PROJETO
-```
-
-Os valores são obtidos no painel do Supabase, na opção de conexão do projeto.
-
-Confirme que `.env.local` está ignorado pelo Git. Um `.env.example`, com esses nomes e valores vazios, pode ser enviado para orientar os colegas.
-
-Reinicie o Vite depois de alterar essas configurações.
-
-**3. Configurar `src/lib/supabaseClient.js`:**
-
-```js
-import { createClient } from '@supabase/supabase-js'
-
-export const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-)
-```
-
-Esse arquivo cria a conexão que será reutilizada.
-
-**4. Criar `src/services/courses.js`:**
-
-```js
-import { supabase } from '../lib/supabaseClient'
-
-export async function buscarCursos() {
-  const { data, error } = await supabase
-    .from('courses')
-    .select('id, name')
-    .order('name')
-
-  if (error) throw error
-
-  return data
-}
-```
-
-Essa função consulta os cursos. Se a consulta falhar, informa o erro ao código que a chamou.
-
-**5. Utilizar em `src/pages/Courses/Courses.jsx`:**
-
-```jsx
-import { useEffect, useState } from 'react'
-import { buscarCursos } from '../../services/courses'
-
-export default function Courses() {
-  const [cursos, setCursos] = useState([])
-  const [carregando, setCarregando] = useState(true)
-  const [erro, setErro] = useState('')
-
-  useEffect(() => {
-    let ativa = true
-
-    async function carregar() {
-      try {
-        const dados = await buscarCursos()
-        if (ativa) setCursos(dados)
-      } catch {
-        if (ativa) setErro('Não foi possível carregar os cursos.')
-      } finally {
-        if (ativa) setCarregando(false)
-      }
-    }
-
-    carregar()
-
-    return () => {
-      ativa = false
-    }
-  }, [])
-
-  if (carregando) return <p>Carregando cursos...</p>
-  if (erro) return <p role="alert">{erro}</p>
-  if (cursos.length === 0) return <p>Nenhum curso encontrado.</p>
-
-  return (
-    <ul>
-      {cursos.map((curso) => (
-        <li key={curso.id}>{curso.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-A página solicita os dados ao abrir e mostra carregamento, erro ou a lista. A variável `ativa` evita atualizar a página depois que ela sair da tela.
-
-Para visualizar essa página, será necessário incluí-la no `App.jsx` ou na navegação do projeto.
-
-### Cuidados com as chaves
-
-No React, utilize somente a chave **publishable**, própria para o navegador.
-
-Variáveis com prefixo `VITE_` ficam acessíveis no navegador. O arquivo `.env.local` não transforma esses valores em segredos.
-
-Nunca coloque chaves **secret**, **service_role** ou a senha do banco no React. A proteção dos dados depende das permissões e políticas RLS.
-
-### Material de estudo
-
-- [Primeira integração com React](https://supabase.com/docs/guides/getting-started/quickstarts/reactjs)
-- [Cadastro e login com React](https://supabase.com/docs/guides/auth/quickstarts/react)
-- [Permissões com RLS](https://supabase.com/docs/guides/database/postgres/row-level-security)
-- [Chaves públicas e secretas](https://supabase.com/docs/guides/getting-started/api-keys)
-- [Migrations do banco](https://supabase.com/docs/guides/deployment/database-migrations)
+Antes de publicar, confirmem qual projeto Supabase será usado para testes e qual será usado pelos usuários. A configuração do ambiente e a publicação devem ser combinadas com a equipe para que uma mudança não afete os dados ou o acesso de quem já utiliza o site.

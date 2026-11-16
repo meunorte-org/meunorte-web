@@ -1,4 +1,4 @@
-// Curadoria inicial de exploração. Cursos ilustrativos: lista definitiva aguardando o projeto.
+// Cursos relacionados são informativos e não indicam oferta em uma instituição.
 export const CONTEUDO_AREAS = {
   "tecnologia": {
     "resumo": "Investigar, inventar e conectar.",
@@ -29,6 +29,41 @@ export const CONTEUDO_AREAS = {
       {
         "id": "tecnologia-3",
         "nome": "Engenharia de Software",
+        "provisorio": true
+      },
+      {
+        "id": "tecnologia-4",
+        "nome": "Análise e Desenvolvimento de Sistemas (ADS)",
+        "provisorio": true
+      },
+      {
+        "id": "tecnologia-5",
+        "nome": "Ciência de Dados",
+        "provisorio": true
+      },
+      {
+        "id": "tecnologia-6",
+        "nome": "Inteligência Artificial",
+        "provisorio": true
+      },
+      {
+        "id": "tecnologia-7",
+        "nome": "Segurança da Informação",
+        "provisorio": true
+      },
+      {
+        "id": "tecnologia-8",
+        "nome": "Redes de Computadores",
+        "provisorio": true
+      },
+      {
+        "id": "tecnologia-9",
+        "nome": "Banco de Dados",
+        "provisorio": true
+      },
+      {
+        "id": "tecnologia-10",
+        "nome": "Jogos Digitais",
         "provisorio": true
       }
     ]
@@ -68,6 +103,36 @@ export const CONTEUDO_AREAS = {
         "id": "exatas-4",
         "nome": "Engenharia Civil",
         "provisorio": true
+      },
+      {
+        "id": "exatas-5",
+        "nome": "Engenharia Mecânica",
+        "provisorio": true
+      },
+      {
+        "id": "exatas-6",
+        "nome": "Engenharia Elétrica",
+        "provisorio": true
+      },
+      {
+        "id": "exatas-7",
+        "nome": "Engenharia de Produção",
+        "provisorio": true
+      },
+      {
+        "id": "exatas-8",
+        "nome": "Engenharia de Controle e Automação",
+        "provisorio": true
+      },
+      {
+        "id": "exatas-9",
+        "nome": "Arquitetura e Urbanismo",
+        "provisorio": true
+      },
+      {
+        "id": "exatas-10",
+        "nome": "Química",
+        "provisorio": true
       }
     ]
   },
@@ -106,6 +171,26 @@ export const CONTEUDO_AREAS = {
         "id": "saude-4",
         "nome": "Nutrição",
         "provisorio": true
+      },
+      {
+        "id": "saude-5",
+        "nome": "Psicologia",
+        "provisorio": true
+      },
+      {
+        "id": "saude-6",
+        "nome": "Odontologia",
+        "provisorio": true
+      },
+      {
+        "id": "saude-7",
+        "nome": "Farmácia",
+        "provisorio": true
+      },
+      {
+        "id": "saude-8",
+        "nome": "Educação Física",
+        "provisorio": true
       }
     ]
   },
@@ -139,6 +224,36 @@ export const CONTEUDO_AREAS = {
         "id": "ambiente-3",
         "nome": "Engenharia Ambiental",
         "provisorio": true
+      },
+      {
+        "id": "ambiente-4",
+        "nome": "Biotecnologia",
+        "provisorio": true
+      },
+      {
+        "id": "ambiente-5",
+        "nome": "Ecologia",
+        "provisorio": true
+      },
+      {
+        "id": "ambiente-6",
+        "nome": "Ciências Ambientais",
+        "provisorio": true
+      },
+      {
+        "id": "ambiente-7",
+        "nome": "Oceanografia",
+        "provisorio": true
+      },
+      {
+        "id": "ambiente-8",
+        "nome": "Bioquímica",
+        "provisorio": true
+      },
+      {
+        "id": "ambiente-9",
+        "nome": "Ciências da Natureza",
+        "provisorio": true
       }
     ]
   },
@@ -171,6 +286,41 @@ export const CONTEUDO_AREAS = {
       {
         "id": "agro-3",
         "nome": "Zootecnia",
+        "provisorio": true
+      },
+      {
+        "id": "agro-4",
+        "nome": "Engenharia Agrícola",
+        "provisorio": true
+      },
+      {
+        "id": "agro-5",
+        "nome": "Engenharia Florestal",
+        "provisorio": true
+      },
+      {
+        "id": "agro-6",
+        "nome": "Engenharia de Alimentos",
+        "provisorio": true
+      },
+      {
+        "id": "agro-7",
+        "nome": "Agronegócio",
+        "provisorio": true
+      },
+      {
+        "id": "agro-8",
+        "nome": "Agroecologia",
+        "provisorio": true
+      },
+      {
+        "id": "agro-9",
+        "nome": "Engenharia de Pesca",
+        "provisorio": true
+      },
+      {
+        "id": "agro-10",
+        "nome": "Agroindústria",
         "provisorio": true
       }
     ]
@@ -210,6 +360,41 @@ export const CONTEUDO_AREAS = {
         "id": "humanas-4",
         "nome": "Serviço Social",
         "provisorio": true
+      },
+      {
+        "id": "humanas-5",
+        "nome": "Geografia",
+        "provisorio": true
+      },
+      {
+        "id": "humanas-6",
+        "nome": "Filosofia",
+        "provisorio": true
+      },
+      {
+        "id": "humanas-7",
+        "nome": "Antropologia",
+        "provisorio": true
+      },
+      {
+        "id": "humanas-8",
+        "nome": "Arqueologia",
+        "provisorio": true
+      },
+      {
+        "id": "humanas-9",
+        "nome": "Letras",
+        "provisorio": true
+      },
+      {
+        "id": "humanas-10",
+        "nome": "Teologia",
+        "provisorio": true
+      },
+      {
+        "id": "humanas-11",
+        "nome": "Biblioteconomia",
+        "provisorio": true
       }
     ]
   },
@@ -242,6 +427,36 @@ export const CONTEUDO_AREAS = {
       {
         "id": "direito-3",
         "nome": "Gestão Pública",
+        "provisorio": true
+      },
+      {
+        "id": "direito-4",
+        "nome": "Relações Internacionais",
+        "provisorio": true
+      },
+      {
+        "id": "direito-5",
+        "nome": "Administração Pública",
+        "provisorio": true
+      },
+      {
+        "id": "direito-6",
+        "nome": "Políticas Públicas",
+        "provisorio": true
+      },
+      {
+        "id": "direito-7",
+        "nome": "Segurança Pública",
+        "provisorio": true
+      },
+      {
+        "id": "direito-8",
+        "nome": "Criminologia",
+        "provisorio": true
+      },
+      {
+        "id": "direito-9",
+        "nome": "Investigação e Perícia Judicial",
         "provisorio": true
       }
     ]
@@ -281,6 +496,51 @@ export const CONTEUDO_AREAS = {
         "id": "artes-4",
         "nome": "Artes Visuais",
         "provisorio": true
+      },
+      {
+        "id": "artes-5",
+        "nome": "Relações Públicas",
+        "provisorio": true
+      },
+      {
+        "id": "artes-6",
+        "nome": "Design Gráfico",
+        "provisorio": true
+      },
+      {
+        "id": "artes-7",
+        "nome": "Design Digital",
+        "provisorio": true
+      },
+      {
+        "id": "artes-8",
+        "nome": "Design de Interiores",
+        "provisorio": true
+      },
+      {
+        "id": "artes-9",
+        "nome": "Cinema e Audiovisual",
+        "provisorio": true
+      },
+      {
+        "id": "artes-10",
+        "nome": "Fotografia",
+        "provisorio": true
+      },
+      {
+        "id": "artes-11",
+        "nome": "Artes Cênicas",
+        "provisorio": true
+      },
+      {
+        "id": "artes-12",
+        "nome": "Design de Moda",
+        "provisorio": true
+      },
+      {
+        "id": "artes-13",
+        "nome": "Moda",
+        "provisorio": true
       }
     ]
   },
@@ -314,6 +574,41 @@ export const CONTEUDO_AREAS = {
         "id": "negocios-3",
         "nome": "Ciências Econômicas",
         "provisorio": true
+      },
+      {
+        "id": "negocios-4",
+        "nome": "Marketing",
+        "provisorio": true
+      },
+      {
+        "id": "negocios-5",
+        "nome": "Logística",
+        "provisorio": true
+      },
+      {
+        "id": "negocios-6",
+        "nome": "Gestão de Recursos Humanos",
+        "provisorio": true
+      },
+      {
+        "id": "negocios-7",
+        "nome": "Gestão Financeira",
+        "provisorio": true
+      },
+      {
+        "id": "negocios-8",
+        "nome": "Comércio Exterior",
+        "provisorio": true
+      },
+      {
+        "id": "negocios-9",
+        "nome": "Empreendedorismo",
+        "provisorio": true
+      },
+      {
+        "id": "negocios-10",
+        "nome": "Gastronomia",
+        "provisorio": true
       }
     ]
   },
@@ -346,6 +641,51 @@ export const CONTEUDO_AREAS = {
       {
         "id": "educacao-3",
         "nome": "Licenciatura em Matemática",
+        "provisorio": true
+      },
+      {
+        "id": "educacao-4",
+        "nome": "Educação Especial",
+        "provisorio": true
+      },
+      {
+        "id": "educacao-5",
+        "nome": "Psicopedagogia",
+        "provisorio": true
+      },
+      {
+        "id": "educacao-6",
+        "nome": "Licenciatura em Letras",
+        "provisorio": true
+      },
+      {
+        "id": "educacao-7",
+        "nome": "Licenciatura em História",
+        "provisorio": true
+      },
+      {
+        "id": "educacao-8",
+        "nome": "Licenciatura em Geografia",
+        "provisorio": true
+      },
+      {
+        "id": "educacao-9",
+        "nome": "Licenciatura em Ciências Biológicas",
+        "provisorio": true
+      },
+      {
+        "id": "educacao-10",
+        "nome": "Licenciatura em Artes Visuais",
+        "provisorio": true
+      },
+      {
+        "id": "educacao-11",
+        "nome": "Licenciatura em Química",
+        "provisorio": true
+      },
+      {
+        "id": "educacao-12",
+        "nome": "Licenciatura em Física",
         "provisorio": true
       }
     ]

@@ -11,7 +11,7 @@
 .mn-area-seal { position: relative; display: inline-block; width: 82px; flex: 0 0 auto; overflow: hidden; pointer-events: none; }
 .mn-area-seal img { position: absolute; display: block; max-width: none; }
 .mn-chip-list { display: flex; flex-wrap: wrap; gap: 12px 9px; padding: 0 3px 5px; }
-.mn-course-chip { min-height: 48px; background: #fff; text-align: left; gap: 12px; cursor: pointer; }
+.mn-course-chip { min-height: 48px; min-width: 0; background: #fff; text-align: left; overflow-wrap: anywhere; }
 .mn-explore-paper { padding: 22px; margin-block: 24px; border: 1.5px solid #1e1e1e; border-radius: 23px; background: #fff; box-shadow: -3px 3px 0 #1e1e1e; }
 .mn-explore-paper :is(h2, h3):first-child { margin-top: 0; }
 .mn-test-callout { position: relative; margin-block: 38px; padding: 28px 22px 25px; border: 2px solid #1e1e1e; border-radius: 28px; background: var(--i-blue); color: #fff; box-shadow: -4px 4px 0 #1e1e1e; }
