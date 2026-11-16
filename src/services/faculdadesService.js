@@ -3,7 +3,7 @@ import { perfilService } from './perfil/perfilService.js'
  * Instituicao: {id,nome,tipo:'publica'|'privada',endereco,cidade,descricao,
  * imagem,site,informacoesAdicionais,links:[{nome,url}],fonte,verificadoEm}.
  * Curso: {id,nome,areaId,sinonimos:[],descricao?}.
- * Oferta: {id,instituicaoId,cursoId,modalidade,ingressos:[],mensalidade?,
+ * Oferta: {id,instituicaoId,cursoId,modalidade,turno?,ingressos:[],mensalidade?,
  * bolsas?,financiamentos?,fonte,verificadoEm}. Benefícios só se confirmados.
  * O adaptador retorna {instituicoes:[],cursos:[],ofertas:[],status:'pendente'|'disponivel'}.
  * Relação N:N exclusivamente pelas ofertas. IDs estáveis, sem inferir adesões.
@@ -20,10 +20,10 @@ export function pesquisarCatalogo(catalogo, { busca = '', tipo = 'todas' } = {})
 const adaptadorPendente = { async carregar() { return { instituicoes: [], cursos: [], ofertas: [], status: 'pendente' } } }
 export function criarFaculdadesService(adapter = adaptadorPendente, favoritos = perfilService) {
   return {
-    async pesquisar(filtros) { const c = await adapter.carregar(); return { status: c.status, instituicoes: pesquisarCatalogo(c, filtros) } },
-    async consultar(id) { const c = await adapter.carregar(); return pesquisarCatalogo(c).find(i => i.id === id) ?? null },
-    async listarCursos() { return (await adapter.carregar()).cursos },
-    async consultarOfertas(instituicaoId, cursoId) { return (await adapter.carregar()).ofertas.filter(o => (!instituicaoId || o.instituicaoId === instituicaoId) && (!cursoId || o.cursoId === cursoId)) },
+    async pesquisar(filtros = {}) { if (adapter.pesquisar) return adapter.pesquisar(filtros); const c = await adapter.carregar(); return { status: c.status, instituicoes: pesquisarCatalogo(c, filtros) } },
+    async consultar(id, opcoes) { if (adapter.consultar) return adapter.consultar(id, opcoes); const c = await adapter.carregar(); return pesquisarCatalogo(c).find(i => i.id === id) ?? null },
+    async listarCursos() { return adapter.listarCursos ? adapter.listarCursos() : (await adapter.carregar()).cursos },
+    async consultarOfertas(instituicaoId, cursoId) { return adapter.consultarOfertas ? adapter.consultarOfertas(instituicaoId, cursoId) : (await adapter.carregar()).ofertas.filter(o => (!instituicaoId || o.instituicaoId === instituicaoId) && (!cursoId || o.cursoId === cursoId)) },
     alternarFavorito: (usuario, instituicao) => favoritos.alternarFavorito(usuario, 'faculdades', instituicao),
     listarFavoritos: usuario => favoritos.listarFaculdadesSalvas(usuario),
   }

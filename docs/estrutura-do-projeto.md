@@ -1,6 +1,6 @@
 # Organização do projeto MeuNorte
 
-Este guia explica onde cada parte do código deve ficar. A estrutura é um ponto de partida e pode evoluir conforme as necessidades da equipe.
+Este guia inicial é histórico. Para a estrutura atual e os contratos de integração, consulte [README-APP-INTERNO.md](../README-APP-INTERNO.md).
 
 ## Tecnologias utilizadas
 
@@ -10,7 +10,7 @@ Este guia explica onde cada parte do código deve ficar. A estrutura é um ponto
 - **Vite:** executa o projeto durante o desenvolvimento e gera os arquivos para publicação.
 - **Git e GitHub:** registram as mudanças e permitem o trabalho em equipe.
 
-O Figma será a referência visual das telas. A integração com o Supabase será preparada em uma etapa posterior.
+O Figma será a referência visual das telas. O Auth já utiliza Supabase; a persistência dos dados internos ainda aguarda o adaptador remoto.
 
 ## Estrutura de pastas
 
@@ -87,7 +87,7 @@ Criar uma página ou componente não faz com que ele apareça automaticamente: �
 
 Enquanto o banco não estiver integrado, as telas podem utilizar dados fictícios.
 
-A integração com o Supabase será organizada posteriormente. Senhas e chaves secretas não devem ser colocadas no código da interface nem enviadas ao GitHub.
+A persistência interna está descrita em [INTEGRACAO_SUPABASE.md](INTEGRACAO_SUPABASE.md). Senhas e chaves secretas não devem ser colocadas no código da interface nem enviadas ao GitHub.
 
 ## Orientações iniciais
 

@@ -1,6 +1,6 @@
 # Autenticação do MeuNorte
 
-O cadastro existente usa o Supabase Auth. A confirmação validada executa a animação de sucesso e abre uma tela interna provisória chamada Rascunho. A tela de login e a recuperação de senha ainda dependem das próximas etapas de interface. O conteúdo da navegação interna permanece a cargo da equipe.
+Cadastro, login, confirmação e recuperação utilizam o Supabase Auth. Após autenticar, a aplicação abre a navegação interna. Persistência dos dados internos e IA têm integração separada: consulte [README interno](../README-APP-INTERNO.md) e [guia Supabase](INTEGRACAO_SUPABASE.md).
 
 ## Configuração local
 
@@ -12,8 +12,8 @@ Nunca coloque senha do banco, chave secret ou service_role em variáveis VITE_. 
 
 Em Authentication, mantenha cadastro por e-mail e confirmação de e-mail habilitados. Em URL Configuration:
 
-- Site URL: `https://meunorte-org.github.io/meunorte-web/` enquanto este for o endereço publicado.
-- Redirect URLs: `https://meunorte-org.github.io/meunorte-web/?auth=confirmacao` e `http://localhost:5173/?auth=confirmacao`.
+- Site URL: `https://meunorteapp.com.br/` para o domínio principal informado; conferir o valor atual no painel.
+- Redirect URLs: `https://meunorteapp.com.br/?auth=confirmacao`, `https://meunorteapp.com.br/?auth=recuperacao` e os equivalentes locais em `http://localhost:5173/`.
 - Se usar outro endereço local, de teste ou Vercel, inclua o retorno exato correspondente. Não use curingas amplos em produção.
 
 O retorno usa query string para funcionar no GitHub Pages sem uma rota física nova. O SDK recebe a sessão pelo fluxo implicit e depois o aplicativo confirma o usuário remotamente. Links com erro, sem sessão ou de usuário não confirmado não mostram sucesso. Os parâmetros de autenticação são retirados do endereço após a verificação.
@@ -26,7 +26,7 @@ O serviço padrão de e-mail do Supabase tem restrições de destinatários e en
 
 O `.env.local` não é versionado. No repositório GitHub, em Settings → Secrets and variables → Actions → Variables, configure `VITE_SUPABASE_URL` e `VITE_SUPABASE_PUBLISHABLE_KEY`. O fluxo de publicação interrompe o build se faltarem essas variáveis, para não publicar um cadastro desconectado.
 
-Se a publicação migrar para a Vercel, configure as mesmas variáveis nesse projeto, confirme a base do Vite e atualize os endereços de retorno no Supabase.
+Na Vercel, configure as mesmas variáveis nesse projeto, confirme a base do Vite e atualize os endereços de retorno no Supabase.
 
 ## Contrato com a equipe do banco
 

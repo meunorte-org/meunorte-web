@@ -62,6 +62,13 @@ export default function Perfil({ navegar, onSair, onModalChange }) {
     try { await executar('alternarFavorito', tipo, item); setAviso('Favorito removido.') }
     catch (e) { setAviso(e.message) }
   }
+  async function moverObjetivo(indice, direcao) {
+    const ids = perfil.objetivos.map(o => o.id), destino = indice + direcao
+    if (destino < 0 || destino >= ids.length) return
+    ;[ids[indice], ids[destino]] = [ids[destino], ids[indice]]
+    try { await executar('ordenarObjetivos', ids); setAviso('Ordem dos objetivos salva neste navegador.'); requestAnimationFrame(() => document.querySelector(`[data-objetivo-id="${CSS.escape(ids[destino])}"]`)?.focus({ preventScroll: true })) }
+    catch (e) { setAviso(e.message) }
+  }
   async function sair() {
     if (ocupado) return
     setOcupado(true); setErroModal('')
@@ -86,7 +93,7 @@ export default function Perfil({ navegar, onSair, onModalChange }) {
       {tagsDoPerfil(usuario, perfil).length > 6 && <button className="mn-i-text-button" onClick={() => abrir({ tipo: 'tags' })}>Algumas tags estão ocultas. Gerenciar limite de seis.</button>}
       <button className={`mn-profile-bio ${!perfil.bio ? 'mn-profile-bio--empty' : ''}`} onClick={() => abrir({ tipo: 'bio' })} aria-label="Editar biografia">{perfil.bio || 'O que faz você ser você? Adicione uma pequena apresentação.'}<Icone nome="editar" tamanho={16} /></button>
     </section>
-    <Coletanea perfil={perfil} navegar={navegar} abrir={abrir} removerFavorito={removerFavorito} />
+    <Coletanea perfil={perfil} navegar={navegar} abrir={abrir} removerFavorito={removerFavorito} moverObjetivo={moverObjetivo} />
     <p className="mn-profile-local-note">Sua bio, tags, foto e coletânea ficam neste navegador por enquanto.</p>
     <p className="mn-profile-feedback" role="status" aria-live="polite">{aviso}</p>
     {painel && <ModalPerfil key={`${painel.tipo}:${painel.item?.id ?? ''}`} titulo={TITULOS[painel.tipo]} ocupado={ocupado} onFechar={fechar} fechando={painelFechando} onFechado={concluirFechamento}>

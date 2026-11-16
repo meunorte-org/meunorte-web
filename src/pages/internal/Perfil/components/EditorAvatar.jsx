@@ -53,6 +53,7 @@ export default function EditorAvatar({ perfil, salvar, cancelar, ocupado }) {
     {!arquivo && <fieldset><legend>Avatares das áreas</legend><div className="mn-avatar-grid">{AREAS.map(area => <label key={area.id} className={avatarId === area.id ? 'mn-avatar-option--selected' : ''}><input type="radio" name="avatar" checked={avatarId === area.id} onChange={() => setAvatarId(area.id)} /><img src={area.avatar} alt="" loading="lazy" decoding="async" /><span>{area.nome}</span></label>)}</div></fieldset>}
     {erro && <p className="mn-i-error" role="alert">{erro}</p>}
     <p className="mn-i-help">A imagem escolhida fica salva apenas neste navegador, por enquanto.</p>
+    {perfil.avatar && <button type="button" className="mn-i-text-button mn-i-danger" disabled={ocupado} onClick={() => salvar('removerAvatar')}>remover foto ou avatar atual</button>}
     <AcoesEditor ocupado={ocupado} salvarDesabilitado={arquivo ? !dimensoes : !avatarId} onCancelar={cancelar} />
   </form>
 }

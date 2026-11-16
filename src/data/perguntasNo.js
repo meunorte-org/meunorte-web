@@ -1,0 +1,1 @@
+export const PERGUNTAS_NO = ['Como funciona o SISU?', 'Qual a diferença entre PROUNI e FIES?', 'Como escolher uma área?', 'Onde posso estudar Psicologia?', 'Como funciona a nota do ENEM?', 'Quais são as formas de ingresso?']

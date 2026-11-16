@@ -15,9 +15,10 @@ export default function Faculdades({ rota, navegar, service = faculdadesService 
   const chave = `${rota.item ?? ''}|${rota.busca}|${rota.tipo}|${tentativa}`
   useEffect(() => {
     let ativo = true
-    const pedido = rota.item ? service.consultar(rota.item) : service.pesquisar({ busca: rota.busca, tipo: rota.tipo })
+    const controle = new AbortController()
+    const pedido = rota.item ? service.consultar(rota.item, { signal: controle.signal }) : service.pesquisar({ busca: rota.busca, tipo: rota.tipo, signal: controle.signal })
     pedido.then(valor => { if (ativo) { setDados({ chave, valor }); setErro('') } }).catch(() => { if (ativo) { setDados({ chave, valor: null }); setErro('Não conseguimos consultar o catálogo. Tente novamente.') } })
-    return () => { ativo = false }
+    return () => { ativo = false; controle.abort() }
   }, [chave, rota.item, rota.busca, rota.tipo, service])
   const carregando = dados?.chave !== chave
   const valor = carregando ? null : dados.valor

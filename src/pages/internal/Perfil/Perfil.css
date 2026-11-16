@@ -37,7 +37,8 @@
 .mn-goals article { padding: 14px; margin-bottom: 16px; border-radius: 16px; background: #f4f5ee; border: 1px solid #d5dbc9; }
 .mn-goals h3 { font-size: 15px; margin: 0 0 8px; }
 .mn-goals p { margin: 0; white-space: pre-wrap; font-size: 13px; line-height: 1.65; }
-.mn-goals article > div { display: flex; gap: 16px; margin-top: 6px; }
+.mn-goals article > div { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.mn-goals article > div > button { min-width: 48px; }
 .mn-profile-local-note { padding: 12px 6px 0; font-size: 11px; line-height: 1.6; color: #6a7064; }
 .mn-profile-feedback { position: fixed; z-index: 30; bottom: calc(var(--mn-nav-height, 80px) + 28px + env(safe-area-inset-bottom, 0px)); left: 24px; right: 24px; max-width: 26rem; margin: 0 auto; border-radius: 16px; background: #1e1e1e; color: #fff; font-size: 13px; line-height: 1.5; box-shadow: 0 4px 14px #0002; }
 .mn-profile-feedback:not(:empty) { padding: 13px 16px; }
